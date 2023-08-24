@@ -12,19 +12,17 @@ export const Login = (props) => {
 
     return (
     // all info goes in here
-    <div className="auth-form-container">
-        <h1>Welcome<span>Back</span></h1>
-    <form onSubmit={handleSubmit}>
-        <label htmlFor="email">Email</label>
-        <input value={email} onChange={((e) => setEmail(e.target.value))} type="email" placeholder="hello@world.com" id="email" name="email"/>
+    <div className="auth-form-container bottom-div">
+        <h1 className="right-align">Welcome<span className="bold">Back</span></h1>
+    <form className="column-right" onSubmit={handleSubmit}>
+        <input value={email} onChange={((e) => setEmail(e.target.value))} type="email" placeholder="Email" id="email" name="email"/>
 
-        <label htmlFor="password">Password</label>
-        <input value={password} onChange={((e) => setPassword(e.target.value))} type="password" placeholder="*********" id="password" name="password"/>
+        <input value={password} onChange={((e) => setPassword(e.target.value))} type="password" placeholder="Password" id="password" name="password"/>
 
        <button type="submit">Login</button>
     </form>
 
-    <button onClick={() => window.location.href = '/register'}>Don't have an account? Register here.</button>
+    <button className="small-footer" onClick={() => window.location.href = '/register'}>Don't have an account? Register here.</button>
 
     </div>
     )

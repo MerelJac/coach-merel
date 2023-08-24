@@ -7,12 +7,15 @@ export const Register = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email)
+        console.log(email);
+        window.location.href = '/'
+
     }
 
     return (
     // all info goes in here
     <div className="auth-form-container">
+        <h2>Welcome</h2>
     <form onSubmit={handleSubmit}>
         {/* name */}
         <label htmlFor="name">First Name</label>
@@ -27,7 +30,7 @@ export const Register = (props) => {
        <button type="submit">Register</button>
     </form>
 
-    <button onClick={() => props.onFormSwitch('login')}>Already have an account? Login here.</button>
+    <button onClick={() => window.location.href = '/login'}>Already have an account? Login here.</button>
 
     </div>
     )

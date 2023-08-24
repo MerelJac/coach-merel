@@ -6,11 +6,14 @@ export const Login = (props) => {
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        console.log(email)
+        console.log(email);
+        window.location.href = '/'
     }
+
     return (
     // all info goes in here
     <div className="auth-form-container">
+        <h1>Welcome<span>Back</span></h1>
     <form onSubmit={handleSubmit}>
         <label htmlFor="email">Email</label>
         <input value={email} onChange={((e) => setEmail(e.target.value))} type="email" placeholder="hello@world.com" id="email" name="email"/>
@@ -21,7 +24,7 @@ export const Login = (props) => {
        <button type="submit">Login</button>
     </form>
 
-    <button onClick={() => props.onFormSwitch('register')}>Don't have an account? Register here.</button>
+    <button onClick={() => window.location.href = '/register'}>Don't have an account? Register here.</button>
 
     </div>
     )

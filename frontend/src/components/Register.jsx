@@ -5,7 +5,7 @@ export const Register = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('')
-
+    // TODO error handling for error while creating
     const handleSubmit = async (e) => {
         e.preventDefault();
         let user = {
@@ -22,19 +22,11 @@ export const Register = (props) => {
                 "Origin": "http://localhost:3000"},
             body: JSON.stringify(user)
         })
-        .then((response) => response.json())
-        .then((data) => console.log(data))
+        .then(window.location.href = '/')
         }
          catch (err) {
-            console.error(err)
+            console.error(err);
         }
-
-
-
-
-
-        // window.location.href = '/'
-
     }
 
     return (

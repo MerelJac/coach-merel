@@ -6,16 +6,25 @@ export const Login = (props) => {
 
     const handleSubmit = async (e, body) => {
         e.preventDefault();
-        await fetch('http://localhost:3002/api/user-routes', {
-            method: 'POST',
-            headers: {
-                "Content-type": "application/json",
-            body: JSON.stringify(body)
+            let user = {
+                email: email,
+                password: password
             }
-        })
-        console.log(email);
-        window.location.href = '/'
-    }
+            console.log(user)
+            try {
+            await fetch('http://localhost:3002/api/user-routes/auth', {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json",
+                    "Origin": "http://localhost:3000"},
+                body: JSON.stringify(user)
+            })
+            // .then(window.location.href = '/')
+            }
+             catch (err) {
+                console.error(err);
+            }
+        }
 
     return (
     // all info goes in here

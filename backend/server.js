@@ -23,13 +23,13 @@ const PORT = process.env.PORT || 3002;
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true}))
-app.use(routes)
+
 
 // set up session cookie
 const sess = {
     secret: process.env.SESSION_SECRET,
     cookie: {
-        maxAge: 24 * 60 * 60 * 1000, // expires after 1 day
+        maxAge: 24 * 60 * 60 * 1000 // expires after 1 day
     }, 
     resave: false,
     saveUninitialized: true,
@@ -38,8 +38,10 @@ const sess = {
     })
 }
 
-app.use(session(sess))
 
+app.use(session(sess))
+// routes middleware must be last
+app.use(routes)
 // TODO - move this to it's own file structure 
 // mongoDB seed data 
 const attributeData = [ 

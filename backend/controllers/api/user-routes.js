@@ -11,8 +11,19 @@ router.get('/', async (req, res) => {
 // CREATE new user
 router.post('/', async (req, res) => {
     try {
-        let newUser = await User.create(req.body)
-        res.json(newUser)
+        let newUser = await User.create(req.body);
+        console.log(newUser)
+        console.log('new user was created: ' + newUser)
+        console.log(newUser.id)
+
+        //save session
+        req.session.save(() => {
+          req.session.loggedIn = true;
+          req.session.user = newUser;
+          console.log(req.session.cookie)
+
+        res.status(200).json({ message: "You are now logged in!"})
+        })
     } catch (error) {
         if (error.name == 'SequelizeUniqueConstraintError') {
             return res.status(400).json({ error: 'Email address must be unique.' });
@@ -26,7 +37,6 @@ router.post('/', async (req, res) => {
 
 // LOGIN 
 router.post('/auth', async (req, res) => {
-    console.log(req)
     try {
         const dbUserDataWithPassword = await User.findOne({
             where: {
@@ -42,7 +52,7 @@ router.post('/auth', async (req, res) => {
               exclude: ["password"],
             },
           });
-      
+          console.log(dbUserDataWithPassword)
           if (!dbUserData) {
             res
               .status(400)
@@ -50,16 +60,25 @@ router.post('/auth', async (req, res) => {
             return;
           }
     //   TODO - validate password not working (checkPassword)
-        //   const validPassword = dbUserDataWithPassword.checkPassword(
-        //     req.body.password
-        //   );
+const validPassword = dbUserDataWithPassword.checkPassword(req.body.password)
 
-        //   if (!validPassword) {
-        //     res
-        //       .status(400)
-        //       .json({ message: "Incorrect email or password, please try again" });
-        //     return;
-        //   }
+          if (!validPassword) {
+            res
+              .status(400)
+              .json({ message: "Incorrect email or password, please try again" });
+            return;
+          } else {
+            return res.status(200).json({message: 'Welcome Back. You are logged in'})
+          }
+
+        // save session
+        req.session.save(() => {
+          req.session.loggedIn = true;
+          // save session without password
+          req.session.user = dbUserData;
+          console.log(req.session.cookie)
+
+        })
     } catch (err) {
         console.log(err)
     }

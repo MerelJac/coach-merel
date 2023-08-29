@@ -33,8 +33,16 @@ code {
   font-size: small;
 }
 
+.exercise-input {
+  max-width: 100px;
+  text-align: center;
+}
+
+.exercise-text {
+  padding-left: 10px;
+}
 input {
-  opacity: 70%;
+    opacity: 70%;
     border-radius: 20px;
     padding: 10px;
     margin-bottom: 10px;
@@ -47,13 +55,23 @@ input {
   align-items: flex-end;
 }
 
+
+
 .right-align {
   display: flex;
   align-items: flex-start;
 }
 
+.row {
+  display: flex;
+  align-items: center;
+}
+
+
 .bottom-div {
   position: absolute;
   bottom: 0;
   width: 100%;
+  right: 0;
+  left: 0;
 }

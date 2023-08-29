@@ -8,6 +8,8 @@ import { Login } from './components/Login'
 import { Register } from './components/Register';
 import { Dashboard } from './components/Dashboard'
 import { Header } from './components/Header';
+import { Create } from './components/Create'
+import { AccountInfo } from './components/AccountInfo';
 
 function App() {
 
@@ -19,6 +21,8 @@ function App() {
         <Route exact path='/login' element={<Login/>}/>
         <Route exact path='/register' element={<Register/>}/>
         <Route exact path='/' element={<Dashboard/>}/>
+        <Route exact path='/create' element={<Create/>}/>
+        <Route exact path='/account-info' element={<AccountInfo/>}/>
       </Routes>
     </div>
     </BrowserRouter>

@@ -4,8 +4,15 @@ export const Login = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e, body) => {
         e.preventDefault();
+        await fetch('http://localhost:3002/api/user-routes', {
+            method: 'POST',
+            headers: {
+                "Content-type": "application/json",
+            body: JSON.stringify(body)
+            }
+        })
         console.log(email);
         window.location.href = '/'
     }

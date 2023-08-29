@@ -6,10 +6,34 @@ export const Register = (props) => {
     const [password, setPassword] = useState('');
     const [name, setName] = useState('')
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email);
-        window.location.href = '/'
+        let user = {
+            first_name: name,
+            email: email,
+            password: password
+        }
+        console.log(user)
+        try {
+        await fetch('http://localhost:3002/api/user-routes', {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json",
+                "Origin": "http://localhost:3000"},
+            body: JSON.stringify(user)
+        })
+        .then((response) => response.json())
+        .then((data) => console.log(data))
+        }
+         catch (err) {
+            console.error(err)
+        }
+
+
+
+
+
+        // window.location.href = '/'
 
     }
 

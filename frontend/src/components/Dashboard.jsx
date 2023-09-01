@@ -1,8 +1,23 @@
 import React from "react";
 
+async function findLogin(){
+    try {
+        await fetch ('/api/user-routes/me').then((response) => {
+            if (response.ok) {
+                console.log('found user', response)
+            } else {
+                console.log('not found')
+            }
+        })
+    } catch (err) {
+        console.error(err)
+    }
+}
 
 export const Dashboard = () => {
 
+    findLogin()
+    
     return (
         <>
         <div className="bottom-div">

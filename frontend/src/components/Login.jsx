@@ -1,41 +1,39 @@
-import React, { useState, useEffect } from "react";
-export const Login = (props) => {
+import React, { useState } from "react";
+import PropTypes from 'prop-types';
 
-    const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const [user, setUser] = useState('');
 
-    useEffect(() => {
-        try {
-            fetch('http://localhost:3002/api/user-routes/me')
-        } catch (err) {
-            console.error(err)
-        }
-    }, [])
+// login function to send to API / backend
+async function loginUser(credentials) {
+    try {
+    return fetch('/api/user-routes/login', {
+        method: 'POST',
+        headers: {
+            'Content-type': 'application/json'
+        },
+        body: JSON.stringify(credentials)
+    })
+    .then((response) => response.json())
+} catch (err) {
+    console.error(err)
+}
+}
 
-    const handleSubmit = async (e, body) => {
+
+export const Login = ({ setToken }) => {
+
+    // useState to capture email / password
+    const [email, setEmail] = useState();
+    const [password, setPassword] = useState();
+
+    // handleSubmit function
+    const handleSubmit = async (e) => {
         e.preventDefault();
-            let user = {
-                email: email,
-                password: password
-            }
-            console.log(user)
-            try {
-            await fetch('/api/user-routes/auth', {
-                method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify(user)
-            }).then((res) => res.json())
-            .then((data) => console.log(data))
-            // .then(window.location.href = '/')
-            }
-             catch (err) {
-                console.error(err);
-            }
-        }
-
+        const token = await loginUser({
+            email,
+            password
+        })
+        setToken(token)
+    }
     return (
     // all info goes in here
     <div className="auth-form-container bottom-div">
@@ -52,4 +50,8 @@ export const Login = (props) => {
 
     </div>
     )
+}
+
+Login.propTypes = {
+    setToken: PropTypes.func.isRequired
 }

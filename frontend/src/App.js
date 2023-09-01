@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
 import './index.css'
 import './assets/css/form.css'
@@ -15,8 +15,24 @@ import { Create } from './components/Create'
 import { AccountInfo } from './components/AccountInfo';
 
 function App() {
+  // ReactHeap.initialize('<insert ID>');
 
-  // ReactHeap.initialize('');
+  // set token
+  const [token, setToken] = useState()
+
+  if (!token) {
+    return(
+    <BrowserRouter>
+    <div className="App">
+    <Header/>
+      <Routes>
+        <Route exact path='/login' element={<Login setToken={setToken}/>}/>
+        <Route exact path='/register' element={<Register/>}/>
+      </Routes>
+    </div>
+    </BrowserRouter>
+    )
+  }
 
   return (
     <BrowserRouter>

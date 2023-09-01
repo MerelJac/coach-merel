@@ -1,8 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 export const Login = (props) => {
 
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [user, setUser] = useState('');
+
+    useEffect(() => {
+        try {
+            fetch('http://localhost:3002/api/user-routes/me')
+        } catch (err) {
+            console.error(err)
+        }
+    }, [])
 
     const handleSubmit = async (e, body) => {
         e.preventDefault();
@@ -12,13 +21,14 @@ export const Login = (props) => {
             }
             console.log(user)
             try {
-            await fetch('http://localhost:3002/api/user-routes/auth', {
+            await fetch('/api/user-routes/auth', {
                 method: 'POST',
                 headers: {
-                    "Content-Type": "application/json",
-                    "Origin": "http://localhost:3000"},
+                    "Content-Type": "application/json"
+                },
                 body: JSON.stringify(user)
-            })
+            }).then((res) => res.json())
+            .then((data) => console.log(data))
             // .then(window.location.href = '/')
             }
              catch (err) {

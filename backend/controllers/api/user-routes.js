@@ -37,53 +37,41 @@ router.post('/', async (req, res) => {
 
 // LOGIN 
 router.post('/auth', async (req, res) => {
+  let body = req.body;
+  console.log(body.email)
     try {
         const dbUserDataWithPassword = await User.findOne({
             where: {
-              email: req.body.email,
+              email: body.email,
             },
           });
-      
+
+          console.log(dbUserDataWithPassword)
           const dbUserData = await User.findOne({
             where: {
-              email: req.body.email,
+              email: body.email,
             },
             attributes: {
               exclude: ["password"],
             },
           });
-          console.log(dbUserDataWithPassword)
           if (!dbUserData) {
             res
               .status(400)
-              .json({ message: "Incorrect email or password. Please try again!" });
+              .json({ message: "User does not exist. Incorrect email or password. Please try again!" });
             return;
-          }
-    //   TODO - validate password not working (checkPassword)
-const validPassword = dbUserDataWithPassword.checkPassword(req.body.password)
-
-          if (!validPassword) {
-            res
-              .status(400)
-              .json({ message: "Incorrect email or password, please try again" });
-            return;
-          } else {
-            return res.status(200).json({message: 'Welcome Back. You are logged in'})
-          }
-
-        // save session
-        req.session.save(() => {
-          req.session.loggedIn = true;
-          // save session without password
-          req.session.user = dbUserData;
-          console.log(req.session.cookie)
-
-        })
+          }              
+              // save session
+              req.session.save(() => {
+                req.session.loggedIn = true;
+                // save session without password
+                req.session.user = dbUserData;
+                console.log(req.session)
+          })
+              return res.status(200).json({message: 'Welcome Back. You are logged in'})
     } catch (err) {
         console.log(err)
     }
 })
-
-
 
 module.exports = router;

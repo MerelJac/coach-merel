@@ -3,7 +3,7 @@ import './App.css';
 import './index.css'
 import './assets/css/form.css'
 import { BrowserRouter, Routes, Route} from 'react-router-dom';
-import ReactHeap from 'reactjs-heap';
+// import ReactHeap from 'reactjs-heap';
 
 
 
@@ -15,7 +15,8 @@ import { Create } from './components/Create'
 import { AccountInfo } from './components/AccountInfo';
 
 function App() {
-  ReactHeap.initialize('3141879019');
+
+  // ReactHeap.initialize('');
 
   return (
     <BrowserRouter>

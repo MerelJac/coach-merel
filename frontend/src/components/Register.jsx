@@ -5,7 +5,8 @@ export const Register = (props) => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [name, setName] = useState('')
-    // TODO error handling for error while creating
+
+    // TODO error handling for error while creating clinet side
     const handleSubmit = async (e) => {
         e.preventDefault();
         let user = {
@@ -22,7 +23,13 @@ export const Register = (props) => {
                 "Origin": "http://localhost:3000"},
             body: JSON.stringify(user)
         })
-        .then(window.location.href = '/')
+        .then((response) => {
+            if (response.ok) {
+                window.location.href = '/'
+            } else {
+                console.log('Unable to register user')
+            }
+        })
         }
          catch (err) {
             console.error(err);

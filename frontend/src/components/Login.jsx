@@ -1,25 +1,29 @@
 import React, { useState } from "react";
-import PropTypes from 'prop-types';
-
 
 // login function to send to API / backend
 async function loginUser(credentials) {
     try {
-    return fetch('/api/user-routes/login', {
+    await fetch('http://localhost:3002/api/user-routes/login', {
         method: 'POST',
         headers: {
-            'Content-type': 'application/json'
-        },
+            "Content-Type": "application/json",
+            "Origin": "http://localhost:3000"},
         body: JSON.stringify(credentials)
     })
-    .then((response) => response.json())
+    .then((response) => {
+        if (response.ok) {
+            window.location.href = '/'
+        } else {
+            console.log('Unable to login')
+        }})
+    .then((data) => console.log(data))
 } catch (err) {
     console.error(err)
 }
 }
 
 
-export const Login = ({ setToken }) => {
+export const Login = () => {
 
     // useState to capture email / password
     const [email, setEmail] = useState();
@@ -28,11 +32,11 @@ export const Login = ({ setToken }) => {
     // handleSubmit function
     const handleSubmit = async (e) => {
         e.preventDefault();
-        const token = await loginUser({
-            email,
-            password
+        console.log(email, password)
+        await loginUser({
+            email: email,
+            password: password
         })
-        setToken(token)
     }
     return (
     // all info goes in here
@@ -50,8 +54,4 @@ export const Login = ({ setToken }) => {
 
     </div>
     )
-}
-
-Login.propTypes = {
-    setToken: PropTypes.func.isRequired
 }

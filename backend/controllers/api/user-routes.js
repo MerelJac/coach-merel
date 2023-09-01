@@ -35,13 +35,37 @@ router.post('/', async (req, res) => {
         }
     )
 
-// Login / Set Token
-router.get('/login', (req, res) => {
-  
-  res.send({
-    token: 'test123'
-  })
-})
+// Login / Set Session
+router.post('/login', async (req, res) => {
+  try {
+    // includes password validation
+    let user = await User.findOne( {
+      where: {
+        email: req.body.email,
+        password: req.body.password
+      }, 
+      attributes: {exclude: ["password"]}
+    } 
+    );
+    console.log(user)
+    console.log('new user was created: ' + user)
+    console.log(user.id)
+
+    //save session
+      req.session.save(() => {
+      req.session.loggedIn = true;
+      req.session.user = user;
+      console.log(req.session)
+
+    res.status(200).json({ message: "You are now logged in!", user})
+    })
+} catch (error) {
+  // TODO create unique error handling
+      console.error(error);
+      return res.status(500).json({ error: 'An error occurred while creating the user.' });
+        } 
+  }
+)
 
 // OLD LOG IN
 

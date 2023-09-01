@@ -17,22 +17,6 @@ import { AccountInfo } from './components/AccountInfo';
 function App() {
   // ReactHeap.initialize('<insert ID>');
 
-  // set token
-  const [token, setToken] = useState()
-
-  if (!token) {
-    return(
-    <BrowserRouter>
-    <div className="App">
-    <Header/>
-      <Routes>
-        <Route exact path='/login' element={<Login setToken={setToken}/>}/>
-        <Route exact path='/register' element={<Register/>}/>
-      </Routes>
-    </div>
-    </BrowserRouter>
-    )
-  }
 
   return (
     <BrowserRouter>

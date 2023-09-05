@@ -1,5 +1,7 @@
 const Sequelize = require('sequelize');
 require('dotenv').config();
+// import mongoDB
+
 
 const sequelize = process.env.JAWSDB_URL ? new Sequelize(process.env.JAWSDB_URL) : new Sequelize(
     process.env.DB_NAME,
@@ -14,5 +16,6 @@ const sequelize = process.env.JAWSDB_URL ? new Sequelize(process.env.JAWSDB_URL)
         },
       }
     );
+
 
 module.exports = sequelize;

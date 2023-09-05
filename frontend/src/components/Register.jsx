@@ -26,6 +26,7 @@ export const Register = (props) => {
         .then((response) => {
             if (response.ok) {
                 window.location.href = '/'
+                console.log(response.json())
             } else {
                 console.log('Unable to register user')
             }

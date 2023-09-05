@@ -72,7 +72,7 @@ router.post('/login', async (req, res) => {
 router.get('/me', (req, res) => {
   // TODO req.session isnt persisting?
   try {
-    let user = req.session;
+    let user = req.session.user;
     console.log('User: ', user);
     res.status(200).json(user)
   } catch(err) {

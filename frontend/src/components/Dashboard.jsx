@@ -8,6 +8,7 @@ export const Dashboard = () => {
         async function findLogin() {
             try {
               const response = await fetch('/api/user-routes/me');
+              console.log(response)
               if (response.ok) {
                 const userData = await response.json();
                 setUser(userData); // Set the user data in state
@@ -20,7 +21,14 @@ export const Dashboard = () => {
             }
           }
           findLogin();
-        }, []);
+        }, [""]);
+
+    useEffect(() => {
+      console.log('looking for session storage')
+      let user = window.sessionStorage.getItem('user');
+      console.log(user)
+    }, [])
+
     
     return (
         <>

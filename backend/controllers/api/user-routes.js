@@ -20,7 +20,7 @@ router.post('/', async (req, res) => {
           req.session.save(() => {
           req.session.loggedIn = true;
           req.session.user = newUser;
-          console.log(req.session.cookie)
+          console.log(req.session)
 
         res.status(200).json({ message: "You are now logged in!"})
         })
@@ -70,6 +70,8 @@ router.post('/login', async (req, res) => {
 
 // Validate logged In User 
 router.get('/me', (req, res) => {
+  console.log("peanut butter")
+  console.log("WE ARE HERE WE AREW HERE", req.session)
   // TODO req.session isnt persisting?
   try {
     let user = req.session.user;
@@ -79,7 +81,6 @@ router.get('/me', (req, res) => {
     console.error(err)
     res.sendStatus(err)
   }
-
 })
 
 module.exports = router;

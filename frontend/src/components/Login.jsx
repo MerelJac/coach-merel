@@ -12,11 +12,12 @@ async function loginUser(credentials) {
     })
     .then((response) => {
         if (response.ok) {
+            console.log(response.body)
             window.location.href = '/'
         } else {
             console.log('Unable to login')
-        }})
-    .then((data) => console.log(data))
+        }
+    })
 } catch (err) {
     console.error(err)
 }
@@ -32,12 +33,12 @@ export const Login = () => {
     // handleSubmit function
     const handleSubmit = async (e) => {
         e.preventDefault();
-        console.log(email, password)
         await loginUser({
             email: email,
             password: password
         })
     }
+
     return (
     // all info goes in here
     <div className="auth-form-container bottom-div">

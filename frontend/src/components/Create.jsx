@@ -1,18 +1,36 @@
-import React from "react";
+import React, { useState } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 
-const searchFunction = (e) => {
-    const searchBar = document.querySelector('#create-search')
-    let searchValue = searchBar.value
-    console.log(searchValue)
-    // reset search bar 
-    searchBar.value = ''
-    searchBar.placeholder = 'Search'
-
-
-}
-
 export const Create = () => {
+    const [title, setTitle ] = useState('') 
+
+    const searchFunction = (e) => {
+        // find elements
+        const searchBar = document.querySelector('#create-search');
+        let searchValue = searchBar.value;
+        // reset search bar 
+        searchBar.value = ''
+        searchBar.placeholder = 'Search'
+        // run capitalize
+        let title = capitazlie(searchValue);
+        setTitle(title)
+    
+        // export title to ExerciseDiv
+    }
+    
+    // capitazlie each word function
+    let capitazlie = (string) => {
+        const exerciseTitle = string.split(' ');
+        // empty array for words
+        let capitalizedArray = [];
+        exerciseTitle.forEach((word) => {
+            let capitazlieEach = word.charAt(0).toUpperCase() + word.slice(1);
+            capitalizedArray.push(capitazlieEach)
+        })
+        // return as a string value
+        return capitalizedArray.join(' ')
+    }
+
     return (
         <>
         <div>
@@ -23,7 +41,7 @@ export const Create = () => {
             <input id="create-search" type="search" placeholder="Search" onSubmit={searchFunction}></input>
             <button onClick={searchFunction}>Search</button>
         </div>
-        {< ExerciseDiv />}
+        {< ExerciseDiv title={title} />}
 
         {/* SHOULD BE exercise COMPONENT */}
 

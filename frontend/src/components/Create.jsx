@@ -32,6 +32,20 @@ export const Create = () => {
         return capitalizedArray.join(' ')
     }
 
+    const saveWorkout = () => {
+        let workout = createBody(exerciseDivs)
+        console.log(workout)
+    }
+
+    const createBody = (array) => {
+        let workoutArray = []
+        array.forEach((word) => {
+            let full_name = word.props.title
+            let parsed_name = full_name.split(' ')
+            workoutArray.push([full_name, parsed_name])
+        })
+        return workoutArray
+    }
     return (
         <>
         <div>
@@ -42,7 +56,7 @@ export const Create = () => {
             <button onClick={searchFunction}>Search</button>
         </div>
         {exerciseDivs}
-        <button className="small-footer bottom-div">Save Workout</button>
+        <button className="small-footer bottom-div" onClick={saveWorkout}>Save Workout</button>
         </>
     ) 
 }

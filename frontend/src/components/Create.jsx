@@ -16,7 +16,7 @@ export const Create = () => {
         let title = capitazlie(searchValue);
         // push to array
         const newExerciseDiv = <ExerciseDiv key={exerciseDivs.length} title={title}/>
-        setExerciseDivs([...exerciseDivs, newExerciseDiv])
+        setExerciseDivs([newExerciseDiv, ...exerciseDivs])
     }
     
     // capitazlie each word function

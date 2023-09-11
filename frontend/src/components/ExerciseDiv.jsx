@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import '../assets/css/exerciseDiv.css'
 import dotsImg from "../assets/images/dots.jpg";
 
 export const ExerciseDiv = ({ title, setArray }) => {
@@ -17,6 +17,7 @@ export const ExerciseDiv = ({ title, setArray }) => {
 
   return (
     <>
+    <div className="exerciseDiv">
       <section className="row">
         <img alt="attributeImg" src={dotsImg}></img>
         <div className="exercise-text">
@@ -33,6 +34,7 @@ export const ExerciseDiv = ({ title, setArray }) => {
       <section className="set-print-section">
         <p>{sets}</p>
       </section>
+    </div>
     </>
   );
 };

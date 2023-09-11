@@ -21,7 +21,7 @@ export const Dashboard = () => {
             }
           }
           findLogin();
-        }, [""]);
+        }, []);
 
     useEffect(() => {
       console.log('looking for session storage')

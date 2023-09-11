@@ -2,7 +2,8 @@ import React, { useState } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 
 export const Create = () => {
-    const [title, setTitle ] = useState('') 
+
+    const [ exerciseDivs, setExerciseDivs ] = useState([])
 
     const searchFunction = (e) => {
         // find elements
@@ -13,9 +14,9 @@ export const Create = () => {
         searchBar.placeholder = 'Search'
         // run capitalize
         let title = capitazlie(searchValue);
-        setTitle(title)
-    
-        // export title to ExerciseDiv
+        // push to array
+        const newExerciseDiv = <ExerciseDiv key={exerciseDivs.length} title={title}/>
+        setExerciseDivs([...exerciseDivs, newExerciseDiv])
     }
     
     // capitazlie each word function
@@ -37,14 +38,10 @@ export const Create = () => {
             <h1 className="right-align">Start<span className="bold">NewWorkout</span></h1>
         </div>
         <div>
-            {/* TODO on submit isnt working? */}
             <input id="create-search" type="search" placeholder="Search" onSubmit={searchFunction}></input>
             <button onClick={searchFunction}>Search</button>
         </div>
-        {< ExerciseDiv title={title} />}
-
-        {/* SHOULD BE exercise COMPONENT */}
-
+        {exerciseDivs}
         <button className="small-footer bottom-div">Save Workout</button>
         </>
     ) 

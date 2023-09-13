@@ -15,6 +15,10 @@ export const ExerciseDiv = ({ title, setArray }) => {
     setSets([...sets, `${weight}lbs x ${reps}`]);
   };
 
+  const listOfSets = sets.map((each) => {
+    return <li>{each}</li>
+  })
+
   return (
     <>
     <div className="exerciseDiv">
@@ -24,15 +28,15 @@ export const ExerciseDiv = ({ title, setArray }) => {
           <h2 className="bold">{title}</h2>
         </div>
         <div>
-          <input className="exercise-input reps" placeholder="reps"></input>
           <input className="exercise-input weight" placeholder="lbs"></input>
+          <input className="exercise-input reps" placeholder="reps"></input>
         </div>
         <button className="submitRep" type="submit" onClick={setInfo}>
           Go
         </button>
       </section>
       <section className="set-print-section">
-        <p>{sets}</p>
+        <ul>{listOfSets}</ul>
       </section>
     </div>
     </>

@@ -38,6 +38,7 @@ export const Create = () => {
     }
 
     const createBody = (array) => {
+        console.log(array)
         let workoutArray = []
         array.forEach((word) => {
             let full_name = word.props.title

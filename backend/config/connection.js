@@ -1,21 +1,9 @@
-const Sequelize = require('sequelize');
-require('dotenv').config();
-// import mongoDB
+const { connect, connection } = require('mongoose');
 
+// Wrap Mongoose around local connection to MongoDB
+const connectionString =
+  process.env.MONGODB_URI || 'mongodb://127.0.0.1:27017/coachMerelAppDB';
 
-const sequelize = process.env.JAWSDB_URL ? new Sequelize(process.env.JAWSDB_URL) : new Sequelize(
-    process.env.DB_NAME,
-    process.env.DB_USER,
-    process.env.DB_PASSWORD,
-      {
-        host: "localhost",
-        dialect: "mysql",
-        port: 3306,
-        dialectOptions: {
-          socketPath: "/tmp/mysql.sock",
-        },
-      }
-    );
+connect(connectionString);
 
-
-module.exports = sequelize;
+module.exports = connection;

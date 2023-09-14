@@ -7,22 +7,22 @@ async function loginUser(credentials) {
         method: 'POST',
         headers: {
             "Content-Type": "application/json",
+            // doesnt seem to do anythign for cors
             "Origin": "http://localhost:3000"},
         body: JSON.stringify(credentials)
     })
     .then((response) => {
         if (response.ok) {
             console.log(response.body)
-            window.location.href = '/'
         } else {
-            console.log('Unable to login')
+            console.log('Unable to login', response)
         }
     })
+      
 } catch (err) {
     console.error(err)
 }
 }
-
 
 export const Login = () => {
 

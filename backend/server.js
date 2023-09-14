@@ -15,12 +15,11 @@ const PORT = process.env.PORT || 3002;
 app.use(cors());
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
-
 // routes middleware must be last
 app.use(routes)
 
 
-// connect mongoDB, SQL, and start server
+// connect mongoDB and start server
 db.once('open', () => {
     app.listen(PORT, () => {
         console.log(`listening on port http://localhost:${PORT}`)

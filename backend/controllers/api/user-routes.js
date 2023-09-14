@@ -8,7 +8,7 @@ router.get("/", async (req, res) => {
   res.json(allUsers);
 });
 
-// CREATE new user -- works 
+// CREATE new user - works 
 router.post("/", async (req, res) => {
   try {
     let newUser = await User.create(req.body);
@@ -17,6 +17,7 @@ router.post("/", async (req, res) => {
     // TODO - input logic to save session
   } catch (error) {
     console.error(error);
+    res.sendStatus(500).json({message: error})
   }
 });
 

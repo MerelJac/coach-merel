@@ -57,7 +57,7 @@ router.post("/login", async (req, res) => {
   }
 });
 
-// check token
+// check token /api/user-routes/checkToken
 router.get("/checkToken", withAuth, (req, res) => {
   res.sendStatus(200);
 });

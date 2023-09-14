@@ -6,16 +6,14 @@ async function loginUser(credentials) {
     await fetch('http://localhost:3002/api/user-routes/login', {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json",
-            "Origin": "http://localhost:3000"},
+            "Content-Type": "application/json"},
         body: JSON.stringify(credentials)
     })
     .then((response) => {
         if (response.ok) {
             console.log(response.body)
-            window.location.href = '/'
         } else {
-            console.log('Unable to login')
+            console.log('Unable to login', response)
         }
     })
       

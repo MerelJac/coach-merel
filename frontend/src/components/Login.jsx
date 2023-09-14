@@ -18,11 +18,11 @@ async function loginUser(credentials) {
             console.log('Unable to login')
         }
     })
+      
 } catch (err) {
     console.error(err)
 }
 }
-
 
 export const Login = () => {
 

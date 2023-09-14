@@ -35,6 +35,12 @@ router.post('/', async (req, res) => {
         }
     )
 
+// test endpoint
+router.get('/test', (req, res) => {
+  console.log('TESTING TESTING', req.session)
+  res.json(req.session)
+})
+
 // Login / Set Session
 router.post('/login', async (req, res) => {
   try {

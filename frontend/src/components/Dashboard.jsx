@@ -7,27 +7,29 @@ export const Dashboard = () => {
     useEffect(() => {
         async function findLogin() {
             try {
-              const response = await fetch('/api/user-routes/me');
+              await fetch('/api/user-routes/test')
+              const response = await fetch('/api/user-routes/me')
               console.log(response)
               if (response.ok) {
                 const userData = await response.json();
                 setUser(userData); // Set the user data in state
                 console.log('found user', userData);
               } else {
-                console.log('not found');
+                console.log(response, 'not found');
               }
             } catch (err) {
               console.error(err);
             }
           }
           findLogin();
+          console.log('find login function')
         }, []);
 
-    useEffect(() => {
-      console.log('looking for session storage')
-      let user = window.sessionStorage.getItem('user');
-      console.log(user)
-    }, [])
+    // useEffect(() => {
+    //   console.log('looking for session storage')
+    //   let user = window.sessionStorage.getItem('user');
+    //   console.log(user)
+    // }, [])
 
     
     return (

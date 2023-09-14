@@ -4,21 +4,10 @@ const cors = require('cors');
 const db = require('./config/connection');
 // import routes
 const routes = require('./controllers')
-// create session capabilities
-const session = require('express-session')
 
 // create backend server
 const app = express();
 const PORT = process.env.PORT || 3002;
-
-// // set up sessions
-// const sess = {
-//     secret: process.env.SESSION_SECRET,
-//     resave: false,
-//     saveUninitialized: false
-// }
-
-// app.use(session(sess))
 
 //middleware
 app.use(cors());

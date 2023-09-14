@@ -1,6 +1,11 @@
 const router = require("express").Router();
 // goes to folder / index file, not direct path
 const { User } = require("../../models");
+const jwt = require('jsonwebtoken')
+require('dotenv').config()
+// for JWT
+const secret = process.env.JWT_SECRET;
+
 
 // GET ALL users - works
 router.get("/", async (req, res) => {
@@ -14,13 +19,6 @@ router.post("/", async (req, res) => {
     let newUser = await User.create(req.body);
     console.log("new user was created: " + newUser);
     res.json(newUser);
-    // TODO - input logic to save session
-    // newUser.save()
-    //   .then((result) => {
-    //     console.log('finally saved', result)
-    //   }).catch((err) => {
-    //     console.error('error while saving', err)
-    //   })
   } catch (error) {
     console.error(error);
     res.json({message: error})
@@ -31,14 +29,24 @@ router.post("/", async (req, res) => {
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
-    const user = await User.findOne({ email, password }).select('-password');
+    const user = await User.findOne({ email });
     console.log(user)
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password.' });
-    }
-    // TODO - sesssion save 
+    } 
+    // validate password
+    const validatePassword = await user.comparePassword(password) 
 
-    res.status(200).json({ message: 'You are now logged in!', user });
+    if (!validatePassword) {
+      return res.status(401).json({message: 'Invalid login'})
+    } else {
+      // issue token
+      const payload = { user };
+      const token = jwt.sign(payload, secret, {
+        expiresIn: '1h'
+      })
+      res.cookie('token', token, { httpOnly: true }).sendStatus(200)
+    }
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: 'An error occurred while logging in.' });

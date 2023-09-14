@@ -15,9 +15,15 @@ router.post("/", async (req, res) => {
     console.log("new user was created: " + newUser);
     res.json(newUser);
     // TODO - input logic to save session
+    // newUser.save()
+    //   .then((result) => {
+    //     console.log('finally saved', result)
+    //   }).catch((err) => {
+    //     console.error('error while saving', err)
+    //   })
   } catch (error) {
     console.error(error);
-    res.sendStatus(500).json({message: error})
+    res.json({message: error})
   }
 });
 
@@ -26,7 +32,7 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email, password }).select('-password');
-
+    console.log(user)
     if (!user) {
       return res.status(401).json({ error: 'Invalid email or password.' });
     }

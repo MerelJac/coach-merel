@@ -2,7 +2,8 @@ const { Schema, model } = require('mongoose');
 
 const userSchema = new Schema({
   first_name: { 
-    type: String, required: true 
+    type: String, 
+    required: true 
 },
   email: { 
     type: String, 
@@ -24,7 +25,7 @@ const User = model('Users', userSchema);
 //error handling
 const handleError = (err) => console.error(err);
 
-// seed? 
+// seed TODO - fix multiple renders
 User
     .create({
         first_name: 'Merel',

@@ -6,7 +6,9 @@ async function loginUser(credentials) {
     await fetch('http://localhost:3002/api/user-routes/login', {
         method: 'POST',
         headers: {
-            "Content-Type": "application/json"},
+            "Content-Type": "application/json",
+            // doesnt seem to do anythign for cors
+            "Origin": "http://localhost:3000"},
         body: JSON.stringify(credentials)
     })
     .then((response) => {

@@ -1,43 +1,34 @@
-const { Model, DataTypes } = require('sequelize');
-const sequelize = require('../config/connection');
-const bcrypt = require('bcrypt')
+const { Schema, model } = require('mongoose');
 
-class User extends Model {
-    checkPassword(loginPw) {
-        return bcrypt.compareSync(loginPw, this.password);
-      }
-}
-
-User.init({
-    id: {
-        type: DataTypes.INTEGER,
-        allowNull: false,
-        autoIncrement: true,
-        primaryKey: true
-    }, 
-    first_name: {
-        type: DataTypes.STRING,
-        allowNull: false
-    },
-    email: {
-        type: DataTypes.STRING,
-        allowNull: false,
-        unique: true,
-        validate: {
-            isEmail: true
-        }
-    },
-    password: {
-      type: DataTypes.STRING,
-      allowNull: false
-    }
+const userSchema = new Schema({
+  first_name: { 
+    type: String, required: true 
+},
+  email: { 
+    type: String, required: true },
+  password: { 
+    type: String, required: true },
 }, {
-    sequelize,
-    freezeTableName: true,
-    underscored: true,
-    createdAt: false,
-    updatedAt: false,
-    modelName: 'user',
-})
+    toJSON: {
+        getters: true
+    }, 
+    collection: 'Users'
+}); 
 
+//initalize
+const User = model('Users', userSchema);
+
+//error handling
+const handleError = (err) => console.error(err);
+
+// seed? 
+User
+    .create({
+        first_name: 'Merel',
+        email: 'test@test.com',
+        password: 'test'
+}).then((result) => console.log('New User seeded: ', result))
+  .catch(err => handleError(err));
+
+  // export 
 module.exports = User;

@@ -16,6 +16,7 @@ async function loginUser(credentials) {
     if (response.status === 200) {
       const data = await response.json();
       console.log(data);
+      localStorage.setItem('token', JSON.stringify(data))
     } else {
       console.log("Unable to login", response);
     }
@@ -23,6 +24,8 @@ async function loginUser(credentials) {
     console.error(err);
   }
 }
+
+
 
 export const Login = () => {
   // useState to capture email / password

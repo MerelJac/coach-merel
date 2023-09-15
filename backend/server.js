@@ -1,7 +1,7 @@
 const express = require('express');
 const cors = require('cors');
 //import mongo
-const db = require('./config/connection');
+const db = require('./config/mongo.config');
 // import routes
 const routes = require('./controllers')
 const cookieParser = require('cookie-parser')

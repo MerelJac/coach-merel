@@ -3,7 +3,8 @@ require('dotenv').config();
 const secret = process.env.JWT_SECRET;
 
 const withAuth = function(req, res, next) {
-    const token = req.cookies.token;
+  // get auth from client headers
+    const token = req.headers.Authorization;
     if (!token) {
       res.status(401).send('Unauthorized: No token provided');
     } else {

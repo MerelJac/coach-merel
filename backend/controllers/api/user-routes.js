@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const withAuth = require("../../middleware");
+const withAuth = require("../../config/auth.config");
 // goes to folder / index file, not direct path
 const { User } = require("../../models");
 const jwt = require("jsonwebtoken");
@@ -17,10 +17,18 @@ router.get("/", async (req, res) => {
 // CREATE new user - works
 router.post("/", async (req, res) => {
   try {
-    let newUser = await User.create(req.body);
+    const newUser = await User.create(req.body);
     console.log("new user was created: " + newUser);
-    res.json(newUser);
-    // TODO - add password hash and JWT
+    // issue token
+    if (!newUser) {
+      res.json({ message: "Error creating user" });
+    } else {
+      const payload = { newUser };
+      const token = jwt.sign(payload, secret, {
+        expiresIn: "1h",
+      });
+      res.json(token);
+    }
   } catch (error) {
     console.error(error);
     res.json({ message: error });
@@ -47,7 +55,7 @@ router.post("/login", async (req, res) => {
       const token = jwt.sign(payload, secret, {
         expiresIn: "1h",
       });
-      res.cookie("token", token, { httpOnly: true }).sendStatus(200);
+      res.json(token);
     }
   } catch (error) {
     console.error(error);

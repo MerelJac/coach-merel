@@ -4,6 +4,8 @@ import { ExerciseDiv } from "./ExerciseDiv";
 export const Create = () => {
 
     const [ exerciseDivs, setExerciseDivs ] = useState([])
+    // getting the info from the child
+    const [ setInfo, setSetInfo ] = useState([])
 
     const searchFunction = (e) => {
         // find elements
@@ -15,7 +17,7 @@ export const Create = () => {
         // run capitalize
         let title = capitazlie(searchValue);
         // push to array
-        const newExerciseDiv = <ExerciseDiv key={exerciseDivs.length} title={title}/>
+        const newExerciseDiv = <ExerciseDiv setInfo={setSetInfo} key={exerciseDivs.length} oneRepMaxSet={0} title={title}/>
         setExerciseDivs([newExerciseDiv, ...exerciseDivs])
     }
     
@@ -33,16 +35,23 @@ export const Create = () => {
     }
 
     const saveWorkout = () => {
-        let workout = createBody(exerciseDivs)
+    
+        let workout = consolidateWorkout(exerciseDivs)
         console.log(workout)
+
     }
 
-    const createBody = (array) => {
+
+
+    const consolidateWorkout = (array) => {
         let workoutArray = []
         array.forEach((word) => {
+            console.log(word)
             let full_name = word.props.title
-            let parsed_name = full_name.split(' ')
-            workoutArray.push([full_name, parsed_name])
+            let parsed_name = full_name.split(' ');
+            let oneRepMaxComplete = word.props.oneRepMaxSet;
+            workoutArray.push([full_name, parsed_name, oneRepMaxComplete])
+
         })
         return workoutArray
     }

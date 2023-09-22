@@ -20,11 +20,13 @@ export const Register = (props) => {
         headers: {
           "Content-Type": "application/json",
           Origin: "http://localhost:3000",
+        //   "Authorization": localStorage.getItem()
         },
         body: JSON.stringify(user),
       });
       if (response.status === 200) {
         const data = await response.json();
+        // validate and save to local storage 
         console.log(data);
       } else {
         console.log("Unable to register user");

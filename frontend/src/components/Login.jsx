@@ -1,52 +1,62 @@
 import React, { useState } from "react";
 
 // login function to send to API / backend
-async function loginUser(credentials) {
+async function loginUser(credentials, setMessage) {
   try {
-    const response = await fetch("http://localhost:3002/api/user-routes/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-        // doesnt seem to do anythign for cors
-        Origin: "http://localhost:3000",
-      },
-      body: JSON.stringify(credentials),
-    });
+    const response = await fetch(
+      "http://localhost:3002/api/user-routes/login",
+      {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          // doesnt seem to do anythign for cors
+          Origin: "http://localhost:3000",
+        },
+        body: JSON.stringify(credentials),
+      }
+    );
 
     if (response.status === 200) {
       const data = await response.json();
       console.log(data);
-      localStorage.setItem('token', JSON.stringify(data))
+      localStorage.setItem("token", JSON.stringify(data));
     } else {
       console.log("Unable to login", response);
+      setMessage("Unable to log in");
     }
   } catch (err) {
     console.error(err);
   }
 }
 
-
-
 export const Login = () => {
   // useState to capture email / password
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const [message, setMessage] = useState("");
 
   // handleSubmit function
   const handleSubmit = async (e) => {
     e.preventDefault();
-    await loginUser({
-      email: email,
-      password: password,
-    });
+    await loginUser(
+      {
+        email: email,
+        password: password,
+      },
+      setMessage
+    );
   };
 
   return (
     // all info goes in here
     <div className="auth-form-container bottom-div">
-      <h1 className="right-align">
-        Welcome<span className="bold">Back</span>
-      </h1>
+      <header className="flex justify-between">
+        <h1 className="right-align">
+          Welcome<span className="bold">Back</span>
+        </h1>
+        <p>{message}</p>
+      </header>
+
       <form className="column-right" onSubmit={handleSubmit}>
         <input
           value={email}

@@ -3,14 +3,13 @@ import React, { useState } from "react";
 // login function to send to API / backend
 async function loginUser(credentials, setMessage) {
   try {
+    console.log(credentials)
     const response = await fetch(
       "http://localhost:3002/api/user-routes/login",
       {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          // doesnt seem to do anythign for cors
-          Origin: "http://localhost:3000",
         },
         body: JSON.stringify(credentials),
       }
@@ -20,19 +19,20 @@ async function loginUser(credentials, setMessage) {
       const data = await response.json();
       console.log(data);
       localStorage.setItem("token", JSON.stringify(data));
-    } else {
+    } else if (response.status === 401) {
       console.log("Unable to login", response);
-      setMessage("Unable to log in");
+      setMessage("Incorrect username or password");
     }
   } catch (err) {
+    setMessage("An error occurred while logging in. ")
     console.error(err);
   }
 }
 
 export const Login = () => {
   // useState to capture email / password
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
   // handleSubmit function

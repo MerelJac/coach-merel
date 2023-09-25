@@ -46,7 +46,6 @@ export const Register = (props) => {
         <h2 className="right-align">Welcome</h2>
         <p>{message}</p>
       </section>
-
       <form className="column-right" onSubmit={handleSubmit}>
         <input
           value={name}

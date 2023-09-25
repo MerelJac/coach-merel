@@ -14,7 +14,7 @@ router.get("/", async (req, res) => {
   res.json(allUsers);
 });
 
-// CREATE new user - works
+// CREATE new user / set Token
 router.post("/", async (req, res) => {
   try {
     const newUser = await User.create(req.body);
@@ -40,7 +40,25 @@ router.post("/", async (req, res) => {
   }
 });
 
-// Login / Set Session
+router.delete("/:id", async (req, res) => {
+  try {
+    const userId = req.params.id; // Extract the user ID from the request parameters
+
+    // Use findOneAndDelete or deleteOne based on your requirements
+    const deletedUser = await User.findOneAndDelete({ _id: userId });
+
+    if (!deletedUser) {
+      return res.status(404).json({ message: "User not found." });
+    }
+
+    res.status(200).json({ message: "User deleted successfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ error: "An error occurred while deleting the user." });
+  }
+});
+
+// Login / Set Token
 router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
@@ -49,13 +67,16 @@ router.post("/login", async (req, res) => {
     if (!user) {
       return res.status(401).json({ error: "Invalid email or password." });
     }
+
     // validate password
     const validatePassword = await user.comparePassword(password);
 
     if (!validatePassword) {
+      console.log("can't validated password")
       return res.status(401).json({ message: "Invalid login" });
     } else {
       // issue token
+      console.log("trying to issue token")
       const payload = { user };
       const token = jwt.sign(payload, secret, {
         expiresIn: "1h",

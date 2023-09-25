@@ -40,21 +40,21 @@ router.post("/", async (req, res) => {
   }
 });
 
+// delete user
 router.delete("/:id", async (req, res) => {
   try {
-    const userId = req.params.id; // Extract the user ID from the request parameters
-
-    // Use findOneAndDelete or deleteOne based on your requirements
+    const userId = req.params.id;
     const deletedUser = await User.findOneAndDelete({ _id: userId });
 
     if (!deletedUser) {
       return res.status(404).json({ message: "User not found." });
     }
-
     res.status(200).json({ message: "User deleted successfully." });
   } catch (err) {
     console.error(err);
-    res.status(500).json({ error: "An error occurred while deleting the user." });
+    res
+      .status(500)
+      .json({ error: "An error occurred while deleting the user." });
   }
 });
 
@@ -72,11 +72,11 @@ router.post("/login", async (req, res) => {
     const validatePassword = await user.comparePassword(password);
 
     if (!validatePassword) {
-      console.log("can't validated password")
+      console.log("can't validated password");
       return res.status(401).json({ message: "Invalid login" });
     } else {
       // issue token
-      console.log("trying to issue token")
+      console.log("trying to issue token");
       const payload = { user };
       const token = jwt.sign(payload, secret, {
         expiresIn: "1h",

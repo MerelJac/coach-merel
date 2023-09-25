@@ -1,8 +1,8 @@
 import { React } from "react";
 
 const logout = () => {
-    // destroy session cookie
-
+    // destroy stored token
+    localStorage.clear()
     // return to login page
     window.location.href = '/login';
 }

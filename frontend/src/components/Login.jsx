@@ -3,7 +3,6 @@ import React, { useState } from "react";
 // login function to send to API / backend
 async function loginUser(credentials, setMessage) {
   try {
-    console.log(credentials)
     const response = await fetch(
       "http://localhost:3002/api/user-routes/login",
       {
@@ -17,8 +16,8 @@ async function loginUser(credentials, setMessage) {
 
     if (response.status === 200) {
       const data = await response.json();
-      console.log(data);
       localStorage.setItem("token", JSON.stringify(data));
+      window.location.href = "/"
     } else if (response.status === 401) {
       console.log("Unable to login", response);
       setMessage("Incorrect username or password");

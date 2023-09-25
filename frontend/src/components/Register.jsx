@@ -4,6 +4,7 @@ export const Register = (props) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
+  const [message, setMessage] = useState("");
 
   // TODO error handling for error while creating clinet side
   const handleSubmit = async (e) => {
@@ -26,20 +27,27 @@ export const Register = (props) => {
       if (response.status === 200) {
         const data = await response.json();
         console.log(data);
+        window.location.href = "/";
+      } else if (response.status === 400) {
+        setMessage("Alreay making gains with that email.");
       } else {
-        console.log("Unable to register user");
+        setMessage("Unable to register user");
       }
     } catch (err) {
-      console.error(err); 
+      setMessage("An error has occured during registration.");
+      console.error(err);
     }
   };
 
   return (
     // all info goes in here
     <div className="auth-form-container bottom-div">
-      <h2 className="right-align">Welcome</h2>
+      <section className="flex justify-between">
+        <h2 className="right-align">Welcome</h2>
+        <p>{message}</p>
+      </section>
+
       <form className="column-right" onSubmit={handleSubmit}>
-        {/* name */}
         <input
           value={name}
           onChange={(e) => setName(e.target.value)}
@@ -48,7 +56,6 @@ export const Register = (props) => {
           id="name"
           name="name"
         />
-        {/* email */}
         <input
           value={email}
           onChange={(e) => setEmail(e.target.value)}
@@ -57,7 +64,6 @@ export const Register = (props) => {
           id="email"
           name="email"
         />
-        {/* password */}
         <input
           value={password}
           onChange={(e) => setPassword(e.target.value)}

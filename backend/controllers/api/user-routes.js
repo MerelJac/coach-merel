@@ -30,8 +30,13 @@ router.post("/", async (req, res) => {
       res.json(token);
     }
   } catch (error) {
-    console.error(error);
-    res.json({ message: error });
+    if (error.code === 11000) {
+      // Duplicate email error (unique constraint violation)
+      res.status(400).json({ message: "Email address is already in use." });
+    } else {
+      console.error(error);
+      res.json({ message: error });
+    }
   }
 });
 

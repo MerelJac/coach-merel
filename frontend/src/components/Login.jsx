@@ -19,12 +19,10 @@ async function loginUser(credentials, setMessage) {
       localStorage.setItem("token", JSON.stringify(data));
       window.location.href = "/"
     } else if (response.status === 401) {
-      console.log("Unable to login", response);
       setMessage("Incorrect username or password");
     }
   } catch (err) {
     setMessage("An error occurred while logging in. ")
-    console.error(err);
   }
 }
 

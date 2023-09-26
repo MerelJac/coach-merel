@@ -63,7 +63,6 @@ router.post("/login", async (req, res) => {
   try {
     const { email, password } = req.body;
     const user = await User.findOne({ email });
-    console.log(user);
     if (!user) {
       return res.status(401).json({ error: "Invalid email or password." });
     }
@@ -72,11 +71,9 @@ router.post("/login", async (req, res) => {
     const validatePassword = await user.comparePassword(password);
 
     if (!validatePassword) {
-      console.log("can't validated password");
       return res.status(401).json({ message: "Invalid login" });
     } else {
       // issue token
-      console.log("trying to issue token");
       const payload = { user };
       const token = jwt.sign(payload, secret, {
         expiresIn: "1h",
@@ -84,16 +81,38 @@ router.post("/login", async (req, res) => {
       res.json(token);
     }
   } catch (error) {
-    console.error(error);
     return res
       .status(500)
       .json({ error: "An error occurred while logging in." });
   }
 });
 
-// check token /api/user-routes/checkToken
-router.get("/checkToken", withAuth, (req, res) => {
-  res.sendStatus(200);
+// find logged in user info 
+// Middleware for verifying JWT token
+const verifyToken = (req, res, next) => {
+  const token = req.headers.authorization;
+  if (!token) {
+    return res.status(401).json({ message: "Authorization token is missing." });
+  }
+
+  jwt.verify(token, secret, (err, decoded) => {
+    if (err) {
+      return res.status(401).json({ message: "Invalid token.", err });
+    }
+
+    // The token is valid; you can access the user's data in the 'decoded' object
+    req.user = decoded.user;
+    next();
+  });
+};
+
+// Example protected route
+router.get("/check-token", verifyToken, (req, res) => {
+  // Access user data from req.user
+  const { name, email } = req.user;
+  console.log(name, email)
+  res.json({ name, email });
 });
+
 
 module.exports = router;

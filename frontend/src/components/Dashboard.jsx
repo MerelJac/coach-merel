@@ -2,10 +2,28 @@ import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 // authenticate user
-function isAuthenticated() {
-  const token = localStorage.getItem("token");
-  console.log(token);
-  return !!token; // returns boolean
+async function isAuthenticated() {
+  const token = JSON.parse(localStorage.getItem("token"));
+  if (!token) {
+    return false
+  }
+
+  try {
+    const findUser = await fetch('/api/user-routes/check-token', {
+      headers: {
+        'Content-Type': 'application/json',
+        Authorization: `Bearer ${token}`
+      }
+    })
+    
+    if (findUser.status === 200) {
+      return true
+    } else {
+      return false
+    }
+  } catch (err) {
+    console.error(err)
+  }
 }
 export const Dashboard = () => {
   const navigate = useNavigate(); // initalize function
@@ -17,7 +35,6 @@ export const Dashboard = () => {
   }, []);
   useEffect(() => {
     if (!authenticated) {
-      console.log("no auth");
       navigate("/login");
     } else {
       // pull user name

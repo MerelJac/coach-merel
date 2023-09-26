@@ -25,11 +25,10 @@ export const Register = (props) => {
         body: JSON.stringify(user),
       });
       if (response.status === 200) {
-        const data = await response.json();
-        console.log(data);
+        await response.json();
         window.location.href = "/";
       } else if (response.status === 400) {
-        setMessage("Alreay making gains with that email.");
+        setMessage("Already making gains with that email.");
       } else {
         setMessage("Unable to register user");
       }

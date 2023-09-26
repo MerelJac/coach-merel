@@ -10,6 +10,11 @@ export const ExerciseDiv = (props) => {
   let weighted1RM = 0;
   let BW1RM = 0;
 
+  // TODO make title unique per workout
+
+  // object
+  // {id: #, title: str, repMax: #, setInfo: {},  }
+
   // submit set info to page
   const setInfo = (e) => {
     e.preventDefault();
@@ -17,9 +22,13 @@ export const ExerciseDiv = (props) => {
     let reps = document.querySelector(".reps").value;
     let weight = document.querySelector(".weight").value;
     let testMax = oneRepMax(weight, reps);
-    // not working
-    testMax > oneRepMaxSet ? setOneRepMax(testMax) : console.log('same 1RM: ', oneRepMaxSet);
+    console.log(testMax);
+    // replace 1RM if necessary
+    testMax > oneRepMaxSet
+      ? setOneRepMax(testMax)
+      : console.log("same 1RM: ", oneRepMaxSet);
     // array of sets
+    console.log(oneRepMax(10, 5));
     setSets([...sets, `${weight}lbs x ${reps}`]);
   };
 
@@ -52,18 +61,26 @@ export const ExerciseDiv = (props) => {
         <section className="row">
           <img alt="attributeImg" src={dotsImg}></img>
           <div className="exercise-text">
-            <h2 className="bold">{props.title}</h2>
+            <h2 max={oneRepMaxSet} className="bold">
+              {props.title}
+            </h2>
           </div>
           <div>
-            <input className="exercise-input weight" placeholder="lbs"></input>
-            <input className="exercise-input reps" placeholder="reps"></input>
+            <input
+              className="text-center w-[60px] weight"
+              placeholder="lbs"
+            ></input>
+            <input
+              className="text-center w-[60px] reps"
+              placeholder="reps"
+            ></input>
           </div>
           <button className="submitRep" type="submit" onClick={setInfo}>
             Go
           </button>
         </section>
         <section className="set-print-section">
-          <ul>{listOfSets}</ul>
+          <ul className="flex flex-row gap-2.5">{listOfSets}</ul>
         </section>
       </div>
     </>

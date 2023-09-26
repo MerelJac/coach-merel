@@ -4,42 +4,52 @@ import { useNavigate } from "react-router-dom";
 // authenticate user
 async function isAuthenticated() {
   const token = JSON.parse(localStorage.getItem("token"));
+  console.log(token)
   if (!token) {
-    return false
+    return false;
   }
 
   try {
-    const findUser = await fetch('/api/user-routes/check-token', {
+    // send token info
+    const findUser = await fetch("http://localhost:3002/api/user-routes/check-token", {
       headers: {
-        'Content-Type': 'application/json',
-        Authorization: `Bearer ${token}`
-      }
-    })
-    
+        "Content-Type": "application/json",
+        Authorization: token,
+      },
+    });
+    // if successful, proceed with useEffect
     if (findUser.status === 200) {
-      return true
+      const userFirstName = await findUser.json();
+      return userFirstName;
     } else {
-      return false
+      return false;
     }
   } catch (err) {
-    console.error(err)
+    console.error(err);
   }
 }
+
 export const Dashboard = () => {
   const navigate = useNavigate(); // initalize function
   const [authenticated, setAuthenticated] = useState(isAuthenticated());
-  const [user, setUser] = useState("M");
+  const [user, setUser] = useState("");
 
   useEffect(() => {
-    setAuthenticated(isAuthenticated());
-  }, []);
+    isAuthenticated().then((authenticated) => {
+      if (authenticated) {
+        setAuthenticated(authenticated)
+        setUser(authenticated)
+      } else {
+        navigate('/login')
+      }
+    })
+    setAuthenticated(isAuthenticated(setUser));
+  }, [navigate]);
+
   useEffect(() => {
     if (!authenticated) {
       navigate("/login");
-    } else {
-      // pull user name
-      setUser("found you");
-    }
+    } 
   }, [authenticated, navigate]);
 
   return (

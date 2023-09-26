@@ -44,7 +44,6 @@ userSchema.pre("save", function (next) {
 
 // compare passwords
 userSchema.methods.comparePassword = function (candiatePassword) {
-  console.log("starting to compate passwrod" + candiatePassword)
   return bcrypt.compare(candiatePassword, this.password);
 };
 //initalize

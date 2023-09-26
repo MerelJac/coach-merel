@@ -88,8 +88,8 @@ router.post("/login", async (req, res) => {
 });
 
 // find logged in user info 
-// Middleware for verifying JWT token
 const verifyToken = (req, res, next) => {
+  console.log(req.headers)
   const token = req.headers.authorization;
   if (!token) {
     return res.status(401).json({ message: "Authorization token is missing." });
@@ -109,9 +109,8 @@ const verifyToken = (req, res, next) => {
 // Example protected route
 router.get("/check-token", verifyToken, (req, res) => {
   // Access user data from req.user
-  const { name, email } = req.user;
-  console.log(name, email)
-  res.json({ name, email });
+  const username = req.user.first_name;
+  res.json(username);
 });
 
 

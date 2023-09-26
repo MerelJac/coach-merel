@@ -16,6 +16,7 @@ async function loginUser(credentials, setMessage) {
 
     if (response.status === 200) {
       const data = await response.json();
+      localStorage.clear()
       localStorage.setItem("token", JSON.stringify(data));
       window.location.href = "/"
     } else if (response.status === 401) {

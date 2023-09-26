@@ -1,6 +1,8 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 export const Register = (props) => {
+  const navigate = useNavigate()
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
@@ -26,10 +28,14 @@ export const Register = (props) => {
       });
       if (response.status === 200) {
         const data = await response.json();
-        console.log(data);
-        window.location.href = "/";
+        console.log(data)
+        // remove current token
+        localStorage.clear()
+        // set new token 
+        localStorage.setItem("token", JSON.stringify(data));
+        navigate('/')
       } else if (response.status === 400) {
-        setMessage("Alreay making gains with that email.");
+        setMessage("Already making gains with that email.");
       } else {
         setMessage("Unable to register user");
       }

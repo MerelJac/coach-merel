@@ -22,13 +22,19 @@ router.post("/", async (req, res) => {
     // issue token
     if (!newUser) {
       res.json({ message: "Error creating user" });
-    } else {
-      const payload = { newUser };
-      const token = jwt.sign(payload, secret, {
-        expiresIn: "1h",
-      });
-      res.json(token);
-    }
+    } else 
+      {
+        // issue token
+        const payload = { user: {
+          _id: newUser._id,
+          first_name: newUser.first_name
+        } };
+        const token = jwt.sign(payload, secret, {
+          expiresIn: "1h",
+        });
+        res.json(token);
+      }
+    
   } catch (error) {
     if (error.code === 11000) {
       // Duplicate email error (unique constraint violation)
@@ -89,7 +95,6 @@ router.post("/login", async (req, res) => {
 
 // find logged in user info
 const verifyToken = (req, res, next) => {
-  console.log(req.headers);
   const token = req.headers.authorization;
   if (!token) {
     return res.status(401).json({ message: "Authorization token is missing." });
@@ -109,7 +114,7 @@ const verifyToken = (req, res, next) => {
 // Example protected route
 router.get("/check-token", verifyToken, (req, res) => {
   // Access user data from req.user
-  console.log(req, 'should be name')
+  console.log(req)
   const username = req.user.first_name;
   res.json(username);
 });

@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 // authenticate user
 async function isAuthenticated() {
-  const token = JSON.parse(localStorage.getItem("token"));
+  const token = await JSON.parse(localStorage.getItem("token"));
   console.log(token)
   if (!token) {
     return false;

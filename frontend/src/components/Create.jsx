@@ -6,7 +6,7 @@ export const Create = () => {
   // getting the info from the child
   // const [setInfo, setSetInfo] = useState([]);
   const [oneRepMaxSet, setOneRepMax] = useState(0);
-
+  let newExerciseDiv;
   const searchFunction = (e) => {
     // find elements
     const searchBar = document.querySelector("#create-search");
@@ -16,16 +16,50 @@ export const Create = () => {
     searchBar.placeholder = "Search";
     // run capitalize
     let title = capitazlie(searchValue);
+    let searchTitle = title.replace(/\s/g, "");
+    // query DB for exercise
+    const requestOptions = {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ title: searchTitle }),
+    };
+    fetch(`http://localhost:3002/api/exercise/${searchTitle}`, requestOptions)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data);
+        if (data.exercise) {
+          console.log("there is a name" + data.exercise.full_name);
+          // TODO pass in 1RM
+          newExerciseDiv = (
+            <ExerciseDiv
+              key={exerciseDivs.length}
+              oneRepMaxSet={oneRepMaxSet}
+              setOneRepMax={setOneRepMax}
+              title={data.exercise.full_name}
+            />
+          );
+        } else {
+          console.log("there is not a name");
+          newExerciseDiv = (
+            <ExerciseDiv
+              key={exerciseDivs.length}
+              oneRepMaxSet={oneRepMaxSet}
+              setOneRepMax={setOneRepMax}
+              title={title}
+            />
+          );
+        }
+        setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
+      });
     // push to array
-    const newExerciseDiv = (
-      <ExerciseDiv
-        key={exerciseDivs.length}
-        oneRepMaxSet={oneRepMaxSet}
-        setOneRepMax={setOneRepMax}
-        title={title}
-      />
-    );
-    setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
+    // const newExerciseDiv = (
+    //   <ExerciseDiv
+    //     key={exerciseDivs.length}
+    //     oneRepMaxSet={oneRepMaxSet}
+    //     setOneRepMax={setOneRepMax}
+    //     title={title}
+    //   />
+    // );
   };
 
   // capitazlie each word function
@@ -54,20 +88,22 @@ export const Create = () => {
     });
   };
 
-    const consolidateWorkout = (array) => {
-      return array.map((word) => {
-        const full_name = word.props.title;
-        const parsed_name = full_name.split(" ");
-        const oneRepMaxComplete = word.props.oneRepMax;
+  const consolidateWorkout = (array) => {
+    return array.map((word) => {
+      const full_name = word.props.title;
+      const parsed_name = full_name.split(" ");
+      const search_name = full_name.replace(/\s/g, "");
+      const oneRepMaxComplete = word.props.oneRepMax;
 
-        // Create an object with the desired properties
-        return {
-          full_name: full_name,
-          parsed_name: parsed_name,
-          one_rep_max: oneRepMaxComplete,
-        };
-      });
-    };
+      // Create an object with the desired properties
+      return {
+        full_name: full_name,
+        parsed_name: parsed_name,
+        one_rep_max: oneRepMaxComplete,
+        search_name: search_name,
+      };
+    });
+  };
 
   const saveWorkout = () => {
     let workout = consolidateWorkout(exerciseDivs);

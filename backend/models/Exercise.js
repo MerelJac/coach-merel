@@ -5,7 +5,8 @@ const exerciseSchema = new Schema({
         type: Number,
     },
     full_name: {
-        type: String
+        type: String,
+        unique: true,
     },
     parsed_name: {
         type: Array

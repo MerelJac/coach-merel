@@ -4,7 +4,8 @@ import { ExerciseDiv } from "./ExerciseDiv";
 export const Create = () => {
   const [exerciseDivs, setExerciseDivs] = useState([]);
   // getting the info from the child
-  const [setInfo, setSetInfo] = useState([]);
+  // const [setInfo, setSetInfo] = useState([]);
+  const [oneRepMaxSet, setOneRepMax] = useState(0);
 
   const searchFunction = (e) => {
     // find elements
@@ -18,9 +19,9 @@ export const Create = () => {
     // push to array
     const newExerciseDiv = (
       <ExerciseDiv
-        setInfo={setSetInfo}
         key={exerciseDivs.length}
-        oneRepMaxSet={0}
+        oneRepMaxSet={oneRepMaxSet}
+        setOneRepMax={setOneRepMax}
         title={title}
       />
     );
@@ -40,21 +41,40 @@ export const Create = () => {
     return capitalizedArray.join(" ");
   };
 
+  const postWorkout = (array) => {
+    array.forEach((object) => {
+      const requestOptions = {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(object),
+      };
+      fetch("http://localhost:3002/api/exercise", requestOptions)
+        .then((response) => response.json())
+        .then((data) => console.log(data));
+    });
+  };
+
+    const consolidateWorkout = (array) => {
+      return array.map((word) => {
+        const full_name = word.props.title;
+        const parsed_name = full_name.split(" ");
+        const oneRepMaxComplete = word.props.oneRepMax;
+
+        // Create an object with the desired properties
+        return {
+          full_name: full_name,
+          parsed_name: parsed_name,
+          one_rep_max: oneRepMaxComplete,
+        };
+      });
+    };
+
   const saveWorkout = () => {
     let workout = consolidateWorkout(exerciseDivs);
+    postWorkout(workout);
     console.log(workout);
   };
 
-  const consolidateWorkout = (array) => {
-    let workoutArray = [];
-    array.forEach((word) => {
-      let full_name = word.props.title;
-      let parsed_name = full_name.split(' ');
-      let oneRepMaxComplete = word.props.oneRepMaxSet;
-      workoutArray.push([full_name, parsed_name, oneRepMaxComplete])
-    });
-    return workoutArray;
-  };
   return (
     <>
       <div>

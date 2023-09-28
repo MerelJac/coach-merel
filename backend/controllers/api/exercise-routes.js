@@ -33,10 +33,9 @@ router.post('/', async (req, res) => {
 router.post('/:title', async (req, res) => {
     try{
     const exerciseName = req.params.title
-    console.log(exerciseName)
     const exercise = await Exercise.findOne({search_name: exerciseName});
     if (exercise) {
-        res.json({message: 'Exercise found!', exercise})
+        res.json(exercise)
     } else {
         res.json({message: 'Haven`t hit that one yet!'})
     }

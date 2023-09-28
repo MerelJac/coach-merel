@@ -43,7 +43,7 @@ export const ExerciseDiv = (props) => {
 
   return (
     <>
-      <div className="exerciseDiv">
+      <div className="exerciseDiv" id={props.id}>
         <section className="row">
           <img alt="attributeImg" src={dotsImg}></img>
           <div className="exercise-text">

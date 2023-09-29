@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import './index.css'
 import './assets/css/form.css'
@@ -12,7 +12,22 @@ import { Create } from './components/Create'
 import { AccountInfo } from './components/AccountInfo';
 import { SeeStatsPage } from './components/SeeStats';
 
-function App() {
+import { auth } from './utils/auth';
+
+
+  function App() {
+    // TODO - add auth routes - see class example
+
+    // const [loggedIn, setLoggedIn] = useState(false); 
+  
+    // useEffect(() => {
+    //   const checkAuth = async () => {
+    //     const authenticated = await auth();
+    //     setLoggedIn(authenticated); 
+    //   };
+  
+    //   checkAuth();
+    // }, []);
 
   return (
     <BrowserRouter>

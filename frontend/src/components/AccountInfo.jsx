@@ -1,15 +1,19 @@
 import { React } from "react";
+import { useNavigate } from "react-router-dom";
 
-const logout = () => {
-    // destroy stored token
-    localStorage.clear()
-    // return to login page
-    window.location.href = '/login';
-}
 export const AccountInfo = () => {
-    return (
-        <>
-        <button onClick={logout}>Log Out</button>
-        </>
-    )
-}
+  const navigate = useNavigate();
+
+  const logout = () => {
+    // destroy stored token
+    localStorage.clear();
+    // return to login page
+    navigate("/login");
+  };
+
+  return (
+    <>
+      <button onClick={logout}>Log Out</button>
+    </>
+  );
+};

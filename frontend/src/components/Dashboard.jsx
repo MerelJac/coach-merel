@@ -1,31 +1,32 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-
+import { auth } from "../utils/auth";
 // authenticate user
 async function isAuthenticated() {
-  const token = await JSON.parse(localStorage.getItem("token"));
-  console.log(token)
-  if (!token) {
-    return false;
-  }
-
-  try {
-    // send token info
-    const findUser = await fetch("http://localhost:3002/api/user-routes/check-token", {
-      headers: {
-        "Content-Type": "application/json",
-        Authorization: token,
-      },
-    });
-    // if successful, proceed with useEffect
-    if (findUser.status === 200) {
-      const userFirstName = await findUser.json();
-      return userFirstName;
-    } else {
-      return false;
+  let authStatus = await auth();
+  if (authStatus) {
+    const token = await JSON.parse(localStorage.getItem("token"));
+    try {
+      // send token info
+      const findUser = await fetch(
+        "http://localhost:3002/api/user-routes/check-token",
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: token,
+          },
+        }
+      );
+      // if successful, proceed with useEffect
+      if (findUser.status === 200) {
+        const userFirstName = await findUser.json();
+        return userFirstName;
+      } else {
+        return false;
+      }
+    } catch (err) {
+      console.error(err);
     }
-  } catch (err) {
-    console.error(err);
   }
 }
 
@@ -37,19 +38,19 @@ export const Dashboard = () => {
   useEffect(() => {
     isAuthenticated().then((authenticated) => {
       if (authenticated) {
-        setAuthenticated(authenticated)
-        setUser(authenticated)
+        setAuthenticated(authenticated);
+        setUser(authenticated);
       } else {
-        navigate('/login')
+        navigate("/login");
       }
-    })
+    });
     setAuthenticated(isAuthenticated(setUser));
   }, [navigate]);
 
   useEffect(() => {
     if (!authenticated) {
       navigate("/login");
-    } 
+    }
   }, [authenticated, navigate]);
 
   return (

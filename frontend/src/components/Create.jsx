@@ -4,9 +4,8 @@ import { ExerciseDiv } from "./ExerciseDiv";
 export const Create = () => {
   const [exerciseDivs, setExerciseDivs] = useState([]);
   // getting the info from the child
-  // const [setInfo, setSetInfo] = useState([]);
   const [oneRepMaxSet, setOneRepMax] = useState(0);
-
+  // global variable
   let newExerciseDiv;
 
   const searchFunction = (e) => {
@@ -20,6 +19,7 @@ export const Create = () => {
     let title = capitazlie(searchValue);
     let parsed_name = title.split(" ");
     let searchTitle = title.replace(/\s/g, "");
+    console.log(searchTitle);
     // query DB for exercise
     const requestOptions = {
       method: "POST",
@@ -30,7 +30,7 @@ export const Create = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        if (data.exercise) {
+        if (data.message === "Yes") {
           console.log("there is a name " + data.exercise);
 
           // TODO pass in 1RM
@@ -42,8 +42,8 @@ export const Create = () => {
               title={data.exercise.full_name}
             />
           );
-          setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
-        } else {
+          return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
+        } else if (data.message === "No") {
           console.log("there is not a name");
           const requestOptions = {
             method: "POST",
@@ -69,11 +69,14 @@ export const Create = () => {
                   title={title}
                 />
               );
-              setExerciseDivs([newExerciseDiv, ...exerciseDivs]);  
+              return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
             });
         }
-
+      //   if (newExerciseDiv) {
+      //     setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
+      //   }
       });
+
   };
 
   // capitazlie each word function
@@ -89,7 +92,8 @@ export const Create = () => {
     return capitalizedArray.join(" ");
   };
 
-  const putWorkout = (array) => { // Rename to putWorkout for clarity
+  const putWorkout = (array) => {
+    // Rename to putWorkout for clarity
     array.forEach((object) => {
       const requestOptions = {
         method: "PUT", // Make sure this is the correct HTTP method
@@ -107,7 +111,7 @@ export const Create = () => {
         .catch((error) => console.error("Error:", error)); // Handle errors
     });
   };
-  
+
   const consolidateWorkout = (array) => {
     return array.map((word) => {
       const id = word.props.id;
@@ -118,14 +122,12 @@ export const Create = () => {
       };
     });
   };
-  
+
   const saveWorkout = () => {
     let workout = consolidateWorkout(exerciseDivs);
     console.log("Consolidated Workout:", workout);
     putWorkout(workout);
   };
-  
-  
 
   return (
     <>

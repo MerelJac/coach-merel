@@ -35,9 +35,9 @@ router.post('/:title', async (req, res) => {
     const exerciseName = req.params.title
     const exercise = await Exercise.findOne({search_name: exerciseName});
     if (exercise) {
-        res.json(exercise)
+        res.json({message: 'Yes', exercise})
     } else {
-        res.json({message: 'Haven`t hit that one yet!'})
+        res.json({message: 'No'})
     }
     } catch (err) {
         console.error(err)
@@ -45,23 +45,7 @@ router.post('/:title', async (req, res) => {
     }
 })
 
-// update exercise info
-// router.put('/:id', async (req, res) => {
-//     try{
-//     const id = req.params.id
-//     const updateRepMax = req.body.one_rep_map
-//     const exerciseById = await Exercise.findOne({_id: id});
-//     if (exerciseById) {
-//         res.json({message: 'Found it', exerciseById})
-//     } else {
-//         res.json({message: 'Haven`t found it'})
-//     }
-//     } catch (err) {
-//         console.error(err)
-//         res.json({ message: 'There is an error'})
-//     }
-// })
-
+// update 1RM by ID
 router.put('/:id', async (req, res) => {
     try {
       const id = req.params.id;

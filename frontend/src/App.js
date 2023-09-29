@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect } from 'react';
 import './App.css';
 import './index.css'
 import './assets/css/form.css'
@@ -10,8 +10,24 @@ import { Dashboard } from './components/Dashboard'
 import { Header } from './components/Header';
 import { Create } from './components/Create'
 import { AccountInfo } from './components/AccountInfo';
+import { SeeStatsPage } from './components/SeeStats';
 
-function App() {
+import { auth } from './utils/auth';
+
+
+  function App() {
+    // TODO - add auth routes - see class example
+
+    // const [loggedIn, setLoggedIn] = useState(false); 
+  
+    // useEffect(() => {
+    //   const checkAuth = async () => {
+    //     const authenticated = await auth();
+    //     setLoggedIn(authenticated); 
+    //   };
+  
+    //   checkAuth();
+    // }, []);
 
   return (
     <BrowserRouter>
@@ -22,6 +38,7 @@ function App() {
         <Route exact path='/register' element={<Register/>}/>
         <Route exact path='/' element={<Dashboard/>}/>
         <Route exact path='/create' element={<Create/>}/>
+        <Route exact path='/stats' element={<SeeStatsPage/>}/>
         <Route exact path='/account-info' element={<AccountInfo/>}/>
       </Routes>
     </div>

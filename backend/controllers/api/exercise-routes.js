@@ -18,7 +18,6 @@ router.get('/', async (req, res) => {
 
 //create exercise 
 router.post('/', async (req, res) => {
-    console.log('here')
     let body = req.body;
     console.log(body)
     try {
@@ -30,4 +29,48 @@ router.post('/', async (req, res) => {
     }
 })
 
+// find exercise by name
+router.post('/:title', async (req, res) => {
+    try{
+    const exerciseName = req.params.title
+    const exercise = await Exercise.findOne({search_name: exerciseName});
+    if (exercise) {
+        res.json({message: 'Yes', exercise})
+    } else {
+        res.json({message: 'No'})
+    }
+    } catch (err) {
+        console.error(err)
+        res.json({ message: 'There is an error'})
+    }
+})
+
+// update 1RM by ID
+router.put('/:id', async (req, res) => {
+    try {
+      const id = req.params.id;
+      const updateRepMax = req.body.one_rep_max; // Correct the property name to one_rep_max
+  
+      // Use findOneAndUpdate to update the one_rep_max field
+      const updatedExercise = await Exercise.findOneAndUpdate(
+        { _id: id },
+        { $set: { one_rep_max: updateRepMax } },
+        { new: true } // To get the updated document
+      );
+  
+      if (updatedExercise) {
+        res.json({ message: 'Updated exercise', exercise: updatedExercise });
+      } else {
+        res.status(404).json({ message: 'Exercise not found' });
+      }
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ message: 'There is an error' });
+    }
+  });
+
+  
+  
+
+  
 module.exports = router;

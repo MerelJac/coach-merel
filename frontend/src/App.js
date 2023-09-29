@@ -10,6 +10,7 @@ import { Dashboard } from './components/Dashboard'
 import { Header } from './components/Header';
 import { Create } from './components/Create'
 import { AccountInfo } from './components/AccountInfo';
+import { SeeStatsPage } from './components/SeeStats';
 
 function App() {
 
@@ -22,6 +23,7 @@ function App() {
         <Route exact path='/register' element={<Register/>}/>
         <Route exact path='/' element={<Dashboard/>}/>
         <Route exact path='/create' element={<Create/>}/>
+        <Route exact path='/stats' element={<SeeStatsPage/>}/>
         <Route exact path='/account-info' element={<AccountInfo/>}/>
       </Routes>
     </div>

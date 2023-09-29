@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
+import { capitalizeFunction } from "../utils/capitalizeFunction";
 
 export const Create = () => {
   const [exerciseDivs, setExerciseDivs] = useState([]);
@@ -16,11 +17,10 @@ export const Create = () => {
     searchBar.value = "";
     searchBar.placeholder = "Search";
     // run capitalize
-    let title = capitazlie(searchValue);
+    let title = capitalizeFunction(searchValue);
     let parsed_name = title.split(" ");
     let searchTitle = title.replace(/\s/g, "");
-    console.log(searchTitle);
-    // query DB for exercise
+    // query DB for exercise 
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -31,8 +31,6 @@ export const Create = () => {
       .then((data) => {
         console.log(data);
         if (data.message === "Yes") {
-          console.log("there is a name " + data.exercise);
-
           // TODO pass in 1RM
           newExerciseDiv = (
             <ExerciseDiv
@@ -44,7 +42,6 @@ export const Create = () => {
           );
           return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
         } else if (data.message === "No") {
-          console.log("there is not a name");
           const requestOptions = {
             method: "POST",
             headers: { "Content-Type": "application/json" },
@@ -58,8 +55,6 @@ export const Create = () => {
           fetch("http://localhost:3002/api/exercise", requestOptions)
             .then((response) => response.json())
             .then((data) => {
-              console.log(data);
-
               newExerciseDiv = (
                 <ExerciseDiv
                   id={data._id}
@@ -72,25 +67,21 @@ export const Create = () => {
               return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
             });
         }
-      //   if (newExerciseDiv) {
-      //     setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
-      //   }
       });
 
   };
 
-  // capitazlie each word function
-  let capitazlie = (string) => {
-    const exerciseTitle = string.split(" ");
-    // empty array for words
-    let capitalizedArray = [];
-    exerciseTitle.forEach((word) => {
-      let capitazlieEach = word.charAt(0).toUpperCase() + word.slice(1);
-      capitalizedArray.push(capitazlieEach);
-    });
-    // return as a string value
-    return capitalizedArray.join(" ");
-  };
+  // let capitazlie = (string) => {
+  //   const exerciseTitle = string.split(" ");
+  //   // empty array for words
+  //   let capitalizedArray = [];
+  //   exerciseTitle.forEach((word) => {
+  //     let capitazlieEach = word.charAt(0).toUpperCase() + word.slice(1);
+  //     capitalizedArray.push(capitazlieEach);
+  //   });
+  //   // return as a string value
+  //   return capitalizedArray.join(" ");
+  // };
 
   const putWorkout = (array) => {
     // Rename to putWorkout for clarity

@@ -4,7 +4,6 @@ import dotsImg from "../assets/images/dots.jpg";
 
 export const ExerciseDiv = (props) => {
   const [sets, setSets] = useState([]);
-  // const [oneRepMaxSet, setOneRepMax] = useState(0);
   const [weightInput, setWeightInput] = useState("");
   const [repsInput, setRepsInput] = useState("");
 
@@ -19,10 +18,13 @@ export const ExerciseDiv = (props) => {
       const testMax = oneRepMax(weight, reps);
       if (testMax > current1Rm) {
         current1Rm = testMax;
-        props.setOneRepMax(current1Rm);
+        // send back ID and 1RM
+        const objectToSend = {
+          id: props.id,
+          new1RM: current1Rm
+        }
+        props.passData(objectToSend);
       }
-      // setOneRepMax((oneRepMaxSet) => Math.max(oneRepMaxSet, testMax));
-      console.log(current1Rm);
       setSets([...sets, `${weight}lbs x ${reps}`]);
       setWeightInput("");
       setRepsInput("");
@@ -69,7 +71,7 @@ export const ExerciseDiv = (props) => {
             Go
           </button>
         </section>
-        <section oneRepMaxSet={props.oneRepMaxSet} className="set-print-section">
+        <section className="set-print-section">
           <ul className="flex flex-row gap-2.5">{listOfSets}</ul>
         </section>
       </div>

@@ -74,15 +74,6 @@ export const Create = () => {
         }
 
       });
-    // push to array
-    // const newExerciseDiv = (
-    //   <ExerciseDiv
-    //     key={exerciseDivs.length}
-    //     oneRepMaxSet={oneRepMaxSet}
-    //     setOneRepMax={setOneRepMax}
-    //     title={title}
-    //   />
-    // );
   };
 
   // capitazlie each word function
@@ -98,41 +89,43 @@ export const Create = () => {
     return capitalizedArray.join(" ");
   };
 
-  const postWorkout = (array) => {
+  const putWorkout = (array) => { // Rename to putWorkout for clarity
     array.forEach((object) => {
       const requestOptions = {
-        method: "POST",
+        method: "PUT", // Make sure this is the correct HTTP method
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(object),
       };
-      fetch("http://localhost:3002/api/exercise", requestOptions)
-        .then((response) => response.json())
-        .then((data) => console.log(data));
+      fetch(`http://localhost:3002/api/exercise/${object._id}`, requestOptions) // Use _id instead of id
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => console.log(data))
+        .catch((error) => console.error("Error:", error)); // Handle errors
     });
   };
-
+  
   const consolidateWorkout = (array) => {
     return array.map((word) => {
-      const full_name = word.props.title;
-      const parsed_name = full_name.split(" ");
-      const search_name = full_name.replace(/\s/g, "");
+      const id = word.props.id;
       const oneRepMaxComplete = word.props.oneRepMax;
-
-      // Create an object with the desired properties
       return {
-        full_name: full_name,
-        parsed_name: parsed_name,
+        _id: id, // Use _id instead of id
         one_rep_max: oneRepMaxComplete,
-        search_name: search_name,
       };
     });
   };
-
+  
   const saveWorkout = () => {
     let workout = consolidateWorkout(exerciseDivs);
-    postWorkout(workout);
-    console.log(workout);
+    console.log("Consolidated Workout:", workout);
+    putWorkout(workout);
   };
+  
+  
 
   return (
     <>

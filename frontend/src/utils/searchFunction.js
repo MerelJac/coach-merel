@@ -12,5 +12,12 @@ export const searchFunction = (searchTerm) => {
   fetch(`http://localhost:3002/api/exercise/${searchTitle}`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);})
+        if (data.message === 'Yes') {
+            console.log(data.exercise.full_name, data.exercise.one_rep_max ) 
+        } else if (data.message === 'No') {
+            console.log('Nope') 
+        } else {
+            console.log('Something went wrong') 
+        }
+      })
 };

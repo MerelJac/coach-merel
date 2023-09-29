@@ -20,7 +20,7 @@ export const Create = () => {
     let title = capitalizeFunction(searchValue);
     let parsed_name = title.split(" ");
     let searchTitle = title.replace(/\s/g, "");
-    // query DB for exercise 
+    // query DB for exercise
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -34,6 +34,7 @@ export const Create = () => {
           // TODO pass in 1RM
           newExerciseDiv = (
             <ExerciseDiv
+              id={data.exercise._id}
               key={data.exercise._id}
               oneRepMaxSet={oneRepMaxSet}
               setOneRepMax={setOneRepMax}
@@ -68,20 +69,7 @@ export const Create = () => {
             });
         }
       });
-
   };
-
-  // let capitazlie = (string) => {
-  //   const exerciseTitle = string.split(" ");
-  //   // empty array for words
-  //   let capitalizedArray = [];
-  //   exerciseTitle.forEach((word) => {
-  //     let capitazlieEach = word.charAt(0).toUpperCase() + word.slice(1);
-  //     capitalizedArray.push(capitazlieEach);
-  //   });
-  //   // return as a string value
-  //   return capitalizedArray.join(" ");
-  // };
 
   const putWorkout = (array) => {
     // Rename to putWorkout for clarity

@@ -11,15 +11,24 @@ export const Create = () => {
   let newExerciseDiv;
 
   const passData = (data) => {
-    console.log(data)
+    console.log(data);
     const id = data.id;
-    const update1RM = data.new1RM
-    console.log(id, update1RM)
-    // setArrayOfExercises((data) => )
-  }
+    const update1RM = data.new1RM;
+    console.log(id, update1RM);
+    console.log('array of exercises', arrayOfExercises)
+    const updatedArray = arrayOfExercises.map((exerciseObject) => {
+      if (exerciseObject.id === id) {
+        return true
+      } else {
+        return false 
+      }
+    });
+    console.log(updatedArray);
+    // map over array of objects and update
+  };
 
   console.log(arrayOfExercises);
-  console.log(exerciseDivs)
+  console.log(exerciseDivs);
   const searchFunction = (e) => {
     // find elements
     const searchBar = document.querySelector("#create-search");
@@ -47,12 +56,14 @@ export const Create = () => {
             <ExerciseDiv
               passData={passData}
               id={data.exercise._id}
-              key={data.length}
+              // ERROR update key
+              key={exerciseDivs.length}
               title={data.exercise.full_name}
             />
           );
           // build object and update state
           const buildArray = {
+            id: data.exercise.id,
             full_name: data.exercise.full_name,
             parsed_name: parsed_name,
             search_name: searchTitle,
@@ -77,6 +88,7 @@ export const Create = () => {
             .then((data) => {
               newExerciseDiv = (
                 <ExerciseDiv
+                  passData={passData}
                   id={data._id}
                   key={exerciseDivs.length}
                   title={title}

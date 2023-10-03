@@ -4,11 +4,10 @@ import dotsImg from "../assets/images/dots.jpg";
 
 export const ExerciseDiv = (props) => {
   const [sets, setSets] = useState([]);
-  // const [oneRepMaxSet, setOneRepMax] = useState(0);
   const [weightInput, setWeightInput] = useState("");
   const [repsInput, setRepsInput] = useState("");
 
-  let current1Rm = 0;
+  let current1Rm = props.oneRepMax;
 
   const setInfo = async (e) => {
     e.preventDefault();
@@ -16,20 +15,27 @@ export const ExerciseDiv = (props) => {
     const weight = parseInt(weightInput);
 
     if (!isNaN(reps) && !isNaN(weight)) {
-      const testMax = oneRepMax(weight, reps);
+      let testMax = await oneRepMaxFunction(weight, reps);
       if (testMax > current1Rm) {
         current1Rm = testMax;
-        props.setOneRepMax(current1Rm);
+
+        // send back ID and 1RM
+        const objectToSend = {
+          id: props.id,
+          new1RM: current1Rm
+        }
+        console.log('should override 1RM', objectToSend)
+        props.passData(objectToSend);
       }
-      // setOneRepMax((oneRepMaxSet) => Math.max(oneRepMaxSet, testMax));
-      console.log(current1Rm);
       setSets([...sets, `${weight}lbs x ${reps}`]);
       setWeightInput("");
       setRepsInput("");
+    } else {
+      console.log('nothing happened')
     }
   };
 
-  const oneRepMax = (weight, reps) => {
+  const oneRepMaxFunction = (weight, reps) => {
     if (weight >= 1) {
       // Epley formula for 1RM
       let test1RM = weight / (1.0278 - 0.0278 * reps);
@@ -69,7 +75,7 @@ export const ExerciseDiv = (props) => {
             Go
           </button>
         </section>
-        <section oneRepMaxSet={props.oneRepMaxSet} className="set-print-section">
+        <section className="set-print-section">
           <ul className="flex flex-row gap-2.5">{listOfSets}</ul>
         </section>
       </div>

@@ -1,13 +1,29 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 import { capitalizeFunction } from "../utils/capitalizeFunction";
 
 export const Create = () => {
   const [exerciseDivs, setExerciseDivs] = useState([]);
   // getting the info from the child
-  const [oneRepMaxSet, setOneRepMax] = useState(0);
+  // const [oneRepMaxSet, setOneRepMax] = useState(0);
+  const [arrayOfExercises, setArrayOfExercises] = useState([]);
+  const [arrayOfUpdatedOneRepMaxes, setArrayOfUpdatedOneRepMaxes] = useState([])
   // global variable
   let newExerciseDiv;
+
+
+  // TODO - create a way to trigger array of exericises more often
+  useEffect(() => {
+    console.log('array of exercises', arrayOfExercises);
+  }, [arrayOfExercises]);
+
+  const passData = (data) => {
+    console.log("data from submit click", data);
+    const id = data.id;
+    const update1RM = data.new1RM;
+    console.log(id, update1RM);
+    setArrayOfUpdatedOneRepMaxes((arrayOfUpdatedOneRepMaxes) => [...arrayOfUpdatedOneRepMaxes, { id, update1RM }]);
+  };
 
   const searchFunction = (e) => {
     // find elements
@@ -31,16 +47,25 @@ export const Create = () => {
       .then((data) => {
         console.log(data);
         if (data.message === "Yes") {
-          // TODO pass in 1RM
           newExerciseDiv = (
             <ExerciseDiv
+              passData={passData}
               id={data.exercise._id}
-              key={data.exercise._id}
-              oneRepMaxSet={oneRepMaxSet}
-              setOneRepMax={setOneRepMax}
+              key={exerciseDivs.length}
               title={data.exercise.full_name}
+              oneRepMax={data.exercise.one_rep_max}
+              // todo - pass in 1RM!!
             />
           );
+          const buildArray = {
+            id: data.exercise.id,
+            full_name: data.exercise.full_name,
+            parsed_name: parsed_name,
+            search_name: searchTitle,
+            one_rep_max: data.exercise.one_rep_max,
+          };
+          setArrayOfExercises([buildArray, ...arrayOfExercises]);
+          console.log(arrayOfExercises);
           return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
         } else if (data.message === "No") {
           const requestOptions = {
@@ -58,18 +83,31 @@ export const Create = () => {
             .then((data) => {
               newExerciseDiv = (
                 <ExerciseDiv
+                  passData={passData}
                   id={data._id}
                   key={exerciseDivs.length}
-                  oneRepMaxSet={oneRepMaxSet}
-                  setOneRepMax={setOneRepMax}
                   title={title}
+                  oneRepMax={data.one_rep_max}
                 />
               );
+              //this will probably error
+              const buildArray = {
+                id: data._id,
+                full_name: data.title,
+                parsed_name: parsed_name,
+                search_name: searchTitle,
+                one_rep_max: data.one_rep_max,
+              };
+              console.log('new exercise', buildArray)
+              setArrayOfExercises([buildArray, ...arrayOfExercises]);
+              // build object and update state
               return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
             });
         }
       });
   };
+
+
 
   const putWorkout = (array) => {
     // Rename to putWorkout for clarity
@@ -79,7 +117,7 @@ export const Create = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(object),
       };
-      fetch(`http://localhost:3002/api/exercise/${object._id}`, requestOptions) // Use _id instead of id
+      fetch(`http://localhost:3002/api/exercise/${object.id}`, requestOptions) // Use _id instead of id
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -91,21 +129,9 @@ export const Create = () => {
     });
   };
 
-  const consolidateWorkout = (array) => {
-    return array.map((word) => {
-      const id = word.props.id;
-      const oneRepMaxComplete = word.props.oneRepMax;
-      return {
-        _id: id, // Use _id instead of id
-        one_rep_max: oneRepMaxComplete,
-      };
-    });
-  };
-
   const saveWorkout = () => {
-    let workout = consolidateWorkout(exerciseDivs);
-    console.log("Consolidated Workout:", workout);
-    putWorkout(workout);
+    putWorkout(arrayOfUpdatedOneRepMaxes);
+    console.log('array of updates', arrayOfUpdatedOneRepMaxes)
   };
 
   return (

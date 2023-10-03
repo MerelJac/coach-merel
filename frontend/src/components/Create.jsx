@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 import { capitalizeFunction } from "../utils/capitalizeFunction";
 
@@ -7,28 +7,36 @@ export const Create = () => {
   // getting the info from the child
   // const [oneRepMaxSet, setOneRepMax] = useState(0);
   const [arrayOfExercises, setArrayOfExercises] = useState([]);
+  const [arrayOfUpdatedOneRepMaxes, setArrayOfUpdatedOneRepMaxes] = useState([])
   // global variable
   let newExerciseDiv;
 
+
+  // TODO - create a way to trigger array of exericises more often
+  useEffect(() => {
+    console.log('array of exercises', arrayOfExercises);
+  }, [arrayOfExercises]);
+
   const passData = (data) => {
-    console.log(data);
+    console.log("data from submit click", data);
     const id = data.id;
     const update1RM = data.new1RM;
     console.log(id, update1RM);
-    console.log('array of exercises', arrayOfExercises)
+    setArrayOfUpdatedOneRepMaxes((arrayOfUpdatedOneRepMaxes) => [...arrayOfUpdatedOneRepMaxes, { id, update1RM }]);
+    console.log(arrayOfUpdatedOneRepMaxes)
     const updatedArray = arrayOfExercises.map((exerciseObject) => {
       if (exerciseObject.id === id) {
-        return true
+        console.log('exercise object', exerciseObject)
+        console.log("greater than", exerciseObject.one_rep_max);
+        return setArrayOfExercises((arrayOfExercises) => [...arrayOfExercises, exerciseObject]);
       } else {
-        return false 
+        return setArrayOfExercises(arrayOfExercises, {exerciseObject});
       }
     });
     console.log(updatedArray);
     // map over array of objects and update
   };
 
-  console.log(arrayOfExercises);
-  console.log(exerciseDivs);
   const searchFunction = (e) => {
     // find elements
     const searchBar = document.querySelector("#create-search");
@@ -51,17 +59,16 @@ export const Create = () => {
       .then((data) => {
         console.log(data);
         if (data.message === "Yes") {
-          // TODO pass in 1RM
           newExerciseDiv = (
             <ExerciseDiv
               passData={passData}
               id={data.exercise._id}
-              // ERROR update key
               key={exerciseDivs.length}
               title={data.exercise.full_name}
+              oneRepMax={data.exercise.one_rep_max}
+              // todo - pass in 1RM!!
             />
           );
-          // build object and update state
           const buildArray = {
             id: data.exercise.id,
             full_name: data.exercise.full_name,
@@ -92,8 +99,19 @@ export const Create = () => {
                   id={data._id}
                   key={exerciseDivs.length}
                   title={title}
+                  oneRepMax={data.one_rep_max}
                 />
               );
+              //this will probably error
+              const buildArray = {
+                id: data._id,
+                full_name: data.title,
+                parsed_name: parsed_name,
+                search_name: searchTitle,
+                one_rep_max: data.one_rep_max,
+              };
+              console.log('new exercise', buildArray)
+              setArrayOfExercises([buildArray, ...arrayOfExercises]);
               // build object and update state
               return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
             });
@@ -137,6 +155,7 @@ export const Create = () => {
     let updateEachExercise = consolidateWorkout(exerciseDivs);
     console.log("Consolidated Workout:", updateEachExercise);
     putWorkout(updateEachExercise);
+    console.log('array of updates', arrayOfUpdatedOneRepMaxes)
   };
 
   return (

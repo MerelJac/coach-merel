@@ -7,7 +7,7 @@ export const ExerciseDiv = (props) => {
   const [weightInput, setWeightInput] = useState("");
   const [repsInput, setRepsInput] = useState("");
 
-  let current1Rm = 0;
+  let current1Rm = props.oneRepMax;
 
   const setInfo = async (e) => {
     e.preventDefault();
@@ -15,23 +15,27 @@ export const ExerciseDiv = (props) => {
     const weight = parseInt(weightInput);
 
     if (!isNaN(reps) && !isNaN(weight)) {
-      const testMax = oneRepMax(weight, reps);
+      let testMax = await oneRepMaxFunction(weight, reps);
       if (testMax > current1Rm) {
         current1Rm = testMax;
+
         // send back ID and 1RM
         const objectToSend = {
           id: props.id,
           new1RM: current1Rm
         }
+        console.log('should override 1RM', objectToSend)
         props.passData(objectToSend);
       }
       setSets([...sets, `${weight}lbs x ${reps}`]);
       setWeightInput("");
       setRepsInput("");
+    } else {
+      console.log('nothing happened')
     }
   };
 
-  const oneRepMax = (weight, reps) => {
+  const oneRepMaxFunction = (weight, reps) => {
     if (weight >= 1) {
       // Epley formula for 1RM
       let test1RM = weight / (1.0278 - 0.0278 * reps);

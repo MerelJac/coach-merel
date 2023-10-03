@@ -1,27 +1,18 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 import { capitalizeFunction } from "../utils/capitalizeFunction";
 
 export const Create = () => {
   const [exerciseDivs, setExerciseDivs] = useState([]);
-  // getting the info from the child
-  // const [oneRepMaxSet, setOneRepMax] = useState(0);
-  const [arrayOfExercises, setArrayOfExercises] = useState([]);
+
   const [arrayOfUpdatedOneRepMaxes, setArrayOfUpdatedOneRepMaxes] = useState([])
   // global variable
   let newExerciseDiv;
 
 
-  // TODO - create a way to trigger array of exericises more often
-  useEffect(() => {
-    console.log('array of exercises', arrayOfExercises);
-  }, [arrayOfExercises]);
-
   const passData = (data) => {
-    console.log("data from submit click", data);
     const id = data.id;
     const update1RM = data.new1RM;
-    console.log(id, update1RM);
     setArrayOfUpdatedOneRepMaxes((arrayOfUpdatedOneRepMaxes) => [...arrayOfUpdatedOneRepMaxes, { id, update1RM }]);
   };
 
@@ -54,18 +45,9 @@ export const Create = () => {
               key={exerciseDivs.length}
               title={data.exercise.full_name}
               oneRepMax={data.exercise.one_rep_max}
-              // todo - pass in 1RM!!
             />
           );
-          const buildArray = {
-            id: data.exercise.id,
-            full_name: data.exercise.full_name,
-            parsed_name: parsed_name,
-            search_name: searchTitle,
-            one_rep_max: data.exercise.one_rep_max,
-          };
-          setArrayOfExercises([buildArray, ...arrayOfExercises]);
-          console.log(arrayOfExercises);
+    
           return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
         } else if (data.message === "No") {
           const requestOptions = {
@@ -90,17 +72,6 @@ export const Create = () => {
                   oneRepMax={data.one_rep_max}
                 />
               );
-              //this will probably error
-              const buildArray = {
-                id: data._id,
-                full_name: data.title,
-                parsed_name: parsed_name,
-                search_name: searchTitle,
-                one_rep_max: data.one_rep_max,
-              };
-              console.log('new exercise', buildArray)
-              setArrayOfExercises([buildArray, ...arrayOfExercises]);
-              // build object and update state
               return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
             });
         }
@@ -109,15 +80,14 @@ export const Create = () => {
 
 
 
-  const putWorkout = (array) => {
-    // Rename to putWorkout for clarity
-    array.forEach((object) => {
+  const putWorkout = async (array) => {
+    await array.forEach((object) => {
       const requestOptions = {
-        method: "PUT", // Make sure this is the correct HTTP method
+        method: "PUT", 
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(object),
       };
-      fetch(`http://localhost:3002/api/exercise/${object.id}`, requestOptions) // Use _id instead of id
+      fetch(`http://localhost:3002/api/exercise/${object.id}`, requestOptions) 
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -125,13 +95,13 @@ export const Create = () => {
           return response.json();
         })
         .then((data) => console.log(data))
-        .catch((error) => console.error("Error:", error)); // Handle errors
+        .catch((error) => console.error("Error:", error)); 
     });
+    console.log('completed')
   };
 
   const saveWorkout = () => {
     putWorkout(arrayOfUpdatedOneRepMaxes);
-    console.log('array of updates', arrayOfUpdatedOneRepMaxes)
   };
 
   return (

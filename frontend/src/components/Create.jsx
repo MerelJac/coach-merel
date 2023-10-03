@@ -23,18 +23,6 @@ export const Create = () => {
     const update1RM = data.new1RM;
     console.log(id, update1RM);
     setArrayOfUpdatedOneRepMaxes((arrayOfUpdatedOneRepMaxes) => [...arrayOfUpdatedOneRepMaxes, { id, update1RM }]);
-    console.log(arrayOfUpdatedOneRepMaxes)
-    const updatedArray = arrayOfExercises.map((exerciseObject) => {
-      if (exerciseObject.id === id) {
-        console.log('exercise object', exerciseObject)
-        console.log("greater than", exerciseObject.one_rep_max);
-        return setArrayOfExercises((arrayOfExercises) => [...arrayOfExercises, exerciseObject]);
-      } else {
-        return setArrayOfExercises(arrayOfExercises, {exerciseObject});
-      }
-    });
-    console.log(updatedArray);
-    // map over array of objects and update
   };
 
   const searchFunction = (e) => {
@@ -119,6 +107,8 @@ export const Create = () => {
       });
   };
 
+
+
   const putWorkout = (array) => {
     // Rename to putWorkout for clarity
     array.forEach((object) => {
@@ -127,7 +117,7 @@ export const Create = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(object),
       };
-      fetch(`http://localhost:3002/api/exercise/${object._id}`, requestOptions) // Use _id instead of id
+      fetch(`http://localhost:3002/api/exercise/${object.id}`, requestOptions) // Use _id instead of id
         .then((response) => {
           if (!response.ok) {
             throw new Error(`HTTP error! Status: ${response.status}`);
@@ -139,22 +129,8 @@ export const Create = () => {
     });
   };
 
-  const consolidateWorkout = (array) => {
-    return array.map((word) => {
-      console.log(word);
-      const id = word.props.id;
-      const oneRepMaxComplete = word.props.oneRepMax;
-      return {
-        _id: id, // Use _id instead of id
-        one_rep_max: oneRepMaxComplete,
-      };
-    });
-  };
-
   const saveWorkout = () => {
-    let updateEachExercise = consolidateWorkout(exerciseDivs);
-    console.log("Consolidated Workout:", updateEachExercise);
-    putWorkout(updateEachExercise);
+    putWorkout(arrayOfUpdatedOneRepMaxes);
     console.log('array of updates', arrayOfUpdatedOneRepMaxes)
   };
 

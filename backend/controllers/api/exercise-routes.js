@@ -49,7 +49,7 @@ router.post('/:title', async (req, res) => {
 router.put('/:id', async (req, res) => {
     try {
       const id = req.params.id;
-      const updateRepMax = req.body.one_rep_max; // Correct the property name to one_rep_max
+      const updateRepMax = req.body.update1RM; // Correct the property name to one_rep_max
   
       // Use findOneAndUpdate to update the one_rep_max field
       const updatedExercise = await Exercise.findOneAndUpdate(

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { searchFunction } from "../utils/searchFunction";
-import { OneRepMaxStats } from "./Stats1RM";
+import { OneRepMaxStats } from "./FoundExerciseResult";
 import { NotFoundExerciseDiv } from "./NotFoundExerciseResult";
 
 export const SearchBar = (props) => {

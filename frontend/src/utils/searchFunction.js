@@ -18,7 +18,7 @@ export const searchFunction = async (searchTerm) => {
               return data.exercise
           } else if (data.message === 'No') {
               console.log('Nope') 
-              return 'Haven`t hit that lift yet'
+              return false
           } else {
               console.log('Something went wrong') 
               return 'There was an error'

@@ -18,7 +18,7 @@ export const SearchBar = (props) => {
     console.log(response) 
     if (response === false) {
       const notFoundSearchExercise = (
-        <NotFoundExerciseDiv full_name={'Haven`t hit that lift yet.'}/>)
+        <NotFoundExerciseDiv full_name={`Haven't hit that lift yet.`}/>)
       setCurrentSearchExercise(notFoundSearchExercise);
     } else {
       const newSearchExercise = (
@@ -40,8 +40,8 @@ export const SearchBar = (props) => {
         ></input>
         <button onClick={handleSearch}>Search</button>
       </section>
-      <section className="flex flex-row text-center">
-        {currentSearchExercise}{" "}
+      <section className="flex justify-center">
+        {currentSearchExercise}
       </section>
     </>
   );

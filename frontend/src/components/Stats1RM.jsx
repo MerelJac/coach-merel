@@ -8,16 +8,14 @@ export const OneRepMaxStats = (props) => {
           <div className="exercise-text">
             <h2 className="bold">{props.full_name}</h2>
           </div>
-          <div>
+          <div className="flex justify-center">
             <input
               className="text-center w-[60px] weight"
               placeholder={props.one_rep_max}
-              value=""
             ></input>
             <input
               className="text-center w-[60px] reps"
               placeholder="1 rep"
-              // value={repsInput}
             ></input>
           </div>
         </section>

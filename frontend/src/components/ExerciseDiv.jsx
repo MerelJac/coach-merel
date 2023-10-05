@@ -19,7 +19,7 @@ export const ExerciseDiv = (props) => {
     } else {
       setNewExercise(false);
     }
-  }, []);
+  }, [props.oneRepMax]);
 
   const equationSetWeight = (e) => {
     console.log(e);
@@ -33,6 +33,21 @@ export const ExerciseDiv = (props) => {
       let reps = (e / props.oneRepMax - 1.0278) / -0.0278;
 
       setRepsInputPlaceholder(Math.floor(reps));
+    }
+  };
+
+  const equationSetReps = (e) => {
+    console.log(e);
+    setRepsInput(e);
+
+    // Reset the repsInputPlaceholder to 'reps'
+    setWeightInputPlaceholder("lbs");
+
+    // Error handling
+    if (newExercise) {
+      let weight = (-0.0278 * e + 1.0278) *props.oneRepMax;
+
+      setWeightInputPlaceholder(Math.floor(weight));
     }
   };
 
@@ -93,7 +108,7 @@ export const ExerciseDiv = (props) => {
               className="text-center w-[60px] reps"
               placeholder={repsInputPlaceholder}
               value={repsInput}
-              onChange={(e) => setRepsInput(e.target.value)}
+              onChange={(e) => equationSetReps(e.target.value)}
             ></input>
           </div>
           <button className="submitRep" type="submit" onClick={setInfo}>

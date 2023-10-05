@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { searchFunction } from "../utils/searchFunction";
 import { OneRepMaxStats } from "./FoundExerciseResult";
 import { NotFoundExerciseDiv } from "./NotFoundExerciseResult";
-import { suggestionsGrip } from "../utils/suggestionsGrip";
 
 export const SearchBar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -29,9 +28,7 @@ export const SearchBar = (props) => {
       setCurrentSearchExercise(newSearchExercise);
     }
   };
-  const testArray = ['close grip sit up', 'wide grip pull up']
 
-  suggestionsGrip(testArray)
 
   return (
     <>

@@ -9,6 +9,7 @@ export const SearchBar = (props) => {
   // const [searchMax, setSearchResultMax] = useState("");
   const [currentSearchExercise, setCurrentSearchExercise] = useState();
 
+
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
   };
@@ -27,6 +28,7 @@ export const SearchBar = (props) => {
       setCurrentSearchExercise(newSearchExercise);
     }
   };
+
 
   return (
     <>

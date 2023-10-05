@@ -13,8 +13,8 @@ export const suggestionsGrip = (array) => {
     const words = exercise.split(' ');
     // Loop through the words and check if they match any grips
     words.forEach((word) => {
-      if (gripArray.includes(word.toLowerCase())) {
-        gripCounts[word.toLowerCase()]++;
+      if (gripArray.includes(word)) {
+        gripCounts[word]++;
       }
     });
   });

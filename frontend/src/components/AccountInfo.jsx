@@ -5,16 +5,16 @@ export const AccountInfo = () => {
   const navigate = useNavigate();
   const [showField, setShowDialog] = useState(false);
   const [newPassword, setNewPassword] = useState("");
-  cons [newName, setNewName] = useState("");
+  // cons [newName, setNewName] = useState("");
 
 
   const handlePasswordChange = (e) => {
     setNewPassword(e.target.value);
   };
 
-  const handleNameChange = (e) => {
-    setNewName(e.target.value);
-  };
+  // const handleNameChange = (e) => {
+  //   setNewName(e.target.value);
+  // };
 
   const handleUpdate = () => {
     // Perform update operation using GraphQL mutation (to be implemented later)
@@ -30,7 +30,7 @@ export const AccountInfo = () => {
   
       // Clear form fields and close the dialog
       setNewPassword("");
-      setNewName("");
+      // setNewName("");
       setShowDialog(false);
 
   };
@@ -69,8 +69,8 @@ export const AccountInfo = () => {
             <input
               type="text"
               id="newName"
-              value={newName}
-              onChange={handleNameChange}
+              // value={newName}
+              // onChange={handleNameChange}
             />
           </div>
           <button onClick={handleUpdate}>Update</button>

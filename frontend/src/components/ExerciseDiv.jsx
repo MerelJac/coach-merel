@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "../assets/css/exerciseDiv.css";
+import "../assets/css/startWorkout.css";
 import dotsImg from "../assets/images/dots.jpg";
 
 export const ExerciseDiv = (props) => {
@@ -57,15 +58,15 @@ export const ExerciseDiv = (props) => {
               {props.title}
             </h2>
           </div>
-          <div>
+          <div clasName="inline-block;">
             <input
-              className="text-center w-[60px] weight"
+              className="mb-2 text-sm font-small text-gray-900 dark:text-black lbs-input"
               placeholder="lbs"
               value={weightInput}
               onChange={(e) => setWeightInput(e.target.value)}
             ></input>
             <input
-              className="text-center w-[60px] reps"
+              className="mb-2 text-sm font-small text-gray-900 dark:text-black reps-input"
               placeholder="reps"
               value={repsInput}
               onChange={(e) => setRepsInput(e.target.value)}
@@ -76,7 +77,7 @@ export const ExerciseDiv = (props) => {
           </button>
         </section>
         <section className="set-print-section">
-          <ul className="flex flex-row gap-2.5">{listOfSets}</ul>
+          <ul className="flex flex-row">{listOfSets}</ul>
         </section>
       </div>
     </>

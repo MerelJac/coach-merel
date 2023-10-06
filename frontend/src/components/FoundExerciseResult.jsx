@@ -18,6 +18,7 @@ export const OneRepMaxStats = (props) => {
     setTimeout(() => {
       setRepsInputPlaceholder(Math.floor(reps));
     }, 250);
+    });
   };
 
   const equationSetReps = (e) => {

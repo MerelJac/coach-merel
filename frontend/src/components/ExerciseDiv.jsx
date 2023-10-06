@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/exerciseDiv.css";
+import "../assets/css/startWorkout.css";
 
 export const ExerciseDiv = (props) => {
   const [sets, setSets] = useState([]);
@@ -93,15 +94,15 @@ export const ExerciseDiv = (props) => {
           <div className="exercise-text">
             <h2 className="bold">{props.title}</h2>
           </div>
-          <div>
+          <div clasName="inline-block;">
             <input
-              className="text-center w-[60px] weight"
+              className="mb-2 text-sm font-small text-gray-900 dark:text-black lbs-input"
               placeholder={weightInputPlaceholder}
               value={weightInput}
               onChange={(e) => equationSetWeight(e.target.value)}
             ></input>
             <input
-              className="text-center w-[60px] reps"
+              className="mb-2 text-sm font-small text-gray-900 dark:text-black reps-input"
               placeholder={repsInputPlaceholder}
               value={repsInput}
               onChange={(e) => equationSetReps(e.target.value)}
@@ -112,7 +113,7 @@ export const ExerciseDiv = (props) => {
           </button>
         </section>
         <section className="set-print-section">
-          <ul className="flex flex-row gap-2.5">{listOfSets}</ul>
+          <ul className="flex flex-row">{listOfSets}</ul>
         </section>
       </div>
     </>

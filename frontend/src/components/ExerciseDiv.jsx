@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/exerciseDiv.css";
 import "../assets/css/startWorkout.css";
-import dotsImg from "../assets/images/dots.jpg";
 
 export const ExerciseDiv = (props) => {
-  console.log(props, "props");
   const [sets, setSets] = useState([]);
   const [weightInput, setWeightInput] = useState("");
   const [repsInput, setRepsInput] = useState("");
@@ -23,7 +21,6 @@ export const ExerciseDiv = (props) => {
   }, [props.oneRepMax]);
 
   const equationSetWeight = (e) => {
-    console.log(e);
     setWeightInput(e);
 
     // Reset the repsInputPlaceholder to 'reps'
@@ -38,7 +35,6 @@ export const ExerciseDiv = (props) => {
   };
 
   const equationSetReps = (e) => {
-    console.log(e);
     setRepsInput(e);
 
     // Reset the repsInputPlaceholder to 'reps'
@@ -67,12 +63,13 @@ export const ExerciseDiv = (props) => {
           id: props.id,
           new1RM: current1Rm,
         };
-        console.log("should override 1RM", objectToSend);
         props.passData(objectToSend);
       }
       setSets([...sets, `${weight}lbs x ${reps}`]);
-      setWeightInput("");
-      setRepsInput("");
+      setWeightInputPlaceholder("lbs");
+      setRepsInputPlaceholder("reps");
+      setRepsInput("")
+      setWeightInput("")
     } else {
       console.log("nothing happened");
     }
@@ -94,7 +91,6 @@ export const ExerciseDiv = (props) => {
     <>
       <div className="exerciseDiv" id={props.id}>
         <section className="row">
-          <img alt="attributeImg" src={dotsImg}></img>
           <div className="exercise-text">
             <h2 className="bold">{props.title}</h2>
           </div>

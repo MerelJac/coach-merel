@@ -2,13 +2,18 @@ import React, { useState } from "react";
 import { searchFunction } from "../utils/searchFunction";
 import { OneRepMaxStats } from "./FoundExerciseResult";
 import { NotFoundExerciseDiv } from "./NotFoundExerciseResult";
+
 import "../../src/assets/css/startWorkout.css";
+
+import { suggestionsGrip } from "../utils/suggestionsGrip";
+
 
 export const SearchBar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   // const [searchTitle, setSearchResulTitle] = useState("");
   // const [searchMax, setSearchResultMax] = useState("");
   const [currentSearchExercise, setCurrentSearchExercise] = useState();
+
 
   const handleInputChange = (e) => {
     setSearchTerm(e.target.value);
@@ -28,6 +33,9 @@ export const SearchBar = (props) => {
       setCurrentSearchExercise(newSearchExercise);
     }
   };
+  const testArray = ['close grip sit up', 'wide grip pull up']
+
+  suggestionsGrip(testArray)
 
   return (
     <>

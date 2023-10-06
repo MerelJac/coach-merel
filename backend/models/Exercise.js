@@ -3,7 +3,7 @@ const { Schema, model } = require("mongoose");
 const exerciseSchema = new Schema(
   {
     userID: {
-      type: Number,
+      type: String,
     },
     full_name: {
       type: String,

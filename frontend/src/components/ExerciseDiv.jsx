@@ -1,14 +1,56 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import "../assets/css/exerciseDiv.css";
 import "../assets/css/startWorkout.css";
 import dotsImg from "../assets/images/dots.jpg";
 
 export const ExerciseDiv = (props) => {
+  console.log(props, "props");
   const [sets, setSets] = useState([]);
   const [weightInput, setWeightInput] = useState("");
   const [repsInput, setRepsInput] = useState("");
+  const [weightInputPlaceholder, setWeightInputPlaceholder] = useState("lbs");
+  const [repsInputPlaceholder, setRepsInputPlaceholder] = useState("reps");
+  const [newExercise, setNewExercise] = useState(false);
 
   let current1Rm = props.oneRepMax;
+
+  useEffect(() => {
+    if (props.oneRepMax > 0) {
+      setNewExercise(true);
+    } else {
+      setNewExercise(false);
+    }
+  }, [props.oneRepMax]);
+
+  const equationSetWeight = (e) => {
+    console.log(e);
+    setWeightInput(e);
+
+    // Reset the repsInputPlaceholder to 'reps'
+    setRepsInputPlaceholder("reps");
+
+    // Error handling
+    if (newExercise) {
+      let reps = (e / props.oneRepMax - 1.0278) / -0.0278;
+
+      setRepsInputPlaceholder(Math.floor(reps));
+    }
+  };
+
+  const equationSetReps = (e) => {
+    console.log(e);
+    setRepsInput(e);
+
+    // Reset the repsInputPlaceholder to 'reps'
+    setWeightInputPlaceholder("lbs");
+
+    // Error handling
+    if (newExercise) {
+      let weight = (-0.0278 * e + 1.0278) * props.oneRepMax;
+
+      setWeightInputPlaceholder(Math.floor(weight));
+    }
+  };
 
   const setInfo = async (e) => {
     e.preventDefault();
@@ -23,16 +65,16 @@ export const ExerciseDiv = (props) => {
         // send back ID and 1RM
         const objectToSend = {
           id: props.id,
-          new1RM: current1Rm
-        }
-        console.log('should override 1RM', objectToSend)
+          new1RM: current1Rm,
+        };
+        console.log("should override 1RM", objectToSend);
         props.passData(objectToSend);
       }
       setSets([...sets, `${weight}lbs x ${reps}`]);
       setWeightInput("");
       setRepsInput("");
     } else {
-      console.log('nothing happened')
+      console.log("nothing happened");
     }
   };
 
@@ -54,22 +96,20 @@ export const ExerciseDiv = (props) => {
         <section className="row">
           <img alt="attributeImg" src={dotsImg}></img>
           <div className="exercise-text">
-            <h2 className="bold">
-              {props.title}
-            </h2>
+            <h2 className="bold">{props.title}</h2>
           </div>
           <div clasName="inline-block;">
             <input
               className="mb-2 text-sm font-small text-gray-900 dark:text-black lbs-input"
-              placeholder="lbs"
+              placeholder={weightInputPlaceholder}
               value={weightInput}
-              onChange={(e) => setWeightInput(e.target.value)}
+              onChange={(e) => equationSetWeight(e.target.value)}
             ></input>
             <input
               className="mb-2 text-sm font-small text-gray-900 dark:text-black reps-input"
-              placeholder="reps"
+              placeholder={repsInputPlaceholder}
               value={repsInput}
-              onChange={(e) => setRepsInput(e.target.value)}
+              onChange={(e) => equationSetReps(e.target.value)}
             ></input>
           </div>
           <button className="submitRep" type="submit" onClick={setInfo}>

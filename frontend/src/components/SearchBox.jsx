@@ -8,6 +8,7 @@ import "../../src/assets/css/startWorkout.css";
 import { suggestionsGrip } from "../utils/suggestionsGrip";
 
 
+
 export const SearchBar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
   // const [searchTitle, setSearchResulTitle] = useState("");
@@ -33,9 +34,7 @@ export const SearchBar = (props) => {
       setCurrentSearchExercise(newSearchExercise);
     }
   };
-  const testArray = ['close grip sit up', 'wide grip pull up']
 
-  suggestionsGrip(testArray)
 
   return (
     <>

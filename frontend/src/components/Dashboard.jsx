@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { auth } from "../utils/auth";
+import "../../src/assets/css/dashboard.css";
 // authenticate user
 async function isAuthenticated() {
   let authStatus = await auth();
@@ -59,18 +60,18 @@ export const Dashboard = () => {
   return (
     <>
       <div className="bottom-div">
-        <h1 className="right-align">
+        <h1 className="right-align" id="welcome-user-name">
           Welcome<span className="bold">{user}</span>
         </h1>
-        <section className="column-right">
-          <h3
+        <section className="column-right" id="create-new-workout">
+          <h3 className="create-new-workout"
             onClick={() => {
               window.location.href = "/create";
             }}
           >
             Create New Workout
           </h3>
-          <h3
+          <h3 className="see-stats"
             onClick={() => {
               window.location.href = "/stats";
             }}

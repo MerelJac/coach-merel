@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 import { capitalizeFunction } from "../utils/capitalizeFunction";
+import "../../src/assets/css/startWorkout.css";
 
 export const Create = () => {
   const [exerciseDivs, setExerciseDivs] = useState([]);
@@ -117,9 +118,9 @@ export const Create = () => {
 
   return (
     <>
-      <div>
+      <div id="start-workout">
         <h1 className="right-align">
-          Start<span className="bold">NewWorkout</span>
+          new<span className="bold">WORKOUT</span>
         </h1>
       </div>
       <div>
@@ -132,9 +133,10 @@ export const Create = () => {
         <button onClick={searchFunction}>Search</button>
       </div>
       {exerciseDivs}
-      <button className="small-footer bottom-div" onClick={saveWorkout}>
+      <div className="flex justify-center">
+      <button className="small-footer bottom-div save-workout" onClick={saveWorkout}>
         Save Workout
-      </button>
+      </button></div>
     </>
   );
 };

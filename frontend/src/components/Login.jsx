@@ -50,14 +50,14 @@ export const Login = () => {
     // all info goes in here
     <div className="auth-form-container bottom-div">
       <header className="flex justify-between">
-        <h1 className="right-align">
+        <h1 className="right-align ml-3">
           Welcome<span className="bold">Back</span>
         </h1>
         <p>{message}</p>
       </header>
 
       <form className="column-right" onSubmit={handleSubmit}>
-        <input
+        <input className="mr-3"
           value={email}
           onChange={(e) => setEmail(e.target.value)}
           type="email"
@@ -66,7 +66,7 @@ export const Login = () => {
           name="email"
         />
 
-        <input
+        <input className="mr-3"
           value={password}
           onChange={(e) => setPassword(e.target.value)}
           type="password"
@@ -79,7 +79,7 @@ export const Login = () => {
       </form>
 
       <button
-        className="small-footer"
+        className="small-footer ml-3 mb-1"
         onClick={() => (window.location.href = "/register")}
       >
         Don't have an account? Register here.

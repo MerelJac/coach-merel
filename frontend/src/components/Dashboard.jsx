@@ -61,14 +61,14 @@ export const Dashboard = () => {
           Welcome<span className="bold">{user}</span>
         </h1>
         <section className="column-right" id="create-new-workout">
-          <h3
+          <h3 className="create-new-workout"
             onClick={() => {
               window.location.href = "/create";
             }}
           >
             Create New Workout
           </h3>
-          <h3
+          <h3 className="see-stats"
             onClick={() => {
               window.location.href = "/stats";
             }}

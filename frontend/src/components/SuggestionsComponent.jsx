@@ -35,7 +35,7 @@ export const SuggestionsComponent = () => {
 
   return (
     <>
-      <h2>Suggestions</h2>
+      <h2 className="p-3">Exercises to try:</h2>
       <div>{suggestions}</div>
     </>
   );

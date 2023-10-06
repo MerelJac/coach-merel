@@ -17,7 +17,6 @@ export const OneRepMaxStats = (props) => {
 
     setTimeout(() => {
       setRepsInputPlaceholder(Math.floor(reps));
-    }, 250);
     });
   };
 
@@ -31,7 +30,7 @@ export const OneRepMaxStats = (props) => {
     let weight = (-0.0278 * e + 1.0278) * props.one_rep_max;
     setTimeout(() => {
       setWeightInputPlaceholder(Math.floor(weight));
-    }, 250);
+    }, 500);
   };
 
   return (

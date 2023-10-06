@@ -2,12 +2,10 @@ import React, { useState, useEffect } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 import { capitalizeFunction } from "../utils/capitalizeFunction";
 import "../../src/assets/css/startWorkout.css";
-import { useNavigate } from "react-router-dom";
 
 export const Create = () => {
   const [exerciseDivs, setExerciseDivs] = useState([]);
   const [userId, setUserId] = useState('')
-  const navigate = useNavigate()
 
 
 
@@ -18,6 +16,7 @@ export const Create = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem('id')
+    console.log(userId)
     setUserId(userId)
   }, [userId])
 
@@ -25,7 +24,7 @@ export const Create = () => {
   const passData = (data) => {
     const id = data.id;
     const update1RM = data.new1RM;
-    setArrayOfUpdatedOneRepMaxes((arrayOfUpdatedOneRepMaxes) => [...arrayOfUpdatedOneRepMaxes, { id, update1RM, userId }]);
+    setArrayOfUpdatedOneRepMaxes((arrayOfUpdatedOneRepMaxes) => [...arrayOfUpdatedOneRepMaxes, { id, update1RM }]);
   };
 
   const searchFunction = (e) => {
@@ -43,11 +42,12 @@ export const Create = () => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: searchTitle, userID: userId }),
+      body: JSON.stringify({ title: searchTitle }),
     };
     fetch(`http://localhost:3002/api/exercise/${searchTitle}`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data);
         if (data.message === "Yes") {
           newExerciseDiv = (
             <ExerciseDiv
@@ -56,7 +56,6 @@ export const Create = () => {
               key={exerciseDivs.length}
               title={data.exercise.full_name}
               oneRepMax={data.exercise.one_rep_max}
-              userId={userId}
             />
           );
     
@@ -107,13 +106,14 @@ export const Create = () => {
           }
           return response.json();
         })
+        .then((data) => console.log(data))
         .catch((error) => console.error("Error:", error)); 
     });
+    console.log('completed')
   };
 
   const saveWorkout = () => {
     putWorkout(arrayOfUpdatedOneRepMaxes);
-    navigate('/')
   };
 
   return (

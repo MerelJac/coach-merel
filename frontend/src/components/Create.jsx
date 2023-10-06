@@ -15,7 +15,6 @@ export const Create = () => {
 
   useEffect(() => {
     const userId = localStorage.getItem('id')
-    console.log(userId)
     setUserId(userId)
   }, [userId])
 
@@ -41,7 +40,7 @@ export const Create = () => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: searchTitle }),
+      body: JSON.stringify({ title: searchTitle, userId: userId }),
     };
     fetch(`http://localhost:3002/api/exercise/${searchTitle}`, requestOptions)
       .then((response) => response.json())
@@ -55,6 +54,7 @@ export const Create = () => {
               key={exerciseDivs.length}
               title={data.exercise.full_name}
               oneRepMax={data.exercise.one_rep_max}
+              userId={userId}
             />
           );
     

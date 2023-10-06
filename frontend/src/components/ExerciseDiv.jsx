@@ -22,7 +22,6 @@ export const ExerciseDiv = (props) => {
   }, [props.oneRepMax]);
 
   const equationSetWeight = (e) => {
-    console.log(e);
     setWeightInput(e);
 
     // Reset the repsInputPlaceholder to 'reps'
@@ -70,8 +69,10 @@ export const ExerciseDiv = (props) => {
         props.passData(objectToSend);
       }
       setSets([...sets, `${weight}lbs x ${reps}`]);
-      setWeightInput("");
-      setRepsInput("");
+      setWeightInputPlaceholder("lbs");
+      setRepsInputPlaceholder("reps");
+      setRepsInput("")
+      setWeightInput("")
     } else {
       console.log("nothing happened");
     }
@@ -93,7 +94,6 @@ export const ExerciseDiv = (props) => {
     <>
       <div className="exerciseDiv" id={props.id}>
         <section className="row">
-          <img alt="attributeImg" src={dotsImg}></img>
           <div className="exercise-text">
             <h2 className="bold">{props.title}</h2>
           </div>

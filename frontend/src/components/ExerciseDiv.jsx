@@ -45,7 +45,7 @@ export const ExerciseDiv = (props) => {
 
     // Error handling
     if (newExercise) {
-      let weight = (-0.0278 * e + 1.0278) *props.oneRepMax;
+      let weight = (-0.0278 * e + 1.0278) * props.oneRepMax;
 
       setWeightInputPlaceholder(Math.floor(weight));
     }

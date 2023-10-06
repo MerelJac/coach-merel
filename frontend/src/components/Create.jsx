@@ -1,13 +1,23 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 import { capitalizeFunction } from "../utils/capitalizeFunction";
 
 export const Create = () => {
   const [exerciseDivs, setExerciseDivs] = useState([]);
+  const [userId, setUserId] = useState('')
+
+
+
 
   const [arrayOfUpdatedOneRepMaxes, setArrayOfUpdatedOneRepMaxes] = useState([])
   // global variable
   let newExerciseDiv;
+
+  useEffect(() => {
+    const userId = localStorage.getItem('id')
+    console.log(userId)
+    setUserId(userId)
+  }, [userId])
 
 
   const passData = (data) => {
@@ -58,6 +68,7 @@ export const Create = () => {
               parsed_name: parsed_name,
               search_name: searchTitle,
               one_rep_max: 0,
+              userID: userId
             }),
           };
           fetch("http://localhost:3002/api/exercise", requestOptions)

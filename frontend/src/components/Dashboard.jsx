@@ -19,8 +19,8 @@ async function isAuthenticated() {
       );
       // if successful, proceed with useEffect
       if (findUser.status === 200) {
-        const userFirstName = await findUser.json();
-        return userFirstName;
+        const user = await findUser.json();
+        return user;
       } else {
         return false;
       }
@@ -39,7 +39,10 @@ export const Dashboard = () => {
     isAuthenticated().then((authenticated) => {
       if (authenticated) {
         setAuthenticated(authenticated);
-        setUser(authenticated);
+        const authenticatedUsername = authenticated.user
+        const authenticatedId = authenticated.id;
+        localStorage.setItem('id', authenticatedId)
+        setUser(authenticatedUsername);
       } else {
         navigate("/login");
       }

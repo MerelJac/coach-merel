@@ -14,6 +14,10 @@ export const Header = (props) => {
     navigate("/account-info");
   };
 
+  const previousExercises = () => {
+    navigate("/previous-exercises");
+  };
+
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -26,7 +30,7 @@ export const Header = (props) => {
         h-12 w-12 rounded-full bg-gray-600 mr-2 mt-2 account">A</button>
         {isOpen && ( <div className="flex flex-col">
           <button className="menu-account text-sm" onClick={accountInfo}>Account</button>
-          <button className="menu-saved-exercises text-sm">Workouts</button>
+          <button className="menu-saved-exercises text-sm" onClick={previousExercises}>Workouts</button>
         </div>)}
         </div>
       </div>

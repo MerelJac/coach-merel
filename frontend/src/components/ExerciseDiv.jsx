@@ -1,9 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/exerciseDiv.css";
-import dotsImg from "../assets/images/dots.jpg";
 
 export const ExerciseDiv = (props) => {
-  console.log(props, "props");
   const [sets, setSets] = useState([]);
   const [weightInput, setWeightInput] = useState("");
   const [repsInput, setRepsInput] = useState("");
@@ -36,7 +34,6 @@ export const ExerciseDiv = (props) => {
   };
 
   const equationSetReps = (e) => {
-    console.log(e);
     setRepsInput(e);
 
     // Reset the repsInputPlaceholder to 'reps'
@@ -65,7 +62,6 @@ export const ExerciseDiv = (props) => {
           id: props.id,
           new1RM: current1Rm,
         };
-        console.log("should override 1RM", objectToSend);
         props.passData(objectToSend);
       }
       setSets([...sets, `${weight}lbs x ${reps}`]);

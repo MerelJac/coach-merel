@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 import { capitalizeFunction } from "../utils/capitalizeFunction";
+import { useNavigate } from "react-router-dom";
 
 export const Create = () => {
   const [exerciseDivs, setExerciseDivs] = useState([]);
   const [userId, setUserId] = useState('')
+  const navigate = useNavigate()
 
 
 
@@ -22,7 +24,7 @@ export const Create = () => {
   const passData = (data) => {
     const id = data.id;
     const update1RM = data.new1RM;
-    setArrayOfUpdatedOneRepMaxes((arrayOfUpdatedOneRepMaxes) => [...arrayOfUpdatedOneRepMaxes, { id, update1RM }]);
+    setArrayOfUpdatedOneRepMaxes((arrayOfUpdatedOneRepMaxes) => [...arrayOfUpdatedOneRepMaxes, { id, update1RM, userId }]);
   };
 
   const searchFunction = (e) => {
@@ -40,12 +42,11 @@ export const Create = () => {
     const requestOptions = {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: searchTitle, userId: userId }),
+      body: JSON.stringify({ title: searchTitle, userID: userId }),
     };
     fetch(`http://localhost:3002/api/exercise/${searchTitle}`, requestOptions)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data);
         if (data.message === "Yes") {
           newExerciseDiv = (
             <ExerciseDiv
@@ -105,14 +106,13 @@ export const Create = () => {
           }
           return response.json();
         })
-        .then((data) => console.log(data))
         .catch((error) => console.error("Error:", error)); 
     });
-    console.log('completed')
   };
 
   const saveWorkout = () => {
     putWorkout(arrayOfUpdatedOneRepMaxes);
+    navigate('/')
   };
 
   return (

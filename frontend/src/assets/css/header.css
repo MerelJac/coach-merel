@@ -1,0 +1,11 @@
+#title{
+    padding: 3vw;
+}
+
+#account{
+    padding: 3vw;
+}
+
+#account:hover{
+    color: rgb(147, 147, 147);
+}

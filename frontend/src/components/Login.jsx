@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import "../assets/css/login.css";
 
 // login function to send to API / backend
 async function loginUser(credentials, setMessage) {
@@ -74,7 +75,7 @@ export const Login = () => {
           name="password"
         />
 
-        <button type="submit">Login</button>
+        <button id="login" type="submit">Login</button>
       </form>
 
       <button

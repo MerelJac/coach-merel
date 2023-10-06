@@ -2,4 +2,23 @@
     display: flex;
     flex-direction: column;
     align-items: center;
+    padding: 1vh;
+}
+
+.exercise-text {
+    margin-right: 3vh;
+    width: 100px;
+}
+
+.submitRep{
+    margin-left: 3vh;
+}
+
+.lbs-input{
+    width: 60px;
+    margin-right: 5px;
+}
+
+.reps-input{
+    width: 60px;
 }

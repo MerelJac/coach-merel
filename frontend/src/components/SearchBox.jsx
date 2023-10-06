@@ -2,7 +2,11 @@ import React, { useState } from "react";
 import { searchFunction } from "../utils/searchFunction";
 import { OneRepMaxStats } from "./FoundExerciseResult";
 import { NotFoundExerciseDiv } from "./NotFoundExerciseResult";
+
+import "../../src/assets/css/startWorkout.css";
+
 import { suggestionsGrip } from "../utils/suggestionsGrip";
+
 
 export const SearchBar = (props) => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,7 +39,7 @@ export const SearchBar = (props) => {
 
   return (
     <>
-      <section>
+      <section className="search">
         <input
           id="create-search"
           type="search"

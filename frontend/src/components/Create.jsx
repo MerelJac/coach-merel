@@ -120,7 +120,7 @@ export const Create = () => {
     <>
       <div id="start-workout">
         <h1 className="right-align">
-          new<span className="bold">WORKOUT</span>
+          new<span className="bold">Workout</span>
         </h1>
       </div>
       <div>
@@ -130,11 +130,11 @@ export const Create = () => {
           placeholder="Search"
           onSubmit={searchFunction}
         ></input>
-        <button onClick={searchFunction}>Search</button>
+        <button className="search-btn" onClick={searchFunction}>Search</button>
       </div>
       {exerciseDivs}
       <div className="flex justify-center">
-      <button className="small-footer bottom-div save-workout" onClick={saveWorkout}>
+      <button className="footer bottom-div save-workout" onClick={saveWorkout}>
         Save Workout
       </button></div>
     </>

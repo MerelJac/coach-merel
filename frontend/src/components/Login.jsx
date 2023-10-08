@@ -76,14 +76,15 @@ export const Login = () => {
         />
 
         <button id="login" type="submit">Login</button>
-      </form>
-
-      <button
-        className="small-footer ml-3 mb-1"
+        <button
+        className="text-base mr-3 mb-1 register-button"
         onClick={() => (window.location.href = "/register")}
       >
         Don't have an account? Register here.
       </button>
+      </form>
+
+      
     </div>
   );
 };

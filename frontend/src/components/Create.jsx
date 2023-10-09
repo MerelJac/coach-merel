@@ -2,10 +2,12 @@ import React, { useState, useEffect } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 import { capitalizeFunction } from "../utils/capitalizeFunction";
 import "../../src/assets/css/startWorkout.css";
+import { useNavigate } from "react-router-dom";
 
 export const Create = () => {
   const [exerciseDivs, setExerciseDivs] = useState([]);
   const [userId, setUserId] = useState('')
+  const navigate = useNavigate()
 
 
 
@@ -114,6 +116,7 @@ export const Create = () => {
 
   const saveWorkout = () => {
     putWorkout(arrayOfUpdatedOneRepMaxes);
+    navigate('/')
   };
 
   return (

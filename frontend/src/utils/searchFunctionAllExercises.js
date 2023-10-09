@@ -4,7 +4,6 @@ export const getAllExercisesForOneUser = async () => {
 
     const data = await response.json();
     if (data) {
-      console.log(data);
       return data;
     } else {
       console.log("Something went wrong");

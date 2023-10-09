@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/exerciseDiv.css";
 import "../assets/css/startWorkout.css";
+import dotsImg from "../assets/images/dots.jpg";
 
-export const ExerciseDiv = (props) => {
+export const RandomExerciseDiv = (props) => {
   console.log(props, "props");
   const [sets, setSets] = useState([]);
   const [weightInput, setWeightInput] = useState("");
@@ -87,14 +88,18 @@ export const ExerciseDiv = (props) => {
     }
   };
 
+  const showExerciseInfo = () => {
+    console.log(props.url)
+  }
   const listOfSets = sets.map((each, index) => <li key={index}>{each}</li>);
 
   return (
     <>
       <div className="exerciseDiv" id={props.id}>
         <section className="row">
+          <img alt="attributeImg" src={dotsImg}></img>
           <div className="exercise-text">
-            <h2 className="bold">{props.title}</h2>
+            <h2 className="bold" onClick={showExerciseInfo}>{props.title}</h2>
           </div>
           <div className="inline-block;">
             <input
@@ -110,7 +115,7 @@ export const ExerciseDiv = (props) => {
               onChange={(e) => equationSetReps(e.target.value)}
             ></input>
           </div>
-          <button className="go ml-3" type="submit" onClick={setInfo}>
+          <button className="submitRep" type="submit" onClick={setInfo}>
             Go
           </button>
         </section>

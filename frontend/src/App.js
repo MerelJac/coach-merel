@@ -11,6 +11,7 @@ import { Create } from "./components/Create";
 import { AccountInfo } from "./components/AccountInfo";
 import { SeeStatsPage } from "./components/SeeStats";
 import { NotFound } from "./components/NotFound";
+import { PreviousWorkouts } from "./components/PreviousWorkouts";
 
 import { auth } from "./utils/auth";
 
@@ -40,6 +41,8 @@ function App() {
                 <Route exact path="/create" element={<Create />} />
                 <Route exact path="/stats" element={<SeeStatsPage />} />
                 <Route exact path="/account-info" element={<AccountInfo />} />
+                <Route path="/previous-exercises" element={<PreviousWorkouts />} />
+
               </>
             )}
             {/* Add a 404 Not Found route */}

@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 export const RandomGenerator = () => {
   const [selectedOption, setSelectedOption] = useState("");
   const [arrayOfExercises, setArrayOfExercises] = useState([]);
+  const [arrayOfUpdatedOneRepMaxes, setArrayOfUpdatedOneRepMaxes] = useState([])
   const [userId, setUserId] = useState("");
   const navigate = useNavigate();
 
@@ -42,11 +43,7 @@ export const RandomGenerator = () => {
           limitedExercises = shuffleArray(data.lower).slice(0, 8);
           break;
         case "full":
-          const allExercises = [
-            ...data.upper,
-            ...data.lower,
-            ...data.core,
-          ];
+          const allExercises = [...data.upper, ...data.lower, ...data.core];
           limitedExercises = shuffleArray(allExercises).slice(0, 8);
           break;
         default:
@@ -87,6 +84,7 @@ export const RandomGenerator = () => {
       if (data.message === "Yes") {
         return (
           <ExerciseDiv
+            passData={passData}
             key={data.exercise.id}
             id={data.exercise.id}
             title={data.exercise.full_name}
@@ -106,6 +104,7 @@ export const RandomGenerator = () => {
 
         return (
           <ExerciseDiv
+            passData={passData}
             key={createdExercise.id}
             id={createdExercise.id}
             title={createdExercise.full_name}
@@ -142,42 +141,72 @@ export const RandomGenerator = () => {
     }
   };
 
-  const putWorkout = async () => {
-    const updatedExercises = await Promise.all(
-      arrayOfExercises.map(async (exercise) => {
-        const requestOptions = {
-          method: "PUT",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({
-            id: exercise.key,
-            one_rep_max: exercise.props.oneRepMax,
-          }),
-        };
-
-        try {
-          const response = await fetch(
-            `http://localhost:3002/api/exercise/${exercise.key}`,
-            requestOptions
-          );
-
-          const data = await response.json();
-          return data;
-        } catch (error) {
-          console.error("Error updating exercise:", error);
-        }
-      })
-    );
-
-    console.log("completed", updatedExercises);
+  const passData = (data) => {
+    const id = data.id;
+    const update1RM = data.new1RM;
+    setArrayOfUpdatedOneRepMaxes((arrayOfUpdatedOneRepMaxes) => [
+      ...arrayOfUpdatedOneRepMaxes,
+      { id, update1RM },
+    ]);
   };
+
+  const putWorkout = async (array) => {
+    await array.forEach((object) => {
+      const requestOptions = {
+        method: "PUT", 
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(object),
+      };
+      fetch(`http://localhost:3002/api/exercise/${object.id}`, requestOptions) 
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error(`HTTP error! Status: ${response.status}`);
+          }
+          return response.json();
+        })
+        .then((data) => console.log(data))
+        .catch((error) => console.error("Error:", error)); 
+    });
+    console.log('completed')
+  };
+
+
+//   const putWorkout = async () => {
+//     const updatedExercises = await Promise.all(
+//       arrayOfExercises.map(async (exercise) => {
+//         const requestOptions = {
+//           method: "PUT",
+//           headers: { "Content-Type": "application/json" },
+//           body: JSON.stringify({
+//             id: exercise.key,
+//             one_rep_max: exercise.props.oneRepMax,
+//           }),
+//         };
+
+//         try {
+//           const response = await fetch(
+//             `http://localhost:3002/api/exercise/${exercise.key}`,
+//             requestOptions
+//           );
+
+//           const data = await response.json();
+//           return data;
+//         } catch (error) {
+//           console.error("Error updating exercise:", error);
+//         }
+//       })
+//     );
+
+//     console.log("completed", updatedExercises);
+//   };
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };
 
   const saveWorkout = () => {
-    putWorkout();
-    navigate("/");
+    putWorkout(arrayOfUpdatedOneRepMaxes);
+    navigate('/')
   };
 
   useEffect(() => {

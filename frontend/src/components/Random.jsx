@@ -170,36 +170,6 @@ export const RandomGenerator = () => {
     console.log('completed')
   };
 
-
-//   const putWorkout = async () => {
-//     const updatedExercises = await Promise.all(
-//       arrayOfExercises.map(async (exercise) => {
-//         const requestOptions = {
-//           method: "PUT",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify({
-//             id: exercise.key,
-//             one_rep_max: exercise.props.oneRepMax,
-//           }),
-//         };
-
-//         try {
-//           const response = await fetch(
-//             `http://localhost:3002/api/exercise/${exercise.key}`,
-//             requestOptions
-//           );
-
-//           const data = await response.json();
-//           return data;
-//         } catch (error) {
-//           console.error("Error updating exercise:", error);
-//         }
-//       })
-//     );
-
-//     console.log("completed", updatedExercises);
-//   };
-
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);
   };

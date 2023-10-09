@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import "./App.css";
 import "./index.css";
 import "./assets/css/form.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";

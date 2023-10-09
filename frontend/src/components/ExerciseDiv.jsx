@@ -110,7 +110,7 @@ export const ExerciseDiv = (props) => {
               onChange={(e) => equationSetReps(e.target.value)}
             ></input>
           </div>
-          <button className="submitRep" type="submit" onClick={setInfo}>
+          <button className="go ml-3" type="submit" onClick={setInfo}>
             Go
           </button>
         </section>

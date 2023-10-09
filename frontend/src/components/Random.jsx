@@ -82,10 +82,12 @@ export const RandomGenerator = () => {
       const data = await response.json();
 
       if (data.message === "Yes") {
+
         return (
           <ExerciseDiv
             passData={passData}
             key={data.exercise.id}
+            gifyLink={saveItem.link}
             id={data.exercise.id}
             title={data.exercise.full_name}
             oneRepMax={data.exercise.one_rep_max}
@@ -106,6 +108,7 @@ export const RandomGenerator = () => {
           <ExerciseDiv
             passData={passData}
             key={createdExercise.id}
+            gifyLink={saveItem.link}
             id={createdExercise.id}
             title={createdExercise.full_name}
             oneRepMax={createdExercise.one_rep_max}
@@ -164,10 +167,9 @@ export const RandomGenerator = () => {
           }
           return response.json();
         })
-        .then((data) => console.log(data))
+        // .then((data) => console.log(data))
         .catch((error) => console.error("Error:", error)); 
     });
-    console.log('completed')
   };
 
   const handleOptionChange = (event) => {

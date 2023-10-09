@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
-import { fetchExerciseAPIData } from "../utils/randomWorkoutAPI"; 
+import { fetchExerciseAPIData } from "../utils/randomWorkoutAPI";
+import { ExerciseDiv } from "./ExerciseDiv";
 
 export const RandomGenerator = () => {
   // State to keep track of the selected option
   const [selectedOption, setSelectedOption] = useState("");
-  
+
   // State to store the fetched exercise data
   const [exerciseData, setExerciseData] = useState([]);
 
@@ -15,18 +16,46 @@ export const RandomGenerator = () => {
 
   // useEffect to run the API when the selected option changes
   useEffect(() => {
-    // Only fetch data if a valid selectedOption is chosen
-    if (selectedOption === "upper" || selectedOption === "lower" || selectedOption === "full") {
-        console.log(selectedOption)
-      fetchExerciseAPIData(selectedOption)
-        .then((data) => {
-          setExerciseData(data);
-        })
-        .catch((error) => {
-          console.error("Error fetching exercise data:", error);
-        });
-    }
+    fetchExerciseAPIData(selectedOption)
+      .then((data) => {
+        switch (selectedOption) {
+          case "upper":
+            let shuffledUpper = shuffleArray(data.upper);
+            setExerciseData(shuffledUpper);
+            break;
+          case "lower":
+            let shuffledLower = shuffleArray(data.lower);
+            setExerciseData(shuffledLower);
+            break;
+          case "full":
+            let allExercises = [...data.upper, ...data.lower, ...data.core]
+            let shuffledFull = shuffleArray(allExercises);
+            setExerciseData(shuffledFull);
+            break;
+          default:
+            setExerciseData(data);
+            break;
+        }
+      })
+      .catch((error) => {
+        console.error("Error fetching exercise data:", error);
+      });
   }, [selectedOption]);
+
+  const shuffleArray = (array) => {
+    let currentIndex = array.length,
+      randomIndex;
+    while (currentIndex > 0) {
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex],
+        array[currentIndex],
+      ];
+    }
+    return array;
+  };
 
   return (
     <>
@@ -61,14 +90,15 @@ export const RandomGenerator = () => {
           </label>
         </form>
       </section>
-      
+
       {/* Display exercise data when available */}
       {exerciseData.length > 0 && (
         <div>
           <h2>Exercise Data:</h2>
+          {/* TODO pass function passdata */}
           <ul>
-            {exerciseData.map((exercise, index) => (
-              <li key={index}>{exercise.name}</li>
+            {exerciseData.slice(0, 8).map((exercise, index) => (
+              <ExerciseDiv key={index} title={exercise.name} />
             ))}
           </ul>
         </div>

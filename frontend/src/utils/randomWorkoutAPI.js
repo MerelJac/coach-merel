@@ -6,7 +6,7 @@ const exercisesByBodyPart = {
   core: [],
 };
 
-export async function fetchExerciseAPIData(bodyPart) {
+export async function fetchExerciseAPIData() {
 console.log('hit the fetch')
   const url = "https://exercisedb.p.rapidapi.com/exercises";
   const options = {
@@ -52,13 +52,9 @@ console.log('hit the fetch')
           break;
       }
     }
-    console.log(exercisesByBodyPart)
-    console.log('return statement' , exercisesByBodyPart[bodyPart])
-    // Return exercises based on the bodyPart parameter
-    return exercisesByBodyPart[bodyPart] || [];
+    return exercisesByBodyPart || [];
   } catch (error) {
     console.error(error);
-    // return [];
-    return 'didnt hit'
+    return [];
   }
 }

@@ -7,7 +7,6 @@ const exercisesByBodyPart = {
 };
 
 export async function fetchExerciseAPIData() {
-console.log('hit the fetch')
   const url = "https://exercisedb.p.rapidapi.com/exercises";
   const options = {
     method: "GET",
@@ -20,8 +19,6 @@ console.log('hit the fetch')
   try {
     const response = await fetch(url, options);
     const result = await response.json();
-    console.log(result)
-
     for (let i = 0; i < result.length; i++) {
       const exercise = {
         name: result[i].name,

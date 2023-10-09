@@ -96,7 +96,7 @@ export const ExerciseDiv = (props) => {
           <div className="exercise-text">
             <h2 className="bold">{props.title}</h2>
           </div>
-          <div clasName="inline-block;">
+          <div className="inline-block;">
             <input
               className="mb-2 text-sm font-small text-gray-900 dark:text-black lbs-input"
               placeholder={weightInputPlaceholder}

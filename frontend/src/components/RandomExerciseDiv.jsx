@@ -101,7 +101,7 @@ export const RandomExerciseDiv = (props) => {
           <div className="exercise-text">
             <h2 className="bold" onClick={showExerciseInfo}>{props.title}</h2>
           </div>
-          <div clasName="inline-block;">
+          <div className="inline-block;">
             <input
               className="mb-2 text-sm font-small text-gray-900 dark:text-black lbs-input"
               placeholder={weightInputPlaceholder}

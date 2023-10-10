@@ -108,6 +108,8 @@ export const ExerciseDiv = (props) => {
                 key={props.id}
                 className={modalClass}
                 gif={props.gifyLink}
+                targetMuscle={props.targetMuscle}
+                equip={props.equip}
                 title={props.title}
               />
             </div>

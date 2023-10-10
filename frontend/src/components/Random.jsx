@@ -88,6 +88,8 @@ export const RandomGenerator = () => {
             passData={passData}
             key={data.exercise.id}
             gifyLink={saveItem.link}
+            equip={saveItem.equip}
+            targetMuscle={saveItem.target}
             id={data.exercise.id}
             title={data.exercise.full_name}
             oneRepMax={data.exercise.one_rep_max}
@@ -109,6 +111,8 @@ export const RandomGenerator = () => {
             passData={passData}
             key={createdExercise.id}
             gifyLink={saveItem.link}
+            equip={saveItem.equip}
+            targetMuscle={saveItem.target}
             id={createdExercise.id}
             title={createdExercise.full_name}
             oneRepMax={createdExercise.one_rep_max}

@@ -41,10 +41,10 @@ export const Modal = (props) => {
               <img src={props.gif} alt="Exercise GIF" />
               
               <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                Body Part:
+                Body Part: {props.targetMuscle}
               </p>
               <p className="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-                Equipment:
+                Equipment: {props.equip}
               </p>
             </div>
           </div>

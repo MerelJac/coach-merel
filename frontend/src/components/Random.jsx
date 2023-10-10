@@ -82,10 +82,12 @@ export const RandomGenerator = () => {
       const data = await response.json();
 
       if (data.message === "Yes") {
+
         return (
           <ExerciseDiv
             passData={passData}
             key={data.exercise.id}
+            gifyLink={saveItem.link}
             id={data.exercise.id}
             title={data.exercise.full_name}
             oneRepMax={data.exercise.one_rep_max}
@@ -106,6 +108,7 @@ export const RandomGenerator = () => {
           <ExerciseDiv
             passData={passData}
             key={createdExercise.id}
+            gifyLink={saveItem.link}
             id={createdExercise.id}
             title={createdExercise.full_name}
             oneRepMax={createdExercise.one_rep_max}
@@ -164,41 +167,10 @@ export const RandomGenerator = () => {
           }
           return response.json();
         })
-        .then((data) => console.log(data))
+        // .then((data) => console.log(data))
         .catch((error) => console.error("Error:", error)); 
     });
-    console.log('completed')
   };
-
-
-//   const putWorkout = async () => {
-//     const updatedExercises = await Promise.all(
-//       arrayOfExercises.map(async (exercise) => {
-//         const requestOptions = {
-//           method: "PUT",
-//           headers: { "Content-Type": "application/json" },
-//           body: JSON.stringify({
-//             id: exercise.key,
-//             one_rep_max: exercise.props.oneRepMax,
-//           }),
-//         };
-
-//         try {
-//           const response = await fetch(
-//             `http://localhost:3002/api/exercise/${exercise.key}`,
-//             requestOptions
-//           );
-
-//           const data = await response.json();
-//           return data;
-//         } catch (error) {
-//           console.error("Error updating exercise:", error);
-//         }
-//       })
-//     );
-
-//     console.log("completed", updatedExercises);
-//   };
 
   const handleOptionChange = (event) => {
     setSelectedOption(event.target.value);

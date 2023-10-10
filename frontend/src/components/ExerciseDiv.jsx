@@ -3,7 +3,6 @@ import "../assets/css/exerciseDiv.css";
 import "../assets/css/startWorkout.css";
 
 export const ExerciseDiv = (props) => {
-  console.log(props, "props");
   const [sets, setSets] = useState([]);
   const [weightInput, setWeightInput] = useState("");
   const [repsInput, setRepsInput] = useState("");
@@ -22,7 +21,6 @@ export const ExerciseDiv = (props) => {
   }, [props.oneRepMax]);
 
   const equationSetWeight = (e) => {
-    console.log(e);
     setWeightInput(e);
 
     // Reset the repsInputPlaceholder to 'reps'
@@ -37,7 +35,6 @@ export const ExerciseDiv = (props) => {
   };
 
   const equationSetReps = (e) => {
-    console.log(e);
     setRepsInput(e);
 
     // Reset the repsInputPlaceholder to 'reps'
@@ -93,6 +90,11 @@ export const ExerciseDiv = (props) => {
     <>
       <div className="exerciseDiv" id={props.id}>
         <section className="row">
+        {props.gifyLink && (
+        <div className="gify-link">
+          <img className="w-[100px]" src={props.gifyLink} alt="Exercise GIFY" />
+        </div>
+      )}
           <div className="exercise-text">
             <h2 className="bold">{props.title}</h2>
           </div>

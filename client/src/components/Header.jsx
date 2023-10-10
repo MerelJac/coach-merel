@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import "../../src/assets/css/header.css";
+import "../styles/header.css";
 // TODO should include user info eventally
 
 

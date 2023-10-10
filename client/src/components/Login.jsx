@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../assets/css/login.css";
+import "../styles/login.css";
 
 // login function to send to API / backend
 async function loginUser(credentials, setMessage) {

@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import "./index.css";
-import "./assets/css/form.css";
+import "./styles/form.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import { Login } from "./components/Login";

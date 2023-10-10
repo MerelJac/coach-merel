@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { ExerciseDiv } from "./ExerciseDiv";
 import { capitalizeFunction } from "../utils/capitalizeFunction";
-import "../../src/assets/css/startWorkout.css";
+import "../styles/startWorkout.css";
 import { useNavigate } from "react-router-dom";
 
 export const Create = () => {

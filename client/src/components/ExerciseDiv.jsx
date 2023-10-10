@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import "../assets/css/exerciseDiv.css";
-import "../assets/css/startWorkout.css";
+import "../styles/exerciseDiv.css";
+import "../styles/startWorkout.css";
 
 export const ExerciseDiv = (props) => {
   const [sets, setSets] = useState([]);

@@ -14,6 +14,10 @@ export const Header = (props) => {
     navigate("/account-info");
   };
 
+  const previousExercises = () => {
+    navigate("/previous-exercises");
+  };
+
   const [isOpen, setIsOpen] = useState(false);
   return (
     <>
@@ -23,10 +27,12 @@ export const Header = (props) => {
         </h1>
         <div className="relative flex flex-col items-center">
         <button onClick={()=> setIsOpen((prev) => !prev)} className="flex items-center justify-center  
+
         h-12 w-12 rounded-full bg-gradient-to-r from-zinc-600 to-zinc-800 mr-1 mt-2 account">A</button>
         {isOpen && ( <div className="absolute top-20 flex flex-col bg-zinc-800 p-3 rounded-3xl ">
           <button className="menu-account text-md leading-10" onClick={accountInfo}>Account</button>
-          <button className="menu-saved-exercises text-md">Workouts</button>
+          <button className="menu-saved-exercises text-md" onClick={previousExercises}>Workouts</button>
+
         </div>)}
         </div>
       </div>

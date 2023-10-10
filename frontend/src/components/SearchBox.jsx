@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { searchFunction } from "../utils/searchFunction";
 import { OneRepMaxStats } from "./FoundExerciseResult";
 import { NotFoundExerciseDiv } from "./NotFoundExerciseResult";
-
 import "../../src/assets/css/startWorkout.css";
 
 import { suggestionsGrip } from "../utils/suggestionsGrip";
@@ -46,7 +45,7 @@ export const SearchBar = (props) => {
           value={searchTerm}
           onChange={handleInputChange}
         ></input>
-        <button onClick={handleSearch}>Search</button>
+        <button className="search-btn" onClick={handleSearch}>Search</button>
       </section>
       <section className="flex justify-center">
         {currentSearchExercise}

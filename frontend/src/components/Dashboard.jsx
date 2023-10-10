@@ -40,9 +40,9 @@ export const Dashboard = () => {
     isAuthenticated().then((authenticated) => {
       if (authenticated) {
         setAuthenticated(authenticated);
-        const authenticatedUsername = authenticated.user
+        const authenticatedUsername = authenticated.user;
         const authenticatedId = authenticated.id;
-        localStorage.setItem('id', authenticatedId)
+        localStorage.setItem("id", authenticatedId);
         setUser(authenticatedUsername);
       } else {
         navigate("/login");
@@ -60,18 +60,31 @@ export const Dashboard = () => {
   return (
     <>
       <div className="bottom-div">
-        <h1 className="right-align" id="welcome-user-name">
+        <h1 className="right-align mb-20 text-lg" id="welcome-user-name">
           Welcome<span className="bold">{user}</span>
         </h1>
-        <section className="column-right" id="create-new-workout">
-          <h3 className="create-new-workout"
+
+        <section className="column-right mr-8 mb-3 id="create-new-workout">
+          <h3 className="create-new-workout mb-3 text-lg bg-zinc-800 p-3 rounded-full"
+
             onClick={() => {
               window.location.href = "/create";
             }}
           >
-            Create New Workout
+            Create Your Workout
           </h3>
-          <h3 className="see-stats"
+
+          <h3
+            className="random-workout"
+            onClick={() => {
+              window.location.href = "/random";
+            }}
+          >
+            Workout Generator
+          </h3>
+          <h3
+            className="see-stats text-lg mb-6 bg-zinc-800 p-3 rounded-full"
+
             onClick={() => {
               window.location.href = "/stats";
             }}

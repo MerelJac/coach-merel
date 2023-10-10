@@ -64,7 +64,7 @@ export const Dashboard = () => {
           Welcome<span className="bold">{user}</span>
         </h1>
 
-        <section className="column-right mr-8 mb-3 id="create-new-workout">
+        <section className="column-right mr-8 mb-3" id="create-new-workout">
           <h3 className="create-new-workout mb-3 text-lg bg-zinc-800 p-3 rounded-full"
 
             onClick={() => {

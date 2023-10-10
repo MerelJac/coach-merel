@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "../assets/css/exerciseDiv.css";
 import "../assets/css/startWorkout.css";
+import { Modal } from "./Modal";
 
 export const ExerciseDiv = (props) => {
   const [sets, setSets] = useState([]);
@@ -9,6 +10,7 @@ export const ExerciseDiv = (props) => {
   const [weightInputPlaceholder, setWeightInputPlaceholder] = useState("lbs");
   const [repsInputPlaceholder, setRepsInputPlaceholder] = useState("reps");
   const [newExercise, setNewExercise] = useState(false);
+  const [isShown, setIsShown] = useState(false);
 
   let current1Rm = props.oneRepMax;
 
@@ -74,6 +76,14 @@ export const ExerciseDiv = (props) => {
     }
   };
 
+  const toggleModal = () => {
+    setIsShown(!isShown);
+  };
+
+  const modalClass = isShown
+    ? "fixed top-0 left-0 right-0 z-50 w-full p-4 overflow-x-hidden overflow-y-auto md:inset-0 h-[calc(100%-1rem)] max-h-full"
+    : "hidden";
+
   const oneRepMaxFunction = (weight, reps) => {
     if (weight >= 1) {
       // Epley formula for 1RM
@@ -90,11 +100,18 @@ export const ExerciseDiv = (props) => {
     <>
       <div className="exerciseDiv" id={props.id}>
         <section className="row">
-        {props.gifyLink && (
-        <div className="gify-link">
-          <img className="w-[100px]" src={props.gifyLink} alt="Exercise GIFY" />
-        </div>
-      )}
+          {props.gifyLink && (
+            <div onClick={toggleModal}>
+              i
+              <Modal
+                closeFunction={toggleModal}
+                key={props.id}
+                className={modalClass}
+                gif={props.gifyLink}
+                title={props.title}
+              />
+            </div>
+          )}
           <div className="exercise-text">
             <h2 className="bold">{props.title}</h2>
           </div>

@@ -15,22 +15,20 @@ const typeDefs = gql`
         exercises: Exercise
     }
 
-    type Auth {
-        token: ID!
-        user: User
-    }
 
     type Query {
         users: [User]
         exercises: [Exercise]
-        user(id: ID!): User
+        user(userId: ID!): User
     }
 
     type Mutation {
-        addUser(firstName: String!, email: String!, password: String!)
-        deleteUser(firstName: String!, email: String!, password: String!)
-        updateUser(firstName: $firstName, email: $email, password: $password)
+        addUser(firstName: String!, email: String!, password: String!): User
+        removeUser(firstName: String!, email: String!, password: String!): User
+        updateUser(firstName: String!, email: String, password: String!): User
+        addExercise( userId: ID!, name: String!, oneRepMax: Int! ): User
+        removeExercise( userId: ID!, name: String!, oneRepMax: Int! ): User
     }
-    `
+    `;
 
     module.exports = typeDefs; 

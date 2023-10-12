@@ -1,13 +1,11 @@
-export const auth = async () => {
-  const token = await JSON.parse(localStorage.getItem("token"));
-  if (!token) {
-  return false;
-  } else {return true}
-  };
-  
+// export const auth = async () => {
+//   const token = await JSON.parse(localStorage.getItem("token"));
+//   if (!token) {
+//   return false;
+//   } else {return true}
+//   };
 
-  // module.exports = auth;
-  
+// module.exports = auth;
 
 //   const jwt = require('jsonwebtoken');
 
@@ -44,3 +42,51 @@ export const auth = async () => {
 //     return jwt.sign({ data: payload }, secret, { expiresIn: expiration });
 //   },
 // };
+
+const decode = require("jwt-decode");
+
+class AuthService {
+  getProfile() {
+    return decode(this.getToken());
+  }
+
+  loggedIn() {
+    // Checks if there is a saved token and it's still valid
+    const token = this.getToken();
+    return !!token && !this.isTokenExpired(token);
+  }
+
+  isTokenExpired(token) {
+    try {
+      const decoded = decode(token);
+      if (decoded.exp < Date.now() / 1000) {
+        return true;
+      } else return false;
+    } catch (err) {
+      return false;
+    }
+  }
+
+  getToken() {
+    // Retrieves the user token from localStorage
+    return localStorage.getItem("id_token");
+  }
+
+  login(idToken) {
+    // Saves user token to localStorage
+    localStorage.setItem("id_token", idToken);
+
+    window.location.assign("/");
+  }
+
+  logout() {
+    // Clear user token and profile data from localStorage
+    localStorage.removeItem("id_token");
+    // this will reload the page and reset the state of the application
+    window.location.assign("/");
+  }
+}
+
+const newAuth = new AuthService();
+
+module.exports = newAuth;

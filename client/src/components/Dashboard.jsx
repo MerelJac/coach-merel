@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import auth from "../utils/auth";
+import newAuth from "../utils/auth";
 import "../styles/dashboard.css";
 // authenticate user
 async function isAuthenticated() {
-  let authStatus = await auth();
+  let authStatus = await newAuth();
   if (authStatus) {
     const token = await JSON.parse(localStorage.getItem("token"));
     try {

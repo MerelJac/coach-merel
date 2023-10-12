@@ -43,7 +43,7 @@
 //   },
 // };
 
-const decode = require("jwt-decode");
+import decode  from "jwt-decode";
 
 class AuthService {
   getProfile() {
@@ -87,6 +87,7 @@ class AuthService {
   }
 }
 
-const newAuth = new AuthService();
+// const newAuth = new AuthService();
 
-module.exports = newAuth;
+export default new AuthService();
+// module.exports = newAuth;

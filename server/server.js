@@ -2,7 +2,7 @@ const express = require('express');
 // const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
-const { authMiddleware } = require('../client/src/utils/auth');
+const { authMiddleware } = require('../server/utils/auth');
 
 const { typeDefs, resolvers } = require('./schemas');
 

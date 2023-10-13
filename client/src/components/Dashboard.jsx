@@ -1,10 +1,11 @@
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import newAuth from "../utils/auth";
+import authInstance from "../utils/auth";
 import "../styles/dashboard.css";
 // authenticate user
 async function isAuthenticated() {
-  let authStatus = await newAuth();
+  const authService = new authInstance(); 
+  let authStatus = await authService.loggedIn();
   if (authStatus) {
     const token = await JSON.parse(localStorage.getItem("token"));
     try {
@@ -32,23 +33,31 @@ async function isAuthenticated() {
 }
 
 export const Dashboard = () => {
-  const navigate = useNavigate(); // initalize function
-  const [authenticated, setAuthenticated] = useState(isAuthenticated());
+  const navigate = useNavigate();
+  const [authService] = useState(new authInstance()); // Instantiate AuthService using useState
+  const [authenticated, setAuthenticated] = useState(authService.loggedIn());
   const [user, setUser] = useState("");
 
   useEffect(() => {
-    isAuthenticated().then((authenticated) => {
-      if (authenticated) {
-        setAuthenticated(authenticated);
-        const authenticatedUsername = authenticated.user;
-        const authenticatedId = authenticated.id;
-        localStorage.setItem("id", authenticatedId);
-        setUser(authenticatedUsername);
-      } else {
+    const checkAuthentication = async () => {
+      try {
+        const authenticated = await isAuthenticated();
+        if (authenticated) {
+          const authenticatedUsername = authenticated.user;
+          const authenticatedId = authenticated.id;
+          localStorage.setItem("id", authenticatedId);
+          setUser(authenticatedUsername);
+          setAuthenticated(true);
+        } else {
+          navigate("/login");
+        }
+      } catch (error) {
+        console.error(error);
         navigate("/login");
       }
-    });
-    setAuthenticated(isAuthenticated(setUser));
+    };
+  
+    checkAuthentication();
   }, [navigate]);
 
   useEffect(() => {

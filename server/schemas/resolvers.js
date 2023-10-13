@@ -1,5 +1,5 @@
 const { AuthenticationError } = require('apollo-server-express');
-// const { signToken } = require('../utils/auth');
+const { signToken } = require('../utils/auth');
 const { User, Exercise } = require('../models');
 
 
@@ -19,10 +19,26 @@ const resolvers = {
             return await User.find({}).populate('exercises')
         }
     },
+
     //mutations are where the changes can be made to data
-    Mutation:{
-        addUser: async(parent, { firstName, email, password }) => {
-            return await User.create({ firstName, email, password });
+    Mutation:{  
+        login: async (_, { email, password }) => {
+            const user = await User.findOne({ email });
+            if (!user) {
+              throw new Error('User not found.');
+            }
+      
+            const correctPassword = await user.comparePassword(password);
+            if (!correctPassword) {
+              throw new Error('Incorrect credentials.');
+            }
+      
+            const token = signToken(user);
+            return { token, user };
+          },
+
+        addUser: async(parent, { first_name, email, password }) => {
+            return await User.create({ first_name, email, password });
         }, 
         updateUser: async (parent, { firstName, email, password }) => {
             const updatedUser = await User.findOneAndUpdate({  })

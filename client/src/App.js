@@ -12,22 +12,22 @@ import { AccountInfo } from "./components/AccountInfo";
 import { SeeStatsPage } from "./components/SeeStats";
 import { NotFound } from "./components/NotFound";
 import { PreviousWorkouts } from "./components/PreviousWorkouts";
-import { RandomGenerator } from "./components/Random";
+// import { RandomGenerator } from "./components/Random";
 
-import newAuth from "./utils/auth";
+import AuthService from "./utils/auth";
 
 function App() {
   const [authStatus, setAuthStatus] = useState(false);
 
   useEffect(() => {
     const checkAuth = async () => {
-      const response = await newAuth();
+      const response = AuthService.loggedIn();
       if (response) {
         setAuthStatus(true);
       }
     };
     checkAuth();
-  }, [authStatus]);
+  }, []);
 
   return (
     <BrowserRouter>
@@ -40,7 +40,7 @@ function App() {
             <>
               <Route exact path="/" element={<Dashboard />} />
               <Route exact path="/create" element={<Create />} />
-              <Route exact path="/random" element={<RandomGenerator />} />
+              {/* <Route exact path="/random" element={<RandomGenerator />} /> */}
               <Route exact path="/stats" element={<SeeStatsPage />} />
               <Route exact path="/account-info" element={<AccountInfo />} />
               <Route

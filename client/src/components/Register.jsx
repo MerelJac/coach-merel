@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import {useMutation} from '@apollo/client';
+import {ADD_USER} from '../utils/mutations'
+
 
 export const Register = (props) => {
   const navigate = useNavigate()
@@ -8,42 +11,30 @@ export const Register = (props) => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
-  // TODO error handling for error while creating clinet side
-  const handleSubmit = async (e) => {
+  const [registerUser] = useMutation(ADD_USER);
+
+  const handleSubmit = async(e) => {
     e.preventDefault();
-    let user = {
-      first_name: name,
-      email: email,
-      password: password,
-    };
-    console.log(user);
+
     try {
-      const response = await fetch("http://localhost:3002/api/user-routes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Origin: "http://localhost:3000",
+      const { data } = await registerUser({
+        variables:{
+          first_name: name, 
+          email, 
+          password,
         },
-        body: JSON.stringify(user),
       });
-      if (response.status === 200) {
-        const data = await response.json();
-        console.log(data)
-        // remove current token
-        localStorage.clear()
-        // set new token 
-        localStorage.setItem("token", JSON.stringify(data));
-        navigate('/')
-      } else if (response.status === 400) {
-        setMessage("Already making gains with that email.");
-      } else {
-        setMessage("Unable to register user");
-      }
-    } catch (err) {
-      setMessage("An error has occured during registration.");
-      console.error(err);
+      console.log("user added");
+      setMessage("Get Lifting, Bud!");
+      navigate("/login");
+    } catch (error){
+      setMessage("An error has occured");
+      console.log("it broke");
     }
-  };
+};
+
+
+
 
   return (
     // all info goes in here

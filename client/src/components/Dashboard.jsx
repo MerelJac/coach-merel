@@ -1,42 +1,54 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useContext } from "react";
 import { useNavigate } from "react-router-dom";
 import authInstance from "../utils/auth";
+
 import "../styles/dashboard.css";
 // authenticate user
+// async function isAuthenticated() {
+
+//   let authStatus = await authInstance.loggedIn();
+//   if (authStatus) {
+//     const token = await JSON.parse(localStorage.getItem("token"));
+//     try {
+//       // send token info
+//       const findUser = await fetch(
+//         "api/user-routes/check-token",
+//         {
+//           headers: {
+//             "Content-Type": "application/json",
+//             Authorization: token,
+//           },
+//         }
+//       );
+//       // if successful, proceed with useEffect
+//       if (findUser.status === 200) {
+//         const user = await findUser.json();
+//         return user;
+//       } else {
+//         return false;
+//       }
+//     } catch (err) {
+//       console.error(err);
+//     }
+//   }
+// }
 async function isAuthenticated() {
-  const authService = new authInstance(); 
-  let authStatus = await authService.loggedIn();
-  if (authStatus) {
-    const token = await JSON.parse(localStorage.getItem("token"));
-    try {
-      // send token info
-      const findUser = await fetch(
-        "http://localhost:3002/api/user-routes/check-token",
-        {
-          headers: {
-            "Content-Type": "application/json",
-            Authorization: token,
-          },
-        }
-      );
-      // if successful, proceed with useEffect
-      if (findUser.status === 200) {
-        const user = await findUser.json();
-        return user;
-      } else {
-        return false;
-      }
-    } catch (err) {
-      console.error(err);
-    }
+  const token = authInstance.getToken();
+
+  if (token) {
+    // If a token is found in localStorage, the user is considered authenticated
+    // You might want to decode the token and check its expiration here if necessary
+    return true;
+  } else {
+    // If no token is found, the user is not authenticated
+    return false;
   }
 }
 
+
 export const Dashboard = () => {
   const navigate = useNavigate();
-  const [authService] = useState(new authInstance()); // Instantiate AuthService using useState
-  const [authenticated, setAuthenticated] = useState(authService.loggedIn());
-  const [user, setUser] = useState("");
+  const { authenticated, setAuthenticated, setUser } = useContext(authInstance);
 
   useEffect(() => {
     const checkAuthentication = async () => {
@@ -70,7 +82,7 @@ export const Dashboard = () => {
     <>
       <div className="bottom-div">
         <h1 className="right-align mb-20 text-lg" id="welcome-user-name">
-          Welcome<span className="bold">{user}</span>
+          Welcome<span className="bold">{authenticatedUsername}</span>
         </h1>
 
         <section className="column-right mr-8 mb-3" id="create-new-workout">

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { searchFunction } from "../utils/searchFunction";
 import { OneRepMaxStats } from "./FoundExerciseResult";
 import { NotFoundExerciseDiv } from "./NotFoundExerciseResult";
-import "../../src/assets/css/startWorkout.css";
+import "../styles/startWorkout.css";
 
 import { suggestionsGrip } from "../utils/suggestionsGrip";
 

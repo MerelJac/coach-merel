@@ -181,11 +181,23 @@ export const RandomGenerator = () => {
     navigate('/')
   };
 
-  useEffect(() => {
-    if (selectedOption) {
-      fetchAndProcessExercises(selectedOption);
+  // useEffect(() => {
+  //   if (selectedOption) {
+  //     fetchAndProcessExercises(selectedOption);
+  //   }
+  // }, [selectedOption]);
+
+useEffect(() => {
+  const fetchData = async () =>{
+    try{
+      if(selectedOption) {
+        await fetchAndProcessExercises(selectedOption)
+      }
+    } catch (error){
+
     }
-  }, [selectedOption]);
+  }
+})
 
   return (
     <>

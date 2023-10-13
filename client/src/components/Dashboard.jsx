@@ -1,6 +1,7 @@
-import React, { useEffect, useState, useContext } from "react";
+import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import authInstance from "../utils/auth";
+
 
 import "../styles/dashboard.css";
 // authenticate user
@@ -48,41 +49,30 @@ async function isAuthenticated() {
 
 export const Dashboard = () => {
   const navigate = useNavigate();
-  const { authenticated, setAuthenticated, setUser } = useContext(authInstance);
 
   useEffect(() => {
     const checkAuthentication = async () => {
       try {
         const authenticated = await isAuthenticated();
-        if (authenticated) {
-          const authenticatedUsername = authenticated.user;
-          const authenticatedId = authenticated.id;
-          localStorage.setItem("id", authenticatedId);
-          setUser(authenticatedUsername);
-          setAuthenticated(true);
-        } else {
+        if (!authenticated) {
+          // If the user is not authenticated (no token found), redirect to login page
           navigate("/login");
         }
       } catch (error) {
         console.error(error);
-        navigate("/login");
+        // Handle errors, for example, redirect to an error page
       }
     };
-  
+
     checkAuthentication();
   }, [navigate]);
 
-  useEffect(() => {
-    if (!authenticated) {
-      navigate("/login");
-    }
-  }, [authenticated, navigate]);
 
   return (
     <>
       <div className="bottom-div">
         <h1 className="right-align mb-20 text-lg" id="welcome-user-name">
-          Welcome<span className="bold">{authenticatedUsername}</span>
+          Welcome<span className="bold">{}</span>
         </h1>
 
         <section className="column-right mr-8 mb-3" id="create-new-workout">

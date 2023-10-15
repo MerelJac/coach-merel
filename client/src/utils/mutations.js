@@ -12,7 +12,7 @@ export const LOGIN = gql`
 `;
 
 export const ADD_EXERCISE = gql`
-  mutation AddExercise($userId: ID!, $name: String!, $oneRepMax: Int!, $category: String, $notes: String) {
+  mutation addExercise($userId: ID!, $name: String!, $oneRepMax: Int!, $category: String, $notes: String) {
     addExercise(userId: $userId, name: $name, oneRepMax: $oneRepMax, category: $category, notes: $notes) {
       _id
       name
@@ -26,7 +26,7 @@ export const ADD_EXERCISE = gql`
 `;
 
 export const REMOVE_EXERCISE = gql`
-  mutation RemoveExercise($exerciseId: ID!, $userId: ID!) {
+  mutation removeExercise($exerciseId: ID!, $userId: ID!) {
     removeExercise(exerciseId: $exerciseId, userId: $userId) {
       _id
       name

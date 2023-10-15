@@ -1,12 +1,26 @@
 import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_EXERCISE } from "../utils/mutations";
 
-function Create() {
+function Create({ userId, name, oneRepMax }) {
   const [exercise, setExercise] = useState("");
+  const [addExercise, {error}] = useMutation(ADD_EXERCISE);
   const [lbs, setLbs] = useState("");
   const [reps, setReps] = useState("");
-  // const [oneRepMax, setOneRepMax] = useState(null);
   const [exerciseLog, setExerciseLog] = useState([]);
-  
+
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const {data} = await addExercise({
+        variables: { userId, name, oneRepMax },
+      });
+
+      setExercise("");
+    } catch (err) {
+      console.error(err);
+    }
+  };
 
   const handleInputChange = (e) => {
     setExercise(e.target.value);
@@ -25,11 +39,13 @@ function Create() {
       const lbsValue = parseFloat(lbs);
       const repsValue = parseFloat(reps);
       if (repsValue > 0) {
-        return Math.round(lbsValue / repsValue);
+        return Math.round(lbsValue / (1.0278 - 0.0278 * repsValue));
       }
     }
     return null;
   };
+
+  // const [addExercise, { error }] = useMutation(ADD_EXERCISE);
 
   const handleAddExercise = () => {
     const newExerciseLogEntry = {
@@ -40,21 +56,24 @@ function Create() {
     };
 
     setExerciseLog([...exerciseLog, newExerciseLogEntry]);
-    // calculateOneRepMax();
 
     // Clear the input fields after adding the exercise
     setExercise("");
     setLbs("");
     setReps("");
-    // setOneRepMax(null);
   };
+
+ 
 
   return (
     <div>
+      <form className="saveWorkout"
+      onSubmit={handleFormSubmit}
+      >
       <h1>Log Your Exercise</h1>
       <input
         type="text"
-        placeholder="Exercise"
+        placeholder="Exercise Name"
         value={exercise}
         onChange={handleInputChange}
       />
@@ -71,7 +90,6 @@ function Create() {
         onChange={handleRepsChange}
       />
       <button onClick={handleAddExercise}>GO</button>
-    
 
       <div>
         {exerciseLog.map((entry, index) => (
@@ -82,6 +100,10 @@ function Create() {
             <p>One Rep Max: {entry.oneRepMax}</p>
           </div>
         ))}
+      </div>
+      </form>
+      <div className="footer">
+      <p>All your saved exercises can be viewed in the stats page.</p>
       </div>
     </div>
   );

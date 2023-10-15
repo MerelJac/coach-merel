@@ -62,7 +62,7 @@ const resolvers = {
                 }
             );
         },
-        removeExercise: async (parent, { userId, skill }) => {
+        removeExercise: async (parent, { userId, name, oneRepMax }) => {
             return User.findOneAndUpdate(
                 { _id: userId },
                 { $pull: { name: name, oneRepMax: oneRepMax } },

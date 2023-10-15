@@ -4,7 +4,9 @@ function Create() {
   const [exercise, setExercise] = useState("");
   const [lbs, setLbs] = useState("");
   const [reps, setReps] = useState("");
+  // const [oneRepMax, setOneRepMax] = useState(null);
   const [exerciseLog, setExerciseLog] = useState([]);
+  
 
   const handleInputChange = (e) => {
     setExercise(e.target.value);
@@ -18,24 +20,38 @@ function Create() {
     setReps(e.target.value);
   };
 
+  const calculateOneRepMax = () => {
+    if (lbs && reps) {
+      const lbsValue = parseFloat(lbs);
+      const repsValue = parseFloat(reps);
+      if (repsValue > 0) {
+        return Math.round(lbsValue / repsValue);
+      }
+    }
+    return null;
+  };
+
   const handleAddExercise = () => {
     const newExerciseLogEntry = {
       exercise: exercise,
       lbs: lbs,
       reps: reps,
+      oneRepMax: calculateOneRepMax(),
     };
 
     setExerciseLog([...exerciseLog, newExerciseLogEntry]);
+    // calculateOneRepMax();
 
     // Clear the input fields after adding the exercise
     setExercise("");
     setLbs("");
     setReps("");
+    // setOneRepMax(null);
   };
 
   return (
     <div>
-      <h1>Exercise Input Display</h1>
+      <h1>Log Your Exercise</h1>
       <input
         type="text"
         placeholder="Exercise"
@@ -54,7 +70,8 @@ function Create() {
         value={reps}
         onChange={handleRepsChange}
       />
-      <button onClick={handleAddExercise}>Add Exercise</button>
+      <button onClick={handleAddExercise}>GO</button>
+    
 
       <div>
         {exerciseLog.map((entry, index) => (
@@ -62,6 +79,7 @@ function Create() {
             <p>Exercise: {entry.exercise}</p>
             <p>lbs: {entry.lbs}</p>
             <p>reps: {entry.reps}</p>
+            <p>One Rep Max: {entry.oneRepMax}</p>
           </div>
         ))}
       </div>

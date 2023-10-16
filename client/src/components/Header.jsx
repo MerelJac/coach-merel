@@ -1,6 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "../styles/header.css";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faUser } from '@fortawesome/free-solid-svg-icons'
+
 // TODO should include user info eventally
 
 
@@ -19,6 +22,8 @@ export const Header = (props) => {
   };
 
   const [isOpen, setIsOpen] = useState(false);
+  const userIcon = <FontAwesomeIcon icon={faUser} style={{color: "#008181",}} />;
+
   return (
     <>
       <div className="header text-xl p-3 mr-5">
@@ -28,7 +33,7 @@ export const Header = (props) => {
         <div className="relative flex flex-col items-center">
         <button onClick={()=> setIsOpen((prev) => !prev)} className="flex items-center justify-center  
 
-        h-12 w-12 rounded-full bg-gradient-to-r from-zinc-600 to-zinc-800 mr-1 mt-2 account">A</button>
+        h-12 w-12 rounded-full bg-gradient-to-r from-zinc-600 to-zinc-800 mr-1 mt-2 account">{userIcon}</button>
         {isOpen && ( <div className="absolute top-20 flex flex-col bg-zinc-800 p-3 rounded-3xl ">
           <button className="menu-account text-md leading-10" onClick={accountInfo}>Account</button>
           <button className="menu-saved-exercises text-md" onClick={previousExercises}>Workouts</button>

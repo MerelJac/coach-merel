@@ -1,6 +1,9 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_EXERCISE } from "../utils/mutations";
+import "../styles/create.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
 function Create({ userId, fullName, oneRepMax }) {
   const [exercise, setExercise] = useState("");
@@ -63,47 +66,49 @@ function Create({ userId, fullName, oneRepMax }) {
     setReps("");
   };
 
- 
+  const dumbbellIcon = <FontAwesomeIcon icon={faDumbbell} style={{color: "#008181",}} />
 
   return (
     <div>
-      <form className="saveWorkout"
+      <form className="saveWorkout ml-3"
       onSubmit={handleFormSubmit}
       >
-      <h1>Log Your Exercise</h1>
-      <input
+      <h1 className="log-exercise-title mb-6 mt-4">Log<span className="font-bold">Workout</span></h1>
+      
+      <input  className="exercise-name ml-8"
         type="text"
         placeholder="Exercise Name"
         value={exercise}
         onChange={handleInputChange}
       />
-      <input
+      <div>
+      <input className="lbs-input w-4 ml-8"
         type="text"
         placeholder="lbs"
         value={lbs}
         onChange={handleLbsChange}
       />
-      <input
+      <input className="reps-input w-4 ml-2 mb-6"
         type="text"
         placeholder="reps"
         value={reps}
         onChange={handleRepsChange}
       />
-      <button onClick={handleAddExercise}>GO</button>
+      <button className="add-btn font-bold ml-2 bg-blue-green/50 p-3 rounded-full" onClick={handleAddExercise}>ADD</button>
+      </div>
 
-      <div>
+      <div className="input-results ml-8">
         {exerciseLog.map((entry, index) => (
           <div key={index}>
-            <p>Exercise: {entry.exercise}</p>
-            <p>lbs: {entry.lbs}</p>
-            <p>reps: {entry.reps}</p>
-            <p>One Rep Max: {entry.oneRepMax}</p>
+            <p>{dumbbellIcon} {entry.exercise} </p>
+            <p className="underline mb-4">Lbs: {entry.lbs}<span> &nbsp;&nbsp; Reps: {entry.reps}</span><span> &nbsp;&nbsp; 1RM: {entry.oneRepMax} lbs</span></p>
           </div>
         ))}
       </div>
       </form>
-      <div className="footer">
-      <p>All your saved exercises can be viewed in the stats page.</p>
+      <div className="footer-info text-center bg-blue-green/50 absolute bottom-0 left-0 right-0 ml-8 mr-8 mb-2 p-3 rounded-full">
+      <p>View saved workouts</p> 
+      {/* add link here */}
       </div>
     </div>
   );

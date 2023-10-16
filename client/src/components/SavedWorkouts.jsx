@@ -3,20 +3,23 @@ import { useQuery } from '@apollo/client';
 
 import { QUERY_SINGLE_USER } from '../utils/queries';
 
-export const PreviousWorkouts = ({ exercise, name }) => {
-  // if (!exercise.length) {
-  //   return <h3>No Saved Workouts Yet!</h3>
-  // }
-  
-  const { loading, data } = useQuery(QUERY_SINGLE_USER);
-  const exercises = data?.exercises || [];
+export const SavedWorkouts = ({ userId }) => {
+
+  const{loading, error, data} = useQuery(QUERY_SINGLE_USER, {
+    variables: { userId },
+  });
+
+  const user = data.userId;
 
   return (
     <div>
       <h2>Previous Exercises</h2>
       <ul>
-        {exercises.map((exercise) => (
-          <li key={exercise.name}>{exercise.oneRepMax}</li>
+        {user.exercises.map((exercise) => (
+          <li key={exercise.id}>
+            <p>Exercise: {exercise.fullName}</p>
+            <p>One Rep Max: {exercise.oneRepMax}</p>
+          </li>
         ))}
       </ul>
     </div>

@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_EXERCISE } from "../utils/mutations";
 
-function Create({ userId, name, oneRepMax }) {
+function Create({ userId, fullName, oneRepMax }) {
   const [exercise, setExercise] = useState("");
   const [addExercise, {error}] = useMutation(ADD_EXERCISE);
   const [lbs, setLbs] = useState("");
@@ -12,8 +12,8 @@ function Create({ userId, name, oneRepMax }) {
   const handleFormSubmit = async (event) => {
     event.preventDefault();
     try {
-      const {data} = await addExercise({
-        variables: { userId, name, oneRepMax },
+      const data = await addExercise({
+        variables: { userId, fullName, oneRepMax },
       });
 
       setExercise("");

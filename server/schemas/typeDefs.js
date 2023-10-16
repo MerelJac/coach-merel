@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
     type Exercise {
         _id: ID
-        name: String
+        fullName: String
         oneRepMax: Int
         searchName: String
     }

@@ -4,6 +4,7 @@ import { useMutation } from "@apollo/client";
 import { ADD_USER } from "../utils/mutations";
 import Auth from "../utils/auth";
 
+
 export const Register = (props) => {
   const navigate = useNavigate()
   const [email, setEmail] = useState("");
@@ -11,18 +12,16 @@ export const Register = (props) => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
+
   const [addUser, {error}] = useMutation(ADD_USER);
 
   // TODO error handling for error while creating clinet side
   const handleSubmit = async (e) => {
+
     e.preventDefault();
-    let user = {
-      first_name: name,
-      email: email,
-      password: password,
-    };
-    console.log(user);
+
     try {
+
       const {data} = await addUser({
         variables: { first_name: name, email, password }
       }) 
@@ -42,7 +41,10 @@ export const Register = (props) => {
       setMessage("An error has occured during registration.");
       console.error(err);
     }
-  };
+};
+
+
+
 
   return (
     // all info goes in here

@@ -12,11 +12,11 @@ import { Create } from "./components/Create";
 import { AccountInfo } from "./components/AccountInfo";
 import { SeeStatsPage } from "./components/SeeStats";
 import { NotFound } from "./components/NotFound";
-import { PreviousWorkouts } from "./components/PreviousWorkouts";
+import { SavedWorkouts } from "./components/SavedWorkouts";
 import { themeSettings } from "./theme";
 import { createTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider } from "@mui/material";
-// import { RandomGenerator } from "./components/Random";
+import { RandomGenerator } from "./components/Random";
 
 import AuthService from "./utils/auth";
 import { useSelector } from "react-redux";

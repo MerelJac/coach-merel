@@ -3,20 +3,22 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
     type Exercise {
         _id: ID
-        name: String
+        exerciseName: String
         oneRepMax: Int
         searchName: String
+        user: User
     }
     type User {
         _id: ID
         first_name: String
         email: String
         password: String
+        exercises: [Exercise]
     }
 
     type Query {
         users: [User]
-        exercises: [Exercise]
+        userExercises(userId: ID!): [Exercise]
         user(userId: ID!): User
     }
 
@@ -30,8 +32,8 @@ const typeDefs = gql`
         addUser(first_name: String!, email: String!, password: String!): User
         removeUser(first_name: String!, email: String!, password: String!): User
         updateUser(first_name: String!, email: String, password: String!): User
-        addExercise( userId: ID!, name: String!, oneRepMax: Int! ): User
-        removeExercise( userId: ID!, name: String!, oneRepMax: Int! ): User
+        addExercise( userId: ID!, exerciseName: String!, oneRepMax: Int! ): Exercise
+        removeExercise( userId: ID!, exerciseId: ID! ): Exercise
     }
     `;
 

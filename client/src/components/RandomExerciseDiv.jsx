@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "../styles/exerciseDiv.css";
-import "../styles/startWorkout.css";
+// import "../styles/startWorkout.css";
 import dotsImg from "../assets/images/dots.jpg";
 
 export const RandomExerciseDiv = (props) => {

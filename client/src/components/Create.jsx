@@ -1,145 +1,116 @@
-import React, { useState, useEffect } from "react";
-import { ExerciseDiv } from "./ExerciseDiv";
-import { capitalizeFunction } from "../utils/capitalizeFunction";
-import "../styles/startWorkout.css";
-import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
+import { useMutation } from "@apollo/client";
+import { ADD_EXERCISE } from "../utils/mutations";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
-export const Create = () => {
-  const [exerciseDivs, setExerciseDivs] = useState([]);
-  const [userId, setUserId] = useState('')
-  const navigate = useNavigate()
+function Create({ userId, fullName, oneRepMax }) {
+  const [exercise, setExercise] = useState("");
+  const [addExercise, {error}] = useMutation(ADD_EXERCISE);
+  const [lbs, setLbs] = useState("");
+  const [reps, setReps] = useState("");
+  const [exerciseLog, setExerciseLog] = useState([]);
 
-
-
-
-  const [arrayOfUpdatedOneRepMaxes, setArrayOfUpdatedOneRepMaxes] = useState([])
-  // global variable
-  let newExerciseDiv;
-
-  useEffect(() => {
-    const userId = localStorage.getItem('id')
-    console.log(userId)
-    setUserId(userId)
-  }, [userId])
-
-
-  const passData = (data) => {
-    const id = data.id;
-    const update1RM = data.new1RM;
-    setArrayOfUpdatedOneRepMaxes((arrayOfUpdatedOneRepMaxes) => [...arrayOfUpdatedOneRepMaxes, { id, update1RM }]);
-  };
-
-  const searchFunction = (e) => {
-    // find elements
-    const searchBar = document.querySelector("#create-search");
-    let searchValue = searchBar.value;
-    // reset search bar
-    searchBar.value = "";
-    searchBar.placeholder = "Search";
-    // run capitalize
-    let title = capitalizeFunction(searchValue);
-    let parsed_name = title.split(" ");
-    let searchTitle = title.replace(/\s/g, "");
-    // query DB for exercise
-    const requestOptions = {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ title: searchTitle }),
-    };
-    fetch(`http://localhost:3002/api/exercise/${searchTitle}`, requestOptions)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log(data);
-        if (data.message === "Yes") {
-          newExerciseDiv = (
-            <ExerciseDiv
-              passData={passData}
-              id={data.exercise._id}
-              key={exerciseDivs.length}
-              title={data.exercise.full_name}
-              oneRepMax={data.exercise.one_rep_max}
-            />
-          );
-    
-          return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
-        } else if (data.message === "No") {
-          const requestOptions = {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({
-              full_name: title,
-              parsed_name: parsed_name,
-              search_name: searchTitle,
-              one_rep_max: 0,
-              userID: userId
-            }),
-          };
-          fetch("http://localhost:3002/api/exercise", requestOptions)
-            .then((response) => response.json())
-            .then((data) => {
-              newExerciseDiv = (
-                <ExerciseDiv
-                  passData={passData}
-                  id={data._id}
-                  key={exerciseDivs.length}
-                  title={title}
-                  oneRepMax={data.one_rep_max}
-                />
-              );
-              return setExerciseDivs([newExerciseDiv, ...exerciseDivs]);
-            });
-        }
+  const handleFormSubmit = async (event) => {
+    event.preventDefault();
+    try {
+      const data = await addExercise({
+        variables: { userId, fullName, oneRepMax },
       });
+
+      setExercise("");
+    } catch (err) {
+      console.error(err);
+    }
   };
 
-
-
-  const putWorkout = async (array) => {
-    await array.forEach((object) => {
-      const requestOptions = {
-        method: "PUT", 
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(object),
-      };
-      fetch(`http://localhost:3002/api/exercise/${object.id}`, requestOptions) 
-        .then((response) => {
-          if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-          }
-          return response.json();
-        })
-        .then((data) => console.log(data))
-        .catch((error) => console.error("Error:", error)); 
-    });
-    console.log('completed')
+  const handleInputChange = (e) => {
+    setExercise(e.target.value);
   };
 
-  const saveWorkout = () => {
-    putWorkout(arrayOfUpdatedOneRepMaxes);
-    navigate('/')
+  const handleLbsChange = (e) => {
+    setLbs(e.target.value);
   };
+
+  const handleRepsChange = (e) => {
+    setReps(e.target.value);
+  };
+
+  const calculateOneRepMax = () => {
+    if (lbs && reps) {
+      const lbsValue = parseFloat(lbs);
+      const repsValue = parseFloat(reps);
+      if (repsValue > 0) {
+        return Math.round(lbsValue / (1.0278 - 0.0278 * repsValue));
+      }
+    }
+    return null;
+  };
+
+  // const [addExercise, { error }] = useMutation(ADD_EXERCISE);
+
+  const handleAddExercise = () => {
+    const newExerciseLogEntry = {
+      exercise: exercise,
+      lbs: lbs,
+      reps: reps,
+      oneRepMax: calculateOneRepMax(),
+    };
+
+    setExerciseLog([...exerciseLog, newExerciseLogEntry]);
+
+    // Clear the input fields after adding the exercise
+    setExercise("");
+    setLbs("");
+    setReps("");
+  };
+
+  const dumbbellIcon = <FontAwesomeIcon icon={faDumbbell} style={{color: "#008181",}} />
 
   return (
-    <>
-      <div id="start-workout">
-        <h1 className="right-align">
-          new<span className="bold">Workout</span>
-        </h1>
-      </div>
+    <div>
+      <form className="saveWorkout ml-3"
+      onSubmit={handleFormSubmit}
+      >
+      <h1 className="log-exercise-title mb-6 mt-4">Log<span className="font-bold">Workout</span></h1>
+      
+      <input  className="exercise-name ml-8"
+        type="text"
+        placeholder="Exercise Name"
+        value={exercise}
+        onChange={handleInputChange}
+      />
       <div>
-        <input
-          id="create-search"
-          type="search"
-          placeholder="Search"
-          onSubmit={searchFunction}
-        ></input>
-        <button className="search-btn" onClick={searchFunction}>Search</button>
+      <input className="lbs-input w-16 ml-8"
+        type="text"
+        placeholder="lbs"
+        value={lbs}
+        onChange={handleLbsChange}
+      />
+      <input className="reps-input w-16 ml-2 mb-6"
+        type="text"
+        placeholder="reps"
+        value={reps}
+        onChange={handleRepsChange}
+      />
+      <button className="add-btn font-bold ml-2 bg-blue-green/50 p-3 rounded-full hover:bg-zinc-600" onClick={handleAddExercise}>ADD</button>
       </div>
-      {exerciseDivs}
-      <div className="flex justify-center">
-      <button className="footer bottom-div save-workout" onClick={saveWorkout}>
-        Save Workout
-      </button></div>
-    </>
+
+      <div className="input-results ml-8">
+        {exerciseLog.map((entry, index) => (
+          <div key={index}>
+            <p>{dumbbellIcon} {entry.exercise} </p>
+            <p className="underline mb-4">Lbs: {entry.lbs}<span> &nbsp;&nbsp; Reps: {entry.reps}</span><span> &nbsp;&nbsp; 1RM: {entry.oneRepMax} lbs</span></p>
+          </div>
+        ))}
+      </div>
+      </form>
+      <div className="footer-info text-center bg-blue-green/50 absolute bottom-0 left-0 right-0 ml-8 mr-8 mb-2 p-3 rounded-full">
+      <p>View saved workouts</p> 
+      {/* add link here */}
+      </div>
+    </div>
   );
-};
+}
+
+export default Create;

@@ -3,6 +3,7 @@ import "./index.css";
 import "./styles/form.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
 import Login from "./components/Login";
 import { Register } from "./components/Register";
 import { Dashboard } from "./components/Dashboard";
@@ -48,12 +49,12 @@ function App() {
               <>
                 <Route exact path="/" element={<Dashboard />} />
                 <Route exact path="/create" element={<Create />} />
-                {/* <Route exact path="/random" element={<RandomGenerator />} /> */}
+                <Route exact path="/random" element={<RandomGenerator />} />
                 <Route exact path="/stats" element={<SeeStatsPage />} />
                 <Route exact path="/account-info" element={<AccountInfo />} />
                 <Route
-                  path="/previous-exercises"
-                  element={<PreviousWorkouts />}
+                  path="/saved-workouts"
+                  element={<SavedWorkouts />}
                 />
               </>
             )}

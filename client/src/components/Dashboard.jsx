@@ -68,35 +68,40 @@ export const Dashboard = () => {
   return (
     <>
       <div className="bottom-div">
-        <h1 className="right-align mb-20 text-lg" id="welcome-user-name">
-          Welcome<span className="bold">{}</span>
+        <h1
+          className="flex justify-center mb-20 text-lg"
+          id="welcome-user-name"
+        >
+          Welcome! <span className="bold">Lets get started!</span>
         </h1>
 
-        <section className="column-right mr-8 mb-3" id="create-new-workout">
+        <section
+          className="column justify-center mx-8 mb-3"
+          id="create-new-workout"
+        >
           <h3
-            className="create-new-workout mb-3 text-lg bg-zinc-800 p-3 rounded-full"
+            className="create-new-workout see-stats flex justify-center text-lg mb-6 bg-zinc-800 p-3 rounded-full"
             onClick={() => {
               window.location.href = "/create";
             }}
           >
             Create Your Workout
           </h3>
-
           <h3
-            className="random-workout"
-            onClick={() => {
-              window.location.href = "/random";
-            }}
-          >
-            Workout Generator
-          </h3>
-          <h3
-            className="see-stats text-lg mb-6 bg-zinc-800 p-3 rounded-full"
+            className="see-stats flex justify-center text-lg mb-6 bg-zinc-800 p-3 rounded-full"
             onClick={() => {
               window.location.href = "/stats";
             }}
           >
-            See Stats
+            See Your Stats
+          </h3>
+          <h3
+            className="random-workout flex justify-center see-stats text-lg mb-6 bg-zinc-800 p-3 rounded-full"
+            onClick={() => {
+              window.location.href = "/random";
+            }}
+          >
+            Random Workout Generator
           </h3>
         </section>
       </div>

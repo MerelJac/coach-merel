@@ -4,7 +4,7 @@ import { ADD_EXERCISE } from "../utils/mutations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
-function Create({ userId, fullName, oneRepMax }) {
+function Create({ }) {
   const [exercise, setExercise] = useState("");
   const [addExercise, {error}] = useMutation(ADD_EXERCISE);
   const [lbs, setLbs] = useState("");
@@ -13,19 +13,22 @@ function Create({ userId, fullName, oneRepMax }) {
 
   const handleFormSubmit = async (event) => {
     event.preventDefault();
+    console.log(exercise);
     try {
       const data = await addExercise({
-        variables: { userId, fullName, oneRepMax },
+        variables: { exerciseName: exercise, oneRepMax: calculateOneRepMax() },
       });
 
-      setExercise("");
+      handleAddExercise();
     } catch (err) {
       console.error(err);
     }
   };
 
   const handleInputChange = (e) => {
+    console.log(e.target.value);
     setExercise(e.target.value);
+    
   };
 
   const handleLbsChange = (e) => {
@@ -93,7 +96,7 @@ function Create({ userId, fullName, oneRepMax }) {
         value={reps}
         onChange={handleRepsChange}
       />
-      <button className="add-btn font-bold ml-2 bg-blue-green/50 p-3 rounded-full hover:bg-zinc-600" onClick={handleAddExercise}>ADD</button>
+      <button className="add-btn font-bold ml-2 bg-blue-green/50 p-3 rounded-full hover:bg-zinc-600">ADD</button>
       </div>
 
       <div className="input-results ml-8">

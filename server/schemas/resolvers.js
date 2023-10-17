@@ -38,7 +38,9 @@ const resolvers = {
           },
 
         addUser: async(parent, { first_name, email, password }) => {
-            return await User.create({ first_name, email, password });
+            const newUser =  await User.create({ first_name, email, password });
+            const token = signToken(newUser);
+            return { token, user: newUser };
         }, 
         updateUser: async (parent, { first_name, email, password }) => {
             const updatedUser = await User.findOneAndUpdate({ first_name, email, password  })
@@ -50,11 +52,17 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
 
         }, 
-        addExercise: async (_, { userId, exerciseName, lbs, reps, oneRepMax }) => {
+        addExercise: async (_, { exerciseName, oneRepMax }, context) => {
+            console.log(context.user);
+            console.log(exerciseName);
+            if(!context.user._id) {
+                return;
+            }
             try {
               // Create a new exercise for a user in the database
-              const exercise = new Exercise({ exerciseName, lbs, reps, oneRepMax, user: userId });
-              return await exercise.save();
+              const exercise = await Exercise.create({ exerciseName, oneRepMax, userID: context.user._id });
+              await User.findOneAndUpdate({_id: context.user._id}, { $push: { exercises: exercise._id } })
+              return exercise
             } catch (error) {
               throw new Error('Failed to add exercise to the user');
             }

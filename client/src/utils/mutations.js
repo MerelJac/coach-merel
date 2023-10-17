@@ -12,8 +12,8 @@ export const LOGIN = gql`
 `;
 
 export const ADD_EXERCISE = gql`
-  mutation addExercise($userId: ID!, $exerciseName: String!, $oneRepMax: Int!) {
-    addExercise(userId: $userId, exerciseName: $exerciseName, oneRepMax: $oneRepMax) {
+  mutation addExercise($exerciseName: String!, $oneRepMax: Int!) {
+    addExercise(exerciseName: $exerciseName, oneRepMax: $oneRepMax) {
       _id
       exerciseName
       oneRepMax
@@ -42,13 +42,14 @@ query GetUserExercises($userId: ID!) {
 `;
 
 export const ADD_USER = gql`
-  mutation AddUser($first_name: String!, $email: String!, $password: String!) {
+  mutation addUser($first_name: String!, $email: String!, $password: String!) {
     addUser(first_name: $first_name, email: $email, password: $password) {
-      _id
-      first_name
-      email
-      password
-      # Include other fields you want to retrieve after adding a user
+      token
+      user {
+        _id
+        first_name
+      }
+
     }
   }
 `;

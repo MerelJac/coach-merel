@@ -17,12 +17,18 @@ const userSchema = new Schema(
       type: String,
       required: true,
     },
+    exercises: [
+      {
+        type: Schema.Types.ObjectId,
+      ref: "Exercise"
+      }
+    ]
   },
   {
     toJSON: {
       getters: true,
     },
-    collection: "Users",
+    collection: "User",
   }
 );
 
@@ -47,7 +53,7 @@ userSchema.methods.comparePassword = function (candiatePassword) {
   return bcrypt.compare(candiatePassword, this.password);
 };
 //initalize
-const User = model("Users", userSchema);
+const User = model("User", userSchema);
 
 //error handling
 const handleError = (err) => console.error(err);

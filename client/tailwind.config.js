@@ -6,7 +6,11 @@ module.exports = {
     "./src/assets/*.{.js,jsx}"
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        'blue-green': '#008181'
+      }
+    },
   },
   plugins: [],
 }

@@ -1,8 +1,7 @@
-#welcome-user-name{
-    padding: 3vw;
-}
 
-#create-new-workout{
-    padding: 2vw;
+.see-stats:hover{
+    color: rgb(0, 0, 0);
+    background-color: #008181;
+    font-weight: bold;
 }
 

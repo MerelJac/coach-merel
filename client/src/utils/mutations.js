@@ -12,12 +12,11 @@ export const LOGIN = gql`
 `;
 
 export const ADD_EXERCISE = gql`
-  mutation addExercise($userId: ID!, $fullName: String!, $oneRepMax: Int!) {
-    addExercise(userId: $userId, fullName: $fullName, oneRepMax: $oneRepMax) {
+  mutation addExercise($userId: ID!, $exerciseName: String!, $oneRepMax: Int!) {
+    addExercise(userId: $userId, exerciseName: $exerciseName, oneRepMax: $oneRepMax) {
       _id
-      fullName
+      exerciseName
       oneRepMax
-      userId
     }
   }
 `;
@@ -26,14 +25,20 @@ export const REMOVE_EXERCISE = gql`
   mutation removeExercise($exerciseId: ID!, $userId: ID!) {
     removeExercise(exerciseId: $exerciseId, userId: $userId) {
       _id
-      fullName
+      exerciseName
       oneRepMax
-      category
-      notes
-      dateAdded
-      userId
     }
   }
+`;
+
+export const GET_USER_EXERCISES = gql`
+query GetUserExercises($userId: ID!) {
+  userExercises(userId: $userId) {
+    _id
+    exerciseName
+    oneRepMax
+  }
+}
 `;
 
 export const ADD_USER = gql`

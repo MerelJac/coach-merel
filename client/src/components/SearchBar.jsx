@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import { searchFunction } from "../utils/searchFunction";
 import { OneRepMaxStats } from "./FoundExerciseResult";
 import { NotFoundExerciseDiv } from "./NotFoundExerciseResult";
-import "../styles/startWorkout.css";
+// import "../styles/startWorkout.css";
 
 import { suggestionsGrip } from "../utils/suggestionsGrip";
 
@@ -45,7 +45,7 @@ export const SearchBar = (props) => {
           value={searchTerm}
           onChange={handleInputChange}
         ></input>
-        <button className="search-btn" onClick={handleSearch}>Search</button>
+        <button className="search-btn ml-4 bg-blue-green/50 p-3 rounded-full hover:bg-zinc-600" onClick={handleSearch}>Search</button>
       </section>
       <section className="flex justify-center">
         {currentSearchExercise}

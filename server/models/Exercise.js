@@ -5,7 +5,7 @@ const exerciseSchema = new Schema(
     userID: {
       type: String,
     },
-    full_name: {
+    exerciseName: {
       type: String,
       unique: true,
     },

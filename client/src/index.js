@@ -1,18 +1,27 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { setContext } from '@apollo/client/link/context';
-import { ApolloProvider } from '@apollo/client';
-import { ApolloClient, InMemoryCache, createHttpLink } from '@apollo/client'; 
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import App from "./App";
+import reportWebVitals from "./reportWebVitals";
+import { setContext } from "@apollo/client/link/context";
+import { ApolloProvider } from "@apollo/client";
+import { ApolloClient, InMemoryCache, createHttpLink } from "@apollo/client";
+import { Provider } from "react-redux";
+import { configureStore } from "@reduxjs/toolkit";
+import globalReducer from "./state";
+
+const store = configureStore({
+  reducer: {
+    global: globalReducer,
+  },
+});
 
 const httpLink = createHttpLink({
-uri: '/graphql'
-})
+  uri: "/graphql",
+});
 
 // Retrieve the user token from localStorage
-const token = localStorage.getItem('id_token');
+const token = localStorage.getItem("id_token");
 
 // Create a new Apollo Client link using the setContext function
 const auth = setContext((_, { headers }) => {
@@ -22,7 +31,7 @@ const auth = setContext((_, { headers }) => {
     return {
       headers: {
         ...headers,
-        authorization: token ? `Bearer ${token}` :'' // 'Bearer' prefix is added to the token if it exists
+        authorization: token ? `Bearer ${token}` : "", // 'Bearer' prefix is added to the token if it exists
       },
     };
   } else {
@@ -34,17 +43,16 @@ const auth = setContext((_, { headers }) => {
 });
 
 const client = new ApolloClient({
- link: auth.concat(httpLink), 
+  link: auth.concat(httpLink),
   cache: new InMemoryCache(),
 });
 
-
-
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <ApolloProvider client={client}>
-    <App />
+    <Provider store={store}>
+      <App />
+    </Provider>
   </ApolloProvider>
 );
 

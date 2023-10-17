@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import authInstance from "../utils/auth";
 
-
 import "../styles/dashboard.css";
 // authenticate user
 // async function isAuthenticated() {
@@ -46,7 +45,6 @@ async function isAuthenticated() {
   }
 }
 
-
 export const Dashboard = () => {
   const navigate = useNavigate();
 
@@ -66,7 +64,6 @@ export const Dashboard = () => {
 
     checkAuthentication();
   }, [navigate]);
-
 
   return (
     <>

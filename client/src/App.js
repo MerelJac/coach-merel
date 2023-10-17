@@ -12,7 +12,6 @@ import { AccountInfo } from "./components/AccountInfo";
 import { SeeStatsPage } from "./scenes/pages/SeeStats";
 import { NotFound } from "./components/NotFound";
 import { SavedWorkouts } from "./components/SavedWorkouts";
-import { SavedWorkouts } from "./components/SavedWorkouts";
 import { themeSettings } from "./theme";
 import { createTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider } from "@mui/material";

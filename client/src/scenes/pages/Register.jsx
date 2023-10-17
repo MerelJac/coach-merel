@@ -1,37 +1,32 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useMutation } from "@apollo/client";
-import { ADD_USER } from "../utils/mutations";
-import Auth from "../utils/auth";
-
+import { ADD_USER } from "../../utils/mutations";
+import Auth from "../../utils/auth";
 
 export const Register = (props) => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
-
-  const [addUser, {error}] = useMutation(ADD_USER);
+  const [addUser, { error }] = useMutation(ADD_USER);
 
   // TODO error handling for error while creating clinet side
   const handleSubmit = async (e) => {
-
     e.preventDefault();
 
     try {
-
-      const {data} = await addUser({
-        variables: { first_name: name, email, password }
-      }) 
+      const { data } = await addUser({
+        variables: { first_name: name, email, password },
+      });
       console.log(data);
       if (data.addUser) {
-       
-        console.log(data)
-        Auth.login(data.addUser.token)
-    
-        navigate('/')
+        console.log(data);
+        Auth.login(data.addUser.token);
+
+        navigate("/");
       } else if (!data.addUser) {
         setMessage("Already making gains with that email.");
       } else {
@@ -41,10 +36,7 @@ export const Register = (props) => {
       setMessage("An error has occured during registration.");
       console.error(err);
     }
-};
-
-
-
+  };
 
   return (
     // all info goes in here

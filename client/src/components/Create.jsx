@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import { useMutation } from "@apollo/client";
 import { ADD_EXERCISE } from "../utils/mutations";
-import "../styles/create.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
@@ -82,19 +81,19 @@ function Create({ userId, fullName, oneRepMax }) {
         onChange={handleInputChange}
       />
       <div>
-      <input className="lbs-input w-4 ml-8"
+      <input className="lbs-input w-16 ml-8"
         type="text"
         placeholder="lbs"
         value={lbs}
         onChange={handleLbsChange}
       />
-      <input className="reps-input w-4 ml-2 mb-6"
+      <input className="reps-input w-16 ml-2 mb-6"
         type="text"
         placeholder="reps"
         value={reps}
         onChange={handleRepsChange}
       />
-      <button className="add-btn font-bold ml-2 bg-blue-green/50 p-3 rounded-full" onClick={handleAddExercise}>ADD</button>
+      <button className="add-btn font-bold ml-2 bg-blue-green/50 p-3 rounded-full hover:bg-zinc-600" onClick={handleAddExercise}>ADD</button>
       </div>
 
       <div className="input-results ml-8">

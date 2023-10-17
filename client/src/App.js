@@ -3,6 +3,7 @@ import "./index.css";
 import "./styles/form.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+
 import Login from "./components/Login";
 import { Register } from "./components/Register";
 import { Dashboard } from "./components/Dashboard";
@@ -12,7 +13,7 @@ import { AccountInfo } from "./components/AccountInfo";
 import { SeeStatsPage } from "./components/SeeStats";
 import { NotFound } from "./components/NotFound";
 import { SavedWorkouts } from "./components/SavedWorkouts";
-// import { RandomGenerator } from "./components/Random";
+import { RandomGenerator } from "./components/Random";
 
 import AuthService from "./utils/auth";
 
@@ -40,7 +41,7 @@ function App() {
             <>
               <Route exact path="/" element={<Dashboard />} />
               <Route exact path="/create" element={<Create />} />
-              {/* <Route exact path="/random" element={<RandomGenerator />} /> */}
+              <Route exact path="/random" element={<RandomGenerator />} />
               <Route exact path="/stats" element={<SeeStatsPage />} />
               <Route exact path="/account-info" element={<AccountInfo />} />
               <Route

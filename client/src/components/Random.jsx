@@ -202,9 +202,10 @@ useEffect(() => {
   return (
     <>
       <section>
+        <h1 className="title ml-3 mb-8 mt-8"> Choose your focus area:</h1>
         <form>
           <label>
-            <input
+            <input className="upper-body ml-3"
               type="radio"
               value="upper"
               checked={selectedOption === "upper"}
@@ -213,7 +214,7 @@ useEffect(() => {
             Upper Body
           </label>
           <label>
-            <input
+            <input className="lower-body ml-3"
               type="radio"
               value="lower"
               checked={selectedOption === "lower"}
@@ -222,7 +223,7 @@ useEffect(() => {
             Lower Body
           </label>
           <label>
-            <input
+            <input className="full-body ml-3"
               type="radio"
               value="full"
               checked={selectedOption === "full"}

@@ -11,12 +11,12 @@ const resolvers = {
             return await User.find({});
         },
         //find user by id
-        user: async(parent, args) => {
-            return await User.findById(args.id).populate('exercises');
+        user: async(parent, {userId}) => {
+            return await User.findById(userId).populate('exercises');
         },
         //find users then exercises listed for them
-        user: async () => {
-            return await User.find({}).populate('exercises')
+        userExercises: async (parent, { userId }) => {
+            return await Exercise.find({ user: userId }).populate('exercises')
         }
     },
 
@@ -40,8 +40,8 @@ const resolvers = {
         addUser: async(parent, { first_name, email, password }) => {
             return await User.create({ first_name, email, password });
         }, 
-        updateUser: async (parent, { firstName, email, password }) => {
-            const updatedUser = await User.findOneAndUpdate({  })
+        updateUser: async (parent, { first_name, email, password }) => {
+            const updatedUser = await User.findOneAndUpdate({ first_name, email, password  })
         }, 
         removeUser: async (parent, args, context) => {
             if (context.user) {
@@ -50,35 +50,23 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
 
         }, 
-        addExercise: async(parent, { userId, fullName, oneRepMax }, context) => {
-            if(context.user) {
-                const updatedExercise = await User.findByIdAndUpdate(
-                    {_id: context.user._id},
-                    {$push:{fullName, oneRepMax}}, 
-                {new:true}
-                );
-
-                return updatedExercise;
+        addExercise: async (_, { userId, exerciseName, lbs, reps, oneRepMax }) => {
+            try {
+              // Create a new exercise for a user in the database
+              const exercise = new Exercise({ exerciseName, lbs, reps, oneRepMax, user: userId });
+              return await exercise.save();
+            } catch (error) {
+              throw new Error('Failed to add exercise to the user');
             }
-
-            // return await User.findOneAndUpdate(
-            //     { _id: userId },
-            //     {
-            //         $addToSet: { fullName: fullName, oneRepMax: oneRepMax },
-            //     },
-            //     {
-            //         new: true,
-            //         runValidators: true,
-            //     }
-            // );
-        },
-        removeExercise: async (parent, { userId, fullName, oneRepMax }) => {
-            return User.findOneAndUpdate(
-                { _id: userId },
-                { $pull: { fullName: fullName, oneRepMax: oneRepMax } },
-                { new: true }
-            );
-        },
+          },
+        removeExercise: async (_, { userId, exerciseId }) => {
+            try {
+              // Remove an exercise from a user by user ID and exercise ID
+              return await Exercise.findOneAndRemove({ _id: exerciseId, user: userId });
+            } catch (error) {
+              throw new Error('Failed to remove exercise from the user');
+            }
+          },
     },
 };
 

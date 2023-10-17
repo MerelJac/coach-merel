@@ -37,13 +37,13 @@ export const REMOVE_EXERCISE = gql`
 `;
 
 export const ADD_USER = gql`
-  mutation addUser($name: String!, $email: String!, $password: String!) {
-    addUser(name: $name, email: $email, password: $password) {
-      token
-      profile {
-        _id
-        name
-      }
+  mutation AddUser($first_name: String!, $email: String!, $password: String!) {
+    addUser(first_name: $first_name, email: $email, password: $password) {
+      _id
+      first_name
+      email
+      password
+      # Include other fields you want to retrieve after adding a user
     }
   }
 `;

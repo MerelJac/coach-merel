@@ -12,8 +12,8 @@ export const LOGIN = gql`
 `;
 
 export const ADD_EXERCISE = gql`
-  mutation addExercise($userId: ID!, $exerciseName: String!, $oneRepMax: Int!) {
-    addExercise(userId: $userId, exerciseName: $exerciseName, oneRepMax: $oneRepMax) {
+  mutation addExercise($exerciseName: String!, $oneRepMax: Int!) {
+    addExercise(exerciseName: $exerciseName, oneRepMax: $oneRepMax) {
       _id
       exerciseName
       oneRepMax
@@ -42,12 +42,12 @@ query GetUserExercises($userId: ID!) {
 `;
 
 export const ADD_USER = gql`
-  mutation addUser($name: String!, $email: String!, $password: String!) {
-    addUser(name: $name, email: $email, password: $password) {
+  mutation addUser($first_name: String!, $email: String!, $password: String!) {
+    addUser(first_name: $first_name, email: $email, password: $password) {
       token
-      profile {
+      user {
         _id
-        name
+        first_name
       }
     }
   }

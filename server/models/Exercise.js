@@ -3,7 +3,8 @@ const { Schema, model } = require("mongoose");
 const exerciseSchema = new Schema(
   {
     userID: {
-      type: String,
+      type: Schema.Types.ObjectId,
+      ref: "User"
     },
     exerciseName: {
       type: String,

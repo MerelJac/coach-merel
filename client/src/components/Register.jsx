@@ -1,5 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 export const Register = (props) => {
   const navigate = useNavigate()
@@ -7,6 +10,8 @@ export const Register = (props) => {
   const [password, setPassword] = useState("");
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
+
+  const [addUser, {error}] = useMutation(ADD_USER);
 
   // TODO error handling for error while creating clinet side
   const handleSubmit = async (e) => {
@@ -18,23 +23,17 @@ export const Register = (props) => {
     };
     console.log(user);
     try {
-      const response = await fetch("http://localhost:3002/api/user-routes", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-          Origin: "http://localhost:3000",
-        },
-        body: JSON.stringify(user),
-      });
-      if (response.status === 200) {
-        const data = await response.json();
+      const {data} = await addUser({
+        variables: { first_name: name, email, password }
+      }) 
+      console.log(data);
+      if (data.addUser) {
+       
         console.log(data)
-        // remove current token
-        localStorage.clear()
-        // set new token 
-        localStorage.setItem("token", JSON.stringify(data));
+        Auth.login(data.addUser.token)
+    
         navigate('/')
-      } else if (response.status === 400) {
+      } else if (!data.addUser) {
         setMessage("Already making gains with that email.");
       } else {
         setMessage("Unable to register user");

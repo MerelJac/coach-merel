@@ -77,7 +77,7 @@ export const Dashboard = () => {
 
         <section className="column-right mr-8 mb-3" id="create-new-workout">
           <h3
-            className="create-new-workout mb-3 text-lg bg-zinc-800 p-3 rounded-full"
+            className="create-new-workout see-stats text-lg mb-6 bg-zinc-800 p-3 rounded-full"
             onClick={() => {
               window.location.href = "/create";
             }}
@@ -86,12 +86,12 @@ export const Dashboard = () => {
           </h3>
 
           <h3
-            className="random-workout"
+            className="random-workout see-stats text-lg mb-6 bg-zinc-800 p-3 rounded-full"
             onClick={() => {
               window.location.href = "/random";
             }}
           >
-            Workout Generator
+            Random Workout Generator
           </h3>
           <h3
             className="see-stats text-lg mb-6 bg-zinc-800 p-3 rounded-full"
@@ -99,7 +99,7 @@ export const Dashboard = () => {
               window.location.href = "/stats";
             }}
           >
-            See Stats
+            See Your Stats
           </h3>
         </section>
       </div>

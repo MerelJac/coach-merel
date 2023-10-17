@@ -7,11 +7,11 @@ import Login from "./components/Login";
 import { Register } from "./components/Register";
 import { Dashboard } from "./components/Dashboard";
 import { Header } from "./components/Header";
-import { Create } from "./components/Create";
+import Create from "./components/Create";
 import { AccountInfo } from "./components/AccountInfo";
 import { SeeStatsPage } from "./components/SeeStats";
 import { NotFound } from "./components/NotFound";
-import { PreviousWorkouts } from "./components/PreviousWorkouts";
+import { SavedWorkouts } from "./components/SavedWorkouts";
 // import { RandomGenerator } from "./components/Random";
 
 import AuthService from "./utils/auth";
@@ -44,8 +44,8 @@ function App() {
               <Route exact path="/stats" element={<SeeStatsPage />} />
               <Route exact path="/account-info" element={<AccountInfo />} />
               <Route
-                path="/previous-exercises"
-                element={<PreviousWorkouts />}
+                path="/saved-workouts"
+                element={<SavedWorkouts />}
               />
             </>
           )}

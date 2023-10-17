@@ -3,7 +3,7 @@ const { gql } = require('apollo-server-express');
 const typeDefs = gql`
     type Exercise {
         _id: ID
-        name: String
+        fullName: String
         oneRepMax: Int
         searchName: String
     }
@@ -12,6 +12,7 @@ const typeDefs = gql`
         first_name: String
         email: String
         password: String
+        exercises: [String]!
     }
 
     type Query {

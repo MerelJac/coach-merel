@@ -12,7 +12,7 @@ const resolvers = {
         },
         //find user by id
         user: async(parent, args) => {
-            return await User.findById(args.id);
+            return await User.findById(args.id).populate('exercises');
         },
         //find users then exercises listed for them
         user: async () => {
@@ -50,22 +50,32 @@ const resolvers = {
             throw new AuthenticationError('You need to be logged in!');
 
         }, 
-        addExercise: async(parent, { userId, name, oneRepMax }) => {
-            return await User.findOneAndUpdate(
-                { _id: userId },
-                {
-                    $addToSet: { name: name, oneRepMax: oneRepMax },
-                },
-                {
-                    new: true,
-                    runValidators: true,
-                }
-            );
+        addExercise: async(parent, { userId, fullName, oneRepMax }, context) => {
+            if(context.user) {
+                const updatedExercise = await User.findByIdAndUpdate(
+                    {_id: context.user._id},
+                    {$push:{fullName, oneRepMax}}, 
+                {new:true}
+                );
+
+                return updatedExercise;
+            }
+
+            // return await User.findOneAndUpdate(
+            //     { _id: userId },
+            //     {
+            //         $addToSet: { fullName: fullName, oneRepMax: oneRepMax },
+            //     },
+            //     {
+            //         new: true,
+            //         runValidators: true,
+            //     }
+            // );
         },
-        removeExercise: async (parent, { userId, skill }) => {
+        removeExercise: async (parent, { userId, fullName, oneRepMax }) => {
             return User.findOneAndUpdate(
                 { _id: userId },
-                { $pull: { name: name, oneRepMax: oneRepMax } },
+                { $pull: { fullName: fullName, oneRepMax: oneRepMax } },
                 { new: true }
             );
         },

@@ -4,7 +4,7 @@ import { ADD_EXERCISE } from "../utils/mutations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDumbbell } from '@fortawesome/free-solid-svg-icons';
 
-function Create({ }) {
+export function Create({ }) {
   const [exercise, setExercise] = useState("");
   const [addExercise, {error}] = useMutation(ADD_EXERCISE);
   const [lbs, setLbs] = useState("");
@@ -114,6 +114,6 @@ function Create({ }) {
       </div>
     </div>
   );
-}
+};
 
-export default Create;
+

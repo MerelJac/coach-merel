@@ -2,8 +2,6 @@ import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import authInstance from "../utils/auth";
 
-
-
 import "../styles/dashboard.css";
 // authenticate user
 // async function isAuthenticated() {
@@ -47,7 +45,6 @@ async function isAuthenticated() {
   }
 }
 
-
 export const Dashboard = () => {
   const navigate = useNavigate();
 
@@ -68,15 +65,20 @@ export const Dashboard = () => {
     checkAuthentication();
   }, [navigate]);
 
-
   return (
     <>
       <div className="bottom-div">
-        <h1 className="flex justify-center mb-20 text-lg" id="welcome-user-name">
+        <h1
+          className="flex justify-center mb-20 text-lg"
+          id="welcome-user-name"
+        >
           Welcome! <span className="bold">Lets get started!</span>
         </h1>
 
-        <section className="column justify-center mx-8 mb-3" id="create-new-workout">
+        <section
+          className="column justify-center mx-8 mb-3"
+          id="create-new-workout"
+        >
           <h3
             className="create-new-workout see-stats flex justify-center text-lg mb-6 bg-zinc-800 p-3 rounded-full"
             onClick={() => {
@@ -101,7 +103,6 @@ export const Dashboard = () => {
           >
             Random Workout Generator
           </h3>
-          
         </section>
       </div>
     </>

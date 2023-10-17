@@ -1,37 +1,8 @@
 import React, { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import authInstance from "../utils/auth";
+import authInstance from "../../utils/auth";
+import "../../styles/dashboard.css";
 
-import "../styles/dashboard.css";
-// authenticate user
-// async function isAuthenticated() {
-
-//   let authStatus = await authInstance.loggedIn();
-//   if (authStatus) {
-//     const token = await JSON.parse(localStorage.getItem("token"));
-//     try {
-//       // send token info
-//       const findUser = await fetch(
-//         "api/user-routes/check-token",
-//         {
-//           headers: {
-//             "Content-Type": "application/json",
-//             Authorization: token,
-//           },
-//         }
-//       );
-//       // if successful, proceed with useEffect
-//       if (findUser.status === 200) {
-//         const user = await findUser.json();
-//         return user;
-//       } else {
-//         return false;
-//       }
-//     } catch (err) {
-//       console.error(err);
-//     }
-//   }
-// }
 async function isAuthenticated() {
   const token = authInstance.getToken();
 

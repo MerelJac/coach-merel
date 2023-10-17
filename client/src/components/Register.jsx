@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import {useMutation} from '@apollo/client';
-import {ADD_USER} from '../utils/mutations'
+import { useMutation } from "@apollo/client";
+import { ADD_USER } from "../utils/mutations";
+import Auth from "../utils/auth";
 
 
 export const Register = (props) => {
@@ -11,25 +12,34 @@ export const Register = (props) => {
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
 
-  const [registerUser] = useMutation(ADD_USER);
 
-  const handleSubmit = async(e) => {
+  const [addUser, {error}] = useMutation(ADD_USER);
+
+  // TODO error handling for error while creating clinet side
+  const handleSubmit = async (e) => {
+
     e.preventDefault();
 
     try {
-      const { data } = await registerUser({
-        variables:{
-          first_name: name, 
-          email, 
-          password,
-        },
-      });
-      console.log("user added");
-      setMessage("Get Lifting, Bud!");
-      navigate("/login");
-    } catch (error){
-      setMessage("An error has occured");
-      console.log("it broke");
+
+      const {data} = await addUser({
+        variables: { first_name: name, email, password }
+      }) 
+      console.log(data);
+      if (data.addUser) {
+       
+        console.log(data)
+        Auth.login(data.addUser.token)
+    
+        navigate('/')
+      } else if (!data.addUser) {
+        setMessage("Already making gains with that email.");
+      } else {
+        setMessage("Unable to register user");
+      }
+    } catch (err) {
+      setMessage("An error has occured during registration.");
+      console.error(err);
     }
 };
 

@@ -13,6 +13,7 @@ export const SavedWorkouts = ({ exerciseName, oneRepMax }) => {
     variables: { exerciseName, oneRepMax },
   });
   console.log(data);
+
   const [removeExercise, { error }] = useMutation(REMOVE_EXERCISE, {
     update(cache, { data: { removeExercise } }) {
       try {
@@ -48,10 +49,11 @@ export const SavedWorkouts = ({ exerciseName, oneRepMax }) => {
             <li key={exercise.id}>
               <p className="exercise">{dumbbellIcon} &nbsp;&nbsp; Exercise: {exercise.exerciseName}</p>
               <p className="onerepmax">One Rep Max: {exercise.oneRepMax}</p>
+              <button onClick={()=> handleRemoveExercise}>remove</button>
             </li>
           ))}
         </ul>
-        <button onClick={() => handleRemoveExercise(exerciseName)}></button>
+        
       </div>
     </div>
   );

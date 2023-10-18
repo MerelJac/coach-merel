@@ -57,10 +57,12 @@
 
 .new-password-input{
     margin-left: 20px;
+    border: solid 2px black;
 }
 
 .new-name-input{
     margin-left: 50px;
+    border: solid 2px black;
 }
 
 
@@ -87,4 +89,67 @@
 .cancel:hover{
     background-color: #008181;
    color: black;
+}
+
+.login-title{
+    font-size: 3vh;
+    margin:4vh;
+}
+
+.register-here-btn{
+    padding: 10px;
+    background-color: #008181;
+    border-radius: 40px;
+    margin-left: 6vh;
+    margin-right: 6vh;
+    margin-bottom: 1vh;
+    font-size: 1.5vh;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.register-here-btn:hover{
+    background-color: #52525B;
+   color: black;
+}
+
+.submit-btn{
+    padding: 10px;
+    background-color: #008181;
+    border-radius: 40px;
+    margin-left: 17vh;
+    width: 200px;
+    margin-top: 10px;
+}
+
+.submit-btn:hover{
+    background-color: #52525B;
+   color: black;
+}
+
+.error-text{
+ margin-left: 1vh;
+}
+
+.password-label{
+ margin-left: 3vh;
+ margin-right: 5.5vh;
+}
+
+.email-label{
+    margin-left: 3vh;
+    margin-right: 2vh;
+}
+
+.email-input{
+    border: solid 2px black;
+}
+
+.password-input{
+    border: solid 2px black;
 }

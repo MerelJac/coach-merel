@@ -1,28 +1,16 @@
-# Fitness Dashboard Application
+# Fitness-Application
 
-This is a fitness dashboard application built using React for the frontend, an Express server for the backend, and MongoDB as the database. This application allows users to log in, track their fitness workouts, and view workout statistics.
 
-## Features
+## Description:
+    This is a fitness dashboard application built using React for the frontend, an Apollo Express server and GraphQL for the backend, and MongoDB as the database. This application allows users to log in, track their fitness workouts, and view workout statistics.
 
-- **User Authentication:** Users can create an account or log in using their email and password. Authentication is implemented using JSON Web Tokens (JWT).
+## Table of Contents:
+* [Installation](#installation)
+* [Usage](#usage)
+* [Credits](#credits)
+* [License](#license)
 
-- **Dashboard:** Upon successful login, users are greeted with a personalized dashboard displaying their name and options to create a new workout or view workout statistics.
-
-- **Workout Tracking:** Users can create new workout entries with details such as exercise type, duration, and date.
-
-- **Statistics:** The application provides statistics and insights based on users' workout data, helping them track their progress over time.
-
-## Technologies Used
-
-- **React:** A JavaScript library for building user interfaces.
-
-- **Express:** A web application framework for Node.js used for building the server-side logic.
-
-- **MongoDB:** A NoSQL database used for storing user data and workout records.
-
-- **JSON Web Tokens (JWT):** Used for secure user authentication and authorization.
-
-## Getting Started
+## Installation
 
 To run the application locally, follow these steps:
 
@@ -39,4 +27,27 @@ To run the application locally, follow these steps:
 6. Start the client by running the appropriate script (e.g., `npm start` or `yarn start`) in the client directory.
 
 7. Open your web browser and navigate to `http://localhost:3000` to access the application.
+
+
+## Usage
+This is a fitness application that will help users track their fitness progress. After a user registers or logs in there are options to create a new workout which will calculate your one rep max, then can access these saved workouts on the stats page. In future development the users will be able to update and remove exercises as well as access a random workout generator. There will also be a changing "suggestions" sections based on what part of the body you want to work on. There is also a button to change from dark mode to light mode depending on the user's preference. The app is styled with high contrast for accessability. 
+
+## Credits
+
+TailwindCSS - for easy styling.
+MaterializeUI - for the nav bar. 
+FontAwesome - for icons. 
+
+## License  
+
+## Tests
+
+
+## Questions
+
+github repo:
+https://github.com/MerelJac/fitness-application
+
+Deployed App:
+
 

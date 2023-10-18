@@ -70,7 +70,7 @@ export const Dashboard = () => {
               window.location.href = "/random";
             }}
           >
-            Random Workout Generator
+            Random Workout
           </h3>
         </section>
       </div>

@@ -13,3 +13,78 @@
 .register-button:hover{
     color: rgb(147, 147, 147);
 }
+
+.logout-btn {
+    padding: 20px;
+    background-color: #52525B;
+    border-radius: 40px;
+    margin-left: 6vh;
+    font-size: 2vh;
+    font-weight: bold;
+}
+
+.logout-btn:hover{
+   background-color: #008181;
+   color: black;
+}
+
+.update-account{
+    padding: 20px;
+    background-color: #52525B;
+    border-radius: 40px;
+    margin-left: 3vh;
+    margin-top: 6vh;
+    font-size: 2vh;
+    font-weight: bold;
+}
+
+.update-account:hover{
+    background-color: #008181;
+   color: black;
+}
+
+.update-dialog-title{
+    margin-top: 6vh;
+    margin-left: 2vh;
+    margin-bottom: 6vh;
+    font-size: 3vh;
+}
+
+.dialog{
+    margin-left: 2vh; 
+    font-size: 2vh;
+}
+
+.new-password-input{
+    margin-left: 20px;
+}
+
+.new-name-input{
+    margin-left: 50px;
+}
+
+
+.update{
+    padding: 10px;
+    background-color: #52525B;
+    border-radius: 40px;
+    margin-top: 4vh;
+    margin-right: 10px;
+}
+
+.cancel{
+    padding: 10px;
+    background-color: #52525B;
+    border-radius: 40px;
+    margin-top: 4vh;
+}
+
+.update:hover{
+    background-color: #008181;
+   color: black;
+}
+
+.cancel:hover{
+    background-color: #008181;
+   color: black;
+}

@@ -8,7 +8,6 @@ export const SeeStatsPage = () => {
 
 
       <div>
-        <h1 className="title-saved-workouts ml-3 mb-6">Your Saved Workouts:</h1>
         <ul>
           <li>
             <SavedWorkouts />

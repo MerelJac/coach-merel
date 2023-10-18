@@ -60,8 +60,23 @@ export const SuggestionsComponent = () => {
 
   return (
     <>
-      <h2 className="p-3">Exercises to try:</h2>
-      <div>{suggestions}</div>
+    <div className="suggestions">
+      <h2 className="try-title">Exercises to try:</h2>
+      <div>
+        <h2 className="category">Chest:</h2>
+        <ul>
+          <li>Bar Dip</li>
+          <li>Bench Press</li>
+          <li>Cable Chest Press</li>
+        </ul> 
+        <h2 className="category">Legs:</h2>
+        <ul>
+          <li>Air Squat</li>
+          <li>Barball Lunge</li>
+          <li>Seated Leg Curl</li>
+        </ul>
+        </div>
+      </div>
     </>
   );
 };

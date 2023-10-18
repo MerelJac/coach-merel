@@ -1,0 +1,70 @@
+.font-bold{
+    font-weight: bold;
+}
+
+.log-workout-title{
+    margin-top: 5vh;
+    margin-left: 3vh;
+    font-size: 3vh;
+}
+
+.exercise-name{
+    margin-left: 3vh;
+    margin-top: 5vh;
+}
+
+.reps-input{
+    margin-left: 2vh;
+    width: 65px;
+}
+
+.lbs-input{
+    margin-left: 3vh;
+    width: 65px;
+}
+
+.add-btn{
+    padding: 10px;
+    background-color: #008181;
+    border-radius: 40px;
+    margin-left: 2.5vh;
+    font-size: 2vh;
+    font-weight: bold;
+}
+
+.add-btn:hover{
+    background-color: #52525b;
+   color: black;
+}
+
+.view-stats-btn{
+    padding: 10px;
+    background-color: #008181;
+    border-radius: 40px;
+    margin-left: 6vh;
+    margin-right: 6vh;
+    margin-bottom: 1vh;
+    font-size: 2vh;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+}
+
+.view-stats-btn:hover {
+    background-color: #52525B;
+}
+
+.exercise-results{
+    margin-left: 3vh;
+    margin-top: 6vh;
+    font-size: 2vh;
+}
+
+.numbers-results {
+    margin-left: 5.5vh;
+    font-size: 2vh;
+}

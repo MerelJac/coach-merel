@@ -3,6 +3,8 @@ import { useMutation } from "@apollo/client";
 import { ADD_EXERCISE } from "../../utils/mutations";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
+import { faCheck } from "@fortawesome/free-solid-svg-icons";
+import "../../styles/create.css";
 
 function Create({}) {
   const [exercise, setExercise] = useState("");
@@ -71,15 +73,19 @@ function Create({}) {
     <FontAwesomeIcon icon={faDumbbell} style={{ color: "#008181" }} />
   );
 
+  const checkIcon = (
+    <FontAwesomeIcon icon={faCheck} style={{color: "#ffffff",}} />
+  );
+
   return (
     <div>
-      <form className="saveWorkout ml-3" onSubmit={handleFormSubmit}>
-        <h1 className="log-exercise-title mb-6 mt-4">
+      <form className="saveWorkout" onSubmit={handleFormSubmit}>
+        <h1 className="log-workout-title">
           Log<span className="font-bold">Workout</span>
         </h1>
 
         <input
-          className="exercise-name ml-8"
+          className="exercise-name"
           type="text"
           placeholder="Exercise Name"
           value={exercise}
@@ -87,31 +93,31 @@ function Create({}) {
         />
         <div>
           <input
-            className="lbs-input w-16 ml-8"
+            className="lbs-input"
             type="text"
             placeholder="lbs"
             value={lbs}
             onChange={handleLbsChange}
           />
           <input
-            className="reps-input w-16 ml-2 mb-6"
+            className="reps-input"
             type="text"
             placeholder="reps"
             value={reps}
             onChange={handleRepsChange}
           />
-          <button className="add-btn font-bold ml-2 bg-blue-green/50 p-3 rounded-full hover:bg-zinc-600">
-            ADD
+          <button className="add-btn">
+            <p>{checkIcon}</p>
           </button>
         </div>
 
-        <div className="input-results ml-8">
+        <div className="input-results">
           {exerciseLog.map((entry, index) => (
             <div key={index}>
-              <p>
+              <p className="exercise-results">
                 {dumbbellIcon} {entry.exercise}{" "}
               </p>
-              <p className="underline mb-4">
+              <p className="numbers-results">
                 Lbs: {entry.lbs}
                 <span> &nbsp;&nbsp; Reps: {entry.reps}</span>
                 <span> &nbsp;&nbsp; 1RM: {entry.oneRepMax} lbs</span>
@@ -120,7 +126,7 @@ function Create({}) {
           ))}
         </div>
       </form>
-      <div className="footer-info text-center bg-blue-green/50 absolute bottom-0 left-0 right-0 ml-8 mr-8 mb-2 p-3 rounded-full">
+      <div className="view-stats-btn">
         <p onClick={() => {
               window.location.href = "/stats";}}>View saved workouts</p>
       </div>

@@ -38,20 +38,18 @@ export const Dashboard = () => {
 
   return (
     <>
-      <div className="bottom-div">
-        <h1
-          className="flex justify-center mb-20 text-lg"
+    <h1
+          className="flex justify-center text-2xl"
           id="welcome-user-name"
         >
           Welcome! <span className="bold">Lets get started!</span>
         </h1>
-
+      <div className="bottom-div">
+        
         <section
-          className="column justify-center mx-8 mb-3"
-          id="create-new-workout"
         >
           <h3
-            className="create-new-workout see-stats flex justify-center text-lg mb-6 bg-zinc-800 p-3 rounded-full"
+            className="create-new-workout btn-hover flex justify-center bg-zinc-800"
             onClick={() => {
               window.location.href = "/create";
             }}
@@ -59,7 +57,7 @@ export const Dashboard = () => {
             Create Your Workout
           </h3>
           <h3
-            className="see-stats flex justify-center text-lg mb-6 bg-zinc-800 p-3 rounded-full"
+            className="see-stats btn-hover flex justify-center bg-zinc-800"
             onClick={() => {
               window.location.href = "/stats";
             }}
@@ -67,7 +65,7 @@ export const Dashboard = () => {
             See Your Stats
           </h3>
           <h3
-            className="random-workout flex justify-center see-stats text-lg mb-6 bg-zinc-800 p-3 rounded-full"
+            className="random-workout btn-hover flex justify-center bg-zinc-800"
             onClick={() => {
               window.location.href = "/random";
             }}

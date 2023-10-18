@@ -65,24 +65,8 @@ const Navbar = ({ isSidebarOpen, setIsSidebarOpen }) => {
               <LightModeOutlined sx={{ fontSize: "25px" }} />
             )}
           </IconButton>
-          <IconButton onClick={() => setIsOpen((prev) => !prev)}>
+          <IconButton onClick={accountInfo}>
             <SettingsOutlined sx={{ fontSize: "25px" }} />
-            {isOpen && (
-              <div className="absolute top-20 flex flex-col bg-zinc-800 p-3 rounded-3xl ">
-                <button
-                  className="menu-account text-md leading-10"
-                  onClick={accountInfo}
-                >
-                  Account
-                </button>
-                <button
-                  className="menu-saved-exercises text-md"
-                  onClick={previousExercises}
-                >
-                  Workouts
-                </button>{" "}
-              </div>
-            )}
           </IconButton>
         </FlexBetween>
       </Toolbar>

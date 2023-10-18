@@ -1,7 +1,38 @@
 
-.see-stats:hover{
+.btn-hover:hover{
     color: rgb(0, 0, 0);
     background-color: #008181;
     font-weight: bold;
 }
 
+#welcome-user-name {
+    display: flex;
+    margin-top: 300px;
+}
+
+.create-new-workout{
+    padding: 20px;
+    font-size: 3vh;
+    border-radius: 80px;
+    margin-bottom: 10px;
+    margin-left: 4vh;  
+    margin-right: 4vh;  
+}
+
+.see-stats{
+    padding: 20px;
+    font-size: 3vh;
+    border-radius: 80px;
+    margin-bottom: 10px;
+    margin-left: 4vh;  
+    margin-right: 4vh;
+}
+
+.random-workout{
+    padding: 20px;
+    font-size: 3vh;
+    border-radius: 80px;
+    margin-bottom: 10px;
+    margin-left: 4vh;  
+    margin-right: 4vh;
+}

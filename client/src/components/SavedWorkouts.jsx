@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useQuery } from "@apollo/client";
 import { useMutation } from "@apollo/client";
+import "../styles/savedWorkouts.css";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 
 import { GET_USER_EXERCISES } from "../utils/queries";
 import { REMOVE_EXERCISE } from "../utils/mutations";
@@ -33,15 +36,18 @@ export const SavedWorkouts = ({ exerciseName, oneRepMax }) => {
     }
   };
 
+  const dumbbellIcon = (
+    <FontAwesomeIcon icon={faDumbbell} style={{ color: "#008181" }} />);
+
   return (
     <div>
-      <h2>Saved Exercises:</h2>
-      <div>
+      <h2 className="saved-exercises-title">Saved Exercises</h2>
+      <div className="saved-workout-results">
         <ul>
           {data?.userExercises?.map((exercise) => (
             <li key={exercise.id}>
-              <p>Exercise: {exercise.exerciseName}</p>
-              <p>One Rep Max: {exercise.oneRepMax}</p>
+              <p className="exercise">{dumbbellIcon} &nbsp;&nbsp; Exercise: {exercise.exerciseName}</p>
+              <p className="onerepmax">One Rep Max: {exercise.oneRepMax}</p>
             </li>
           ))}
         </ul>

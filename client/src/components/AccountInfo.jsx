@@ -1,5 +1,6 @@
 import { React, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "../styles/login.css";
 
 export const AccountInfo = () => {
   const navigate = useNavigate();
@@ -44,38 +45,38 @@ export const AccountInfo = () => {
 
   return (
     <>
-      <button onClick={logout}>Log Out</button>
-
-      <h2>Account Information</h2>
+      <button className="logout-btn" onClick={logout}>Log Out</button>
 
       {/* Button to open the dialog */}
-      <button onClick={() => setShowDialog(true)}>Change Options</button>
+      <button className="update-account" onClick={() => setShowDialog(true)}>Update Account</button>
 
       {/* Dialog */}
       {showField && (
         <div className="dialog">
-          <h3>Update Account Information</h3>
-          <div>
+          <h3 className="update-dialog-title">Update Account Information</h3>
+          <div className="new-password">
             <label htmlFor="newPassword">New Password:</label>
-            <input
+            <input className="new-password-input"
               type="password"
               id="newPassword"
               value={newPassword}
               onChange={handlePasswordChange}
             />
           </div>
-          <div>
+          <div className="new-name">
             <label htmlFor="newName">New Name:</label>
-            <input
+            <input className="new-name-input"
               type="text"
               id="newName"
               // value={newName}
               // onChange={handleNameChange}
             />
           </div>
-          <button onClick={handleUpdate}>Update</button>
+          <div className="update-cancel">
+          <button className="update" onClick={handleUpdate}>Update</button>
           {/* Button to close the dialog */}
-          <button onClick={() => setShowDialog(false)}>Cancel</button>
+          <button className="cancel" onClick={() => setShowDialog(false)}>Cancel</button>
+        </div>
         </div>
       )}
     </>

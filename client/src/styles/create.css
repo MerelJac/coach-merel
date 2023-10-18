@@ -11,16 +11,19 @@
 .exercise-name{
     margin-left: 3vh;
     margin-top: 5vh;
+    border: solid 2px black;
 }
 
 .reps-input{
     margin-left: 2vh;
     width: 65px;
+    border: solid 2px black;
 }
 
 .lbs-input{
     margin-left: 3vh;
     width: 65px;
+    border: solid 2px black;
 }
 
 .add-btn{

@@ -1,5 +1,5 @@
 import React, { useEffect, useMemo, useState } from "react";
-import "./index.css";
+
 import "./styles/form.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
@@ -11,14 +11,16 @@ import Create from "./scenes/pages/Create";
 import { AccountInfo } from "./components/AccountInfo";
 import { SeeStatsPage } from "./scenes/pages/SeeStats";
 import { NotFound } from "./components/NotFound";
-import { SavedWorkouts } from "./components/SavedWorkouts";
+// import { SavedWorkouts } from "./components/SavedWorkouts";
 import { themeSettings } from "./theme";
 import { createTheme } from "@mui/material/styles";
 import { CssBaseline, ThemeProvider } from "@mui/material";
+
 import { RandomGenerator } from "./scenes/pages/Random";
 
 import AuthService from "./utils/auth";
 import { useSelector } from "react-redux";
+import "./index.css";
 
 function App() {
   const [authStatus, setAuthStatus] = useState(false);
@@ -48,10 +50,10 @@ function App() {
               <>
                 <Route exact path="/" element={<Dashboard />} />
                 <Route exact path="/create" element={<Create />} />
-                <Route exact path="/random" element={<RandomGenerator />} />
+                {/* <Route exact path="/random" element={<RandomGenerator />} /> */}
                 <Route exact path="/stats" element={<SeeStatsPage />} />
                 <Route exact path="/account-info" element={<AccountInfo />} />
-                <Route path="/saved-workouts" element={<SavedWorkouts />} />
+                {/* <Route path="/saved-workouts" element={<SavedWorkouts />} /> */}
               </>
             )}
             {/* Add a 404 Not Found route */}

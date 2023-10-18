@@ -20,11 +20,11 @@ export const QUERY_SINGLE_USER = gql`
 `;
 
 export const GET_USER_EXERCISES = gql`
-    query userExercises {
-        exercises {
-            _id
-            exerciseName
-            oneRepMax
-        }
-    }
+    query Query {
+  userExercises {
+    _id
+    exerciseName
+    oneRepMax
+  }
+}
 `;

@@ -5,8 +5,7 @@ const typeDefs = gql`
         _id: ID
         exerciseName: String
         oneRepMax: Int
-        searchName: String
-        user: User
+        userID: ID
     }
     type User {
         _id: ID
@@ -17,7 +16,7 @@ const typeDefs = gql`
 
     type Query {
         users: [User]
-        userExercises(userID: ID!): [Exercise]
+        userExercises: [Exercise]
         user(userId: ID!): User
     }
 

@@ -10,13 +10,13 @@ const exerciseSchema = new Schema(
       type: String,
       unique: true,
     },
-    parsed_name: {
+    parsedName: {
       type: Array,
     },
-    one_rep_max: {
+    oneRepMax: {
       type: Number,
     },
-    search_name: {
+    searchName: {
       type: String,
     },
   },

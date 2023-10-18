@@ -121,8 +121,8 @@ function Create({}) {
         </div>
       </form>
       <div className="footer-info text-center bg-blue-green/50 absolute bottom-0 left-0 right-0 ml-8 mr-8 mb-2 p-3 rounded-full">
-        <p>View saved workouts</p>
-        {/* add link here */}
+        <p onClick={() => {
+              window.location.href = "/stats";}}>View saved workouts</p>
       </div>
     </div>
   );

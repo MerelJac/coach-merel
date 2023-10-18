@@ -15,8 +15,12 @@ const resolvers = {
             return await User.findById(userId).populate('exercises');
         },
         //find users then exercises listed for them
-        userExercises: async (parent, { userId }) => {
-            return await Exercise.find({ user: userId }).populate('exercises')
+        userExercises: async (parent, { userID }, context) => {
+          console.log(context.user);
+          if(!context.user._id) {
+            return;
+        }
+            return await Exercise.find({ userID: context.user._id })
         }
     },
 
@@ -61,7 +65,9 @@ const resolvers = {
             try {
               // Create a new exercise for a user in the database
               const exercise = await Exercise.create({ exerciseName, oneRepMax, userID: context.user._id });
-              await User.findOneAndUpdate({_id: context.user._id}, { $push: { exercises: exercise._id } })
+              console.log(exercise);
+              const user = await User.findOneAndUpdate({_id: context.user._id}, { $push: { exercises: exercise._id } })
+              console.log(user);
               return exercise
             } catch (error) {
               throw new Error('Failed to add exercise to the user');

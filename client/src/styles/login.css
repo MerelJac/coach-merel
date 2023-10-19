@@ -122,9 +122,16 @@
     padding: 10px;
     background-color: #008181;
     border-radius: 40px;
-    margin-left: 17vh;
-    width: 200px;
-    margin-top: 10px;
+    margin-left: 6vh;
+    margin-right: 6vh;
+    margin-bottom: 1vh;
+    font-size: 1.5vh;
+    font-weight: bold;
+    display: flex;
+    justify-content: center;
+    position: absolute;
+    left: 0;
+    right: 0;
 }
 
 .submit-btn:hover{

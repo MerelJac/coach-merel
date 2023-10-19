@@ -50,4 +50,9 @@ https://github.com/MerelJac/fitness-application
 
 Deployed App:
 
-
+![dashboard](assets/dashboard.png)
+![light mode example](assets/lighmode-create.png)
+![log a workout](assets/log-workout.png)
+![login-page](assets/login.png)
+![saved exercises page](assets/saved-exercises.png)
+![update account](assets/update-account.png)

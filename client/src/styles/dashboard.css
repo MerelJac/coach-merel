@@ -7,7 +7,7 @@
 
 #welcome-user-name {
     display: flex;
-    margin-top: 300px;
+    margin-top: 200px;
 }
 
 .create-new-workout{
@@ -17,6 +17,7 @@
     margin-bottom: 10px;
     margin-left: 4vh;  
     margin-right: 4vh;  
+    background-color: #52525b
 }
 
 .see-stats{
@@ -26,6 +27,7 @@
     margin-bottom: 10px;
     margin-left: 4vh;  
     margin-right: 4vh;
+    background-color: #52525b
 }
 
 .random-workout{
@@ -35,4 +37,5 @@
     margin-bottom: 10px;
     margin-left: 4vh;  
     margin-right: 4vh;
+    background-color: #52525b
 }

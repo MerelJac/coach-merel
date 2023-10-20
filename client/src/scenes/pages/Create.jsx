@@ -5,8 +5,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faDumbbell } from "@fortawesome/free-solid-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 import "../../styles/create.css";
+import { useNavigate } from "react-router-dom";
 
 function Create({}) {
+  const navigate = useNavigate();
   const [exercise, setExercise] = useState("");
   const [addExercise, { error }] = useMutation(ADD_EXERCISE);
   const [lbs, setLbs] = useState("");
@@ -128,7 +130,7 @@ function Create({}) {
       </form>
       <div className="view-stats-btn">
         <p onClick={() => {
-              window.location.href = "/stats";}}>View saved workouts</p>
+              navigate("/stats");}}>View saved workouts</p>
       </div>
     </div>
   );

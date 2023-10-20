@@ -76,7 +76,7 @@ export const Register = (props) => {
 
       <button
         className="small-footer"
-        onClick={() => (window.location.href = "/login")}
+        onClick={() => (navigate("/login"))}
       >
         Already have an account? Login here.
       </button>

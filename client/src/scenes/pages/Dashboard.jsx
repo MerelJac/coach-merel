@@ -51,7 +51,7 @@ export const Dashboard = () => {
           <h3
             className="create-new-workout btn-hover flex justify-center"
             onClick={() => {
-              window.location.href = "/create";
+              navigate("/create");
             }}
           >
             Create Your Workout
@@ -59,7 +59,7 @@ export const Dashboard = () => {
           <h3
             className="see-stats btn-hover flex justify-center"
             onClick={() => {
-              window.location.href = "/stats";
+              navigate("/stats");
             }}
           >
             See Your Stats
@@ -67,7 +67,7 @@ export const Dashboard = () => {
           <h3
             className="random-workout btn-hover flex justify-center"
             onClick={() => {
-              window.location.href = "/random";
+              navigate("/random");
             }}
           >
             Random Workout

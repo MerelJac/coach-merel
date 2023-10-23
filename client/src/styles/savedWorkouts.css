@@ -1,0 +1,33 @@
+.saved-exercises-title{
+    margin: 4vh;
+    font-size: 4vh;
+}
+
+.category{
+    font-size: 2vh;
+    margin-bottom: 5px;
+    margin-top: 10px;
+}
+
+.suggestions{
+    margin-left: 4vh;
+    position:relative;
+    top: 100px;
+}
+
+.try-title{
+    font-size: 3vh;
+}
+
+.saved-workout-results{
+    margin-left:4vh;
+    font-size: 2vh;
+}
+
+.exercise{
+    margin-top: 15px;
+}
+
+.onerepmax{
+    margin-left: 38px;
+}

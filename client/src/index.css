@@ -1,0 +1,65 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Source+Sans+3:wght@400;600;700&display=swap");
+
+html,
+body,
+#root,
+.app {
+  height: 100%;
+  width: 100%;
+  font-family: "Inter", sans-serif;
+}
+
+.bold {
+  font-weight: bold;
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.small-footer {
+  font-size: small;
+}
+
+.exercise-text {
+  padding-left: 10px;
+}
+
+input {
+  opacity: 70%;
+  border-radius: 20px;
+  padding: 10px;
+  margin-bottom: 10px;
+  color: black;
+}
+
+.column-right {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+.right-align {
+  display: flex;
+  align-items: flex-start;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.bottom-div {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  right: 0;
+  left: 0;
+}

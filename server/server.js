@@ -2,7 +2,7 @@ const express = require('express');
 // const cors = require('cors');
 const { ApolloServer } = require('apollo-server-express');
 const path = require('path');
-const { authMiddleware } = require('../server/utils/auth');
+const { authMiddleware } = require('./utils/auth.js');
 
 const { typeDefs, resolvers } = require('./schemas');
 
@@ -36,6 +36,13 @@ app.use(express.urlencoded({ extended: true }))
 // routes middleware must be last
 // app.use(routes)
 
+if (process.env.NODE_ENV === 'production') {
+  app.use(express.static(path.join(__dirname, 'build')));
+}
+
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, '/build/index.html'));
+});
 
 const startApolloServer = async () => {
     await server.start();
